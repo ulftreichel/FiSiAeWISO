@@ -3,7 +3,6 @@ package com.fisiaewiso
 import android.content.ClipData
 import android.graphics.Color
 import android.graphics.Point
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
