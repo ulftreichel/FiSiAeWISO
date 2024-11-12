@@ -1,0 +1,696 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/riddle_initialize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/riddle_initialize2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHeight_default="spread">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:fillViewport="false"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/riddleImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_riddle"
+        android:text=" Bild zur Frage "
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <EditText
+        android:id="@+id/riddleResultNumber2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:inputType="number|numberDecimal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/riddleResultNumber1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/unit2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/riddleResultNumber2"
+        app:layout_constraintStart_toEndOf="@+id/riddleResultNumber2" />
+
+    <EditText
+        android:id="@+id/riddleResultNumber1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="number|numberDecimal"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/unit1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/riddleResultNumber1"
+        app:layout_constraintStart_toEndOf="@+id/riddleResultNumber1" />
+
+    <EditText
+        android:id="@+id/riddleResultDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="datetime|date"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/unitDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/riddleResultDate"
+        app:layout_constraintStart_toEndOf="@+id/riddleResultDate" />
+
+    <RadioGroup
+        android:id="@+id/rGRiddleAnswer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bRiddleNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_riddle"
+        android:text=" Nächste Frage "
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_riddle"
+        android:text=" Start "
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/bClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_riddle"
+        android:text=" Schließen "
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAnswers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bRiddleNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSpinners"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bRiddleNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayoutRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout3">
+
+        <LinearLayout
+            android:id="@+id/linearTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/target1TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/target2TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/target3TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/target4TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/target5TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/targetLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearTextView">
+
+            <FrameLayout
+                android:id="@+id/target1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/target_border" />
+
+            <FrameLayout
+                android:id="@+id/target2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/target_border" />
+
+            <FrameLayout
+                android:id="@+id/target3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/target_border" />
+
+            <FrameLayout
+                android:id="@+id/target4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/target_border" />
+
+            <FrameLayout
+                android:id="@+id/target5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/target_border" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/optionsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/targetLinearLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle1"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle2"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle3"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="3"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle4"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="4"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle5"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="5"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle6"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="6"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle7"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="7"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle8"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="8"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle9"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="9"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle10"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="10"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle11"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="11"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle12"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="12"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle13"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="13"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle14"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="14"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle15"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="15"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle16"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle17"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="17"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle18"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="18"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle19"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="19"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle20"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle21"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="21"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle22"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="22"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle23"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="23"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle24"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="24"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle25"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="25"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle26"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="26"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle27"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="27"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle28"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="28"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle29"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="29"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tVcorrectRiddle30"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:text="30"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="196dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
