@@ -3631,7 +3631,9 @@ abstract class AppDatabase : RoomDatabase() {
                             riddleDao.insertAll(*riddles.toTypedArray())
                         }
                     }
-                }).build()
+                })
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

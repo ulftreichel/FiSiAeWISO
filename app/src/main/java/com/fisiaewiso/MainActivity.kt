@@ -3,18 +3,28 @@ package com.fisiaewiso
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.ComponentActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var bRiddle: Button
     private lateinit var bRiddleResult: Button
-    private var isFirstRun = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppDatabase.getDatabase(this)
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+        if (isFirstRun) {
+            initializeDatabase()
+            sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
+        }
         bRiddle = findViewById(R.id.bRiddle)
         bRiddleResult = findViewById(R.id.bRiddleResult)
         bRiddle.setOnClickListener {
@@ -25,14 +35,13 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, RiddleResultActivity::class.java)
             startActivity(intent)
         }
-        // SharedPreferences zurücksetzen
-        if (isFirstRun) {
-            // SharedPreferences zurücksetzen
-            val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.remove("lastIntro")
-            editor.apply()
-            isFirstRun = false // isFirstRun auf false setzen, damit der Code beim nächsten Start nicht mehr ausgeführt wird
+    }
+
+    private fun initializeDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.d("MainActivity", "Insert Data")
+            AppDatabase.getDatabase(applicationContext).riddleDao().insertAll()
         }
     }
+
 }

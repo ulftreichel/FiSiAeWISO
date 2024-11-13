@@ -183,7 +183,15 @@ class RiddleActivity : AppCompatActivity() {
             else -> return // Oder eine andere Fehlerbehandlung
         }
         lifecycleScope.launch {
-            initializeDatabase()
+            try {
+                initializeDatabase()
+                // Zugriff auf die Datenbank
+            } catch (e: Exception) {
+                Log.e("Database", "Error initializing database", e)
+                // Initialisiere Datenbank erneut
+                initializeDatabase()
+            }
+            //initializeDatabase()
             loadRiddles(riddleMainNumber) {
                 // currentRiddle im ViewModel aktualisieren, nachdem die Rätsel geladen wurden
                 viewModel.updateCurrentRiddle(currentRiddle)
@@ -380,7 +388,6 @@ class RiddleActivity : AppCompatActivity() {
                         DragEvent.ACTION_DROP -> {
                             val clipData = event.clipData
                             val option = clipData.getItemAt(0).text.toString()
-
                             Log.d("RiddleActivity", "Option dropped: $option")
 
                             val targetView = v as FrameLayout
@@ -404,6 +411,7 @@ class RiddleActivity : AppCompatActivity() {
                                 ImageView(targetView.context).apply { // Hier wird context verwendet
                                     val imageResId = clipData.getItemAt(1).text.toString().toInt()
                                     setImageResource(imageResId)
+                                    Log.d("RiddleActivity", "Image resource ID: $imageResId")
                                 }
                             } else {
                                 TextView(targetView.context).apply { // Hier wird context verwendet
@@ -413,13 +421,20 @@ class RiddleActivity : AppCompatActivity() {
                             optionView.setOnLongClickListener {
                                 // Entferne die Option aus dem Target
                                 optionsLayout.removeView(optionView)
-
-                                // Füge Option dem RecyclerView hinzu
-                                val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<Any>
-                                optionsAdapter.addOption(option) // Methode addOption wird hier aufgerufen
-
-                                userMappings.remove(option) // Entferne das Mapping
-
+                                if(currentRiddle.optionsWithImage.isNotEmpty()){
+                                    val imageId = clipData.getItemAt(1).text.toString()
+                                    val optionnew = OptionWithImage(option, imageId.toInt())
+                                    Log.d("RiddleActivity", "Optionnew dropped: $optionnew")
+                                    // Füge Option dem RecyclerView hinzu
+                                    val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<Any>
+                                    optionsAdapter.addOption(optionnew) // Methode addOption wird hier aufgerufen
+                                    userMappings.remove(option) // Entferne das Mapping
+                                } else {
+                                    // Füge Option dem RecyclerView hinzu
+                                    val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<Any>
+                                    optionsAdapter.addOption(option) // Methode addOption wird hier aufgerufen
+                                    userMappings.remove(option) // Entferne das Mapping
+                                }
                                 true
                             }
                             optionsLayout.addView(optionView)

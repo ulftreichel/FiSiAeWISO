@@ -3,7 +3,6 @@ package com.fisiaewiso
 import android.content.ClipData
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Point
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -40,6 +39,7 @@ class OptionsAdapter<T>(
 
             if (optionText != null && context.isOptionMapped(optionText)) {
                 // Option ist gemappt, führe die entsprechende Logik aus
+                Log.d("OptionsAdapter", "Option is mapped: $optionText")
             }
         }
         when (option) {
