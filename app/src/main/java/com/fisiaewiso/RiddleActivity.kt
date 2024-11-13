@@ -39,6 +39,7 @@ import kotlin.text.toDoubleOrNull
 
 class RiddleActivity : AppCompatActivity() {
 
+    // Variablendeklarationen
     private lateinit var currentRiddle: Riddle
     private lateinit var tVRiddle_Initialize: TextView
     private lateinit var tVRiddle_Initialize2: TextView
@@ -80,7 +81,9 @@ class RiddleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Setze das Layout
         setContentView(R.layout.activity_riddle)
+        // Initialisiere die Elemente
         tVRiddle_Initialize = findViewById(R.id.riddle_initialize)
         tVRiddle_Initialize2 = findViewById(R.id.riddle_initialize2)
         riddleTextView = findViewById(R.id.textView3)
@@ -110,6 +113,7 @@ class RiddleActivity : AppCompatActivity() {
         riddleImageButton = findViewById(R.id.riddleImageButton)
         currentRiddle = Riddle(0,0, 0,"Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
         tVRiddle_Initialize.text = currentRiddle.question
+        // Intros laden
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val lastIntro = sharedPreferences.getString("lastIntro", null)
         val introTexts = listOf(
@@ -119,6 +123,7 @@ class RiddleActivity : AppCompatActivity() {
             getString(R.string.Riddle4),
             getString(R.string.Riddle5)
         )
+        // Wenn es ein erster Start ist, wähle einen zufälligen Intro-Text
         if (lastIntro == null) {
             // Beim ersten Start: Wähle einen zufälligen Intro-Text
             currentIntro = introTexts.random()
@@ -128,15 +133,18 @@ class RiddleActivity : AppCompatActivity() {
                 currentIntro = introTexts.random()
             } while (currentIntro == lastIntro)
         }
+        // Speichere den letzten Intro-Text in den SharedPreferences
         val editor = sharedPreferences.edit()
         editor.putString("lastIntro", currentIntro)
         editor.apply()
         tVRiddle_Initialize2.text = currentIntro
+        // TextViews 1-30 für die Antworten
         for (i in 1..30) {
             val textViewId = resources.getIdentifier("tVcorrectRiddle$i", "id", packageName)
             val textView = findViewById<TextView>(textViewId)
             answerTextViews.add(textView)
         }
+        // Buttons
         startButton.setOnClickListener {
             loadRiddlesByIntro(currentIntro)
             currentIntro = ""
@@ -167,13 +175,13 @@ class RiddleActivity : AppCompatActivity() {
             finish()
         }
     }
-
+    // Initialisiere die Datenbank
     private suspend fun initializeDatabase() {
         withContext(Dispatchers.IO) {
             AppDatabase.getDatabase(this@RiddleActivity)
         }
     }
-
+    // Lade Rätsel nach Intro
     private fun loadRiddlesByIntro(intro: String) {
         riddleMainNumber = when (intro) {
             getString(R.string.Riddle1) -> 1
@@ -185,8 +193,8 @@ class RiddleActivity : AppCompatActivity() {
         }
         lifecycleScope.launch {
             try {
-                initializeDatabase()
                 // Zugriff auf die Datenbank
+                initializeDatabase()
             } catch (e: Exception) {
                 Log.e("Database", "Error initializing database", e)
                 // Initialisiere Datenbank erneut
@@ -201,7 +209,7 @@ class RiddleActivity : AppCompatActivity() {
         // currentRiddle im ViewModel aktualisieren
         viewModel.updateCurrentRiddle(currentRiddle)
     }
-
+    // Lade Rätsel nach RiddleMainNumber
     private fun loadRiddles(riddleMainNumber: Int, onRiddlesLoaded: () -> Unit) {
         lifecycleScope.launch {
             riddles = AppDatabase.getDatabase(this@RiddleActivity).riddleDao().getRiddlesByNumber(riddleMainNumber).first() // Initialisiere riddles hier
@@ -222,7 +230,7 @@ class RiddleActivity : AppCompatActivity() {
             }
         }
     }
-
+    // Zeige das nächste Rätsel an
     private fun proceedToNextRiddle() {
         //showNextRiddle() // Nächste Frage laden
         nextButton.isEnabled = false
@@ -230,7 +238,7 @@ class RiddleActivity : AppCompatActivity() {
             nextButton.isEnabled = true
         },2000) // 2 Sekunden Verzögerung
     }
-
+    // Weiter zur nächsten Frage
     private fun showNextRiddle() {
         if (currentRiddleIndex < riddles.size) { // Überprüfe, ob noch Rätsel vorhanden sind
             currentRiddleIndex++ // Index für das nächste Rätsel aktualisieren
@@ -247,16 +255,18 @@ class RiddleActivity : AppCompatActivity() {
             showTotalPointsAndSaveResults()
         }
     }
-
+    // Zeige das Rätsel an
     private fun displayRiddle() {
+        //Entferne die vorherigen Antworten
         radioGroupAnswers.removeAllViews()
         radioButtons.clear()
-        linearLayoutAnswers.removeAllViews() // Remove previous CheckBoxes
-        checkBoxes.clear() // Clear the list for the new riddle
+        linearLayoutAnswers.removeAllViews()
+        checkBoxes.clear()
         userMappings.clear()
         // Bild laden, falls vorhanden
         when (currentRiddle.riddleNumber) {
-            21, 54, 65, 81, 112, 122 -> { // Nur für Fragen mit Bildern
+            // Nur für Fragen mit Bildern
+            21, 54, 65, 81, 112, 122 -> {
                 val imageResource = when (currentRiddle.riddleNumber) {
                     21 -> R.drawable.mehrliniensystem
                     54 -> R.drawable.riddle2unterschriften
@@ -266,6 +276,7 @@ class RiddleActivity : AppCompatActivity() {
                     122 -> R.drawable.mehrliniensystem
                     else -> 0 // Sollte nicht erreicht werden, aber zur Sicherheit
                 }
+                // Bild laden, falls vorhanden
                 if (imageResource != 0) {
                     riddleImageButton.setBackgroundResource(imageResource)
                     riddleImageButton.visibility = View.VISIBLE
@@ -277,11 +288,13 @@ class RiddleActivity : AppCompatActivity() {
             riddleImageButton.visibility = View.GONE
             }
         }
+        //Welche Frage soll geshuffelt werden?
         val shouldShuffle = when (currentRiddle.riddleNumber) {
             2 -> true // Fragen, die geshuffelt werden sollen
             11 -> false // Frage, die nicht geshuffelt werden soll
             else -> true // Standardmäßig shufflen
         }
+        // Antworten mischen
         val answersshuffle = if (shouldShuffle) {
             currentRiddle.answers.shuffled()
         } else {
@@ -291,6 +304,7 @@ class RiddleActivity : AppCompatActivity() {
             Collections.shuffle(answersshuffle) // answersshuffle direkt mischen
         }
         if (currentRiddle.requiresOrderedAnswers) {
+            //nur für Fragen die in die richtige Reihenfolge gebracht werden sollen
             linearLayoutSpinners.removeAllViews()
             linearLayoutSpinners.visibility = View.VISIBLE
             linearLayoutRecyclerView.visibility = View.GONE
@@ -310,30 +324,30 @@ class RiddleActivity : AppCompatActivity() {
             unit2TextView.visibility = View.GONE
             unitDateTextView.visibility = View.GONE
         } else if (currentRiddle.requiresDragAndDrop) {
+            // Nur für Drag and Drop Fragen
             unit1TextView.visibility = View.GONE
             unit2TextView.visibility = View.GONE
             unitDateTextView.visibility = View.GONE
             linearLayoutRecyclerView.visibility = View.VISIBLE
-
             // Ziele anzeigen
             val target1: FrameLayout = findViewById(R.id.target1)
             val target2: FrameLayout = findViewById(R.id.target2)
             val target3: FrameLayout = findViewById(R.id.target3)
             val target4: FrameLayout = findViewById(R.id.target4)
             val target5: FrameLayout = findViewById(R.id.target5)
-
+            // Alle Ziele leeren
             target1.removeAllViews()
             target2.removeAllViews()
             target3.removeAllViews()
             target4.removeAllViews()
             target5.removeAllViews()
-
+            // TextView für die Ziele hinzufügen
             target1.addView(TextView(this).apply { text = "" })
             target2.addView(TextView(this).apply { text = "" })
             target3.addView(TextView(this).apply { text = "" })
             target4.addView(TextView(this).apply { text = "" })
             target5.addView(TextView(this).apply { text = "" })
-
+            // RecyclerView für die Optionen hinzufügen
             val optionsAdapter = if (currentRiddle.optionsWithImage.isNotEmpty()) {
                 OptionsAdapter(currentRiddle.optionsWithImage.toMutableList(), userMappings, this) // Übergibt userMappings
             } else {
@@ -346,7 +360,7 @@ class RiddleActivity : AppCompatActivity() {
             } else {
                 optionsRecyclerView.layoutManager = LinearLayoutManager(this) // LayoutManager hinzufügen
             }
-
+            // Ziele hinzufügen
             target1TextView.text = currentRiddle.targets[0]
             if(currentRiddle.targets.size > 1){
                 target2TextView.text = currentRiddle.targets[1]
@@ -369,9 +383,11 @@ class RiddleActivity : AppCompatActivity() {
             for (i in 0 until targetLinearLayout.childCount) {
                 targetLinearLayout.getChildAt(i).visibility = View.GONE
             }
+            // Alle TextView-Layouts zunächst ausblenden
             for (i in 0 until linearTextView.childCount) {
                 linearTextView.getChildAt(i).visibility = View.GONE
             }
+            // Alle Target-Layouts und TextView-Layouts für die aktuellen Ziele anzeigen
             for (i in 0 until currentRiddle.targets.size) {
                 val targetView = targetLinearLayout.getChildAt(i) as FrameLayout
                 val targetTextView = linearTextView.getChildAt(i) as TextView
@@ -406,7 +422,7 @@ class RiddleActivity : AppCompatActivity() {
                                 targetView.setTag(optionsLayout)
                                 targetView.addView(optionsLayout)
                             }
-
+                            // Option hinzufügen
                             val optionView = if (clipData.itemCount > 1) {
                                 ImageView(targetView.context).apply { // Hier wird context verwendet
                                     val imageResId = clipData.getItemAt(1).text.toString().toInt()
@@ -418,6 +434,7 @@ class RiddleActivity : AppCompatActivity() {
                                     text = option
                                 }
                             }
+                            //Option wieder entfernen
                             optionView.setOnLongClickListener {
                                 // Entferne die Option aus dem Target
                                 optionsLayout.removeView(optionView)
@@ -438,24 +455,19 @@ class RiddleActivity : AppCompatActivity() {
                                 true
                             }
                             optionsLayout.addView(optionView)
-
                             userMappings[option] = targetView.id.toString()
-
                             val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<*>
                             optionsAdapter.removeOption(option)
                             optionsAdapter.notifyDataSetChanged()
-
-                            Log.d("RiddleActivity", "Option added to target: ${targetView.id}")
                             true
-
                         }
-
                         else -> true
                     }
                 }
             }
         } else {
             if (currentRiddle.requiresNumberInput || currentRiddle.requiresTwoNumberInputs || currentRiddle.requiresDateInput || currentRiddle.requiresTimeInput) {
+                // Eingabefelder anzeigen
                 numberInput.text.clear()
                 numberInput2.text.clear()
                 dateInput.text.clear()
@@ -470,6 +482,7 @@ class RiddleActivity : AppCompatActivity() {
                     unit2TextView.text = currentRiddle.unit[1] // Zweite Einheit anzeigen
                 }
                 if (currentRiddle.requiresDateInput) {
+                    // Datum-Eingabefeld anzeigen
                     unit1TextView.visibility = View.GONE
                     unit2TextView.visibility = View.GONE
                     unitDateTextView.visibility = View.VISIBLE
@@ -480,6 +493,7 @@ class RiddleActivity : AppCompatActivity() {
                     dateInput.setHint("Datum eingeben")
                 }
                 if (currentRiddle.requiresTimeInput) {
+                    // Zeit-Eingabefeld anzeigen
                     unit1TextView.visibility = View.GONE
                     unit2TextView.visibility = View.GONE
                     numberInput.visibility = View.GONE
@@ -513,15 +527,15 @@ class RiddleActivity : AppCompatActivity() {
                 val shuffledAnswers = answersshuffle.toMutableList()
                 Collections.shuffle(shuffledAnswers)
                 // CheckBoxes und RadioButtons anzeigen
-                checkBoxes.forEach { it.visibility = View.VISIBLE } // Show CheckBoxes
-                radioGroupAnswers.visibility = View.VISIBLE // Show RadioGroup
-                linearLayoutSpinners.visibility = View.GONE // Hide LinearLayout for Spinners
+                checkBoxes.forEach { it.visibility = View.VISIBLE } // Zeige CheckBoxes
+                radioGroupAnswers.visibility = View.VISIBLE // Zeige RadioGroup
+                linearLayoutSpinners.visibility = View.GONE // Verstecke LinearLayout for Spinners
                 if (currentRiddle.hasMultipleCorrectAnswers) {
-                    radioGroupAnswers.visibility = View.GONE // Hide RadioGroup
-                    linearLayoutAnswers.visibility = View.VISIBLE // Show LinearLayout for CheckBoxes
-                    linearLayoutSpinners.visibility = View.GONE // Hide LinearLayout for Spinners
-                    dateInput.visibility = View.GONE // Hide dateInput
-                    linearLayoutRecyclerView.visibility = View.GONE // Hide LinearLayout for RecyclerView
+                    radioGroupAnswers.visibility = View.GONE // Verstecke RadioGroup
+                    linearLayoutAnswers.visibility = View.VISIBLE // Zeige LinearLayout for CheckBoxes
+                    linearLayoutSpinners.visibility = View.GONE // Verstecke LinearLayout for Spinners
+                    dateInput.visibility = View.GONE // Verstecke dateInput
+                    linearLayoutRecyclerView.visibility = View.GONE // Verstecke LinearLayout for RecyclerView
                     // Nur CheckBoxes hinzufügen, wenn mehrere Antworten korrekt sein können
                     for (answer in answersshuffle) {
                         val checkBox = CheckBox(this)
@@ -530,6 +544,7 @@ class RiddleActivity : AppCompatActivity() {
                         checkBoxes.add(checkBox) // Add to the list
                     }
                 } else {
+                    // Nur RadioButtons hinzufügen, wenn nur eine Antwort korrekt sein kann
                     radioGroupAnswers.visibility = View.VISIBLE // Show RadioGroup
                     linearLayoutAnswers.visibility = View.GONE // Hide LinearLayout for CheckBoxes
                     linearLayoutSpinners.visibility = View.GONE // Hide LinearLayout for Spinners
@@ -554,12 +569,12 @@ class RiddleActivity : AppCompatActivity() {
     fun isOptionMapped(option: String): Boolean {
         return userMappings.containsKey(option)
     }
-
+    // Zeige Bild
     private fun showImageDialog(imageResource : Int){
         val dialog = RiddleImageViewDialog(this, imageResource)
         dialog.show()
     }
-
+    // Überprüfe die Antwort
     private fun evaluateAnswer(): Boolean {
         val currentRiddle = riddles[currentRiddleIndex]
         val correctAnswers = currentRiddle.correctAnswers
