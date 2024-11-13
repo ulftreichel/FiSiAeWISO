@@ -320,17 +320,18 @@ class RiddleActivity : AppCompatActivity() {
             target4.removeAllViews()
             target5.removeAllViews()
 
-            target1.addView(TextView(this).apply { text = "\n\n" })
-            target2.addView(TextView(this).apply { text = "\n\n" })
-            target3.addView(TextView(this).apply { text = "\n\n" })
-            target4.addView(TextView(this).apply { text = "\n\n" })
-            target5.addView(TextView(this).apply { text = "\n\n" })
+            target1.addView(TextView(this).apply { text = "" })
+            target2.addView(TextView(this).apply { text = "" })
+            target3.addView(TextView(this).apply { text = "" })
+            target4.addView(TextView(this).apply { text = "" })
+            target5.addView(TextView(this).apply { text = "" })
 
             val optionsAdapter = if (currentRiddle.optionsWithImage.isNotEmpty()) {
-                OptionsAdapter(currentRiddle.optionsWithImage.toMutableList()) // textViews übergeben
+                OptionsAdapter(currentRiddle.optionsWithImage.toMutableList(), userMappings, this) // Übergibt userMappings
             } else {
-                OptionsAdapter(currentRiddle.options.toMutableList()) // textViews übergeben
+                OptionsAdapter(currentRiddle.options.toMutableList(), userMappings, this)
             }
+            optionsRecyclerView.adapter = optionsAdapter
             optionsRecyclerView.adapter = optionsAdapter
             if(currentRiddle.optionsWithImage.isNotEmpty()){
                 optionsRecyclerView.layoutManager = GridLayoutManager(this, 3) // 2 Spalten
@@ -377,68 +378,63 @@ class RiddleActivity : AppCompatActivity() {
                 targetView.setOnDragListener { v: View, event: DragEvent ->
                     when (event.action) {
                         DragEvent.ACTION_DROP -> {
-
                             val clipData = event.clipData
                             val option = clipData.getItemAt(0).text.toString()
-                            val targetId = v.id // ID des Ziels abrufen
-                            val imageResId = if (clipData.itemCount > 1) {
-                                clipData.getItemAt(1).text.toString().toIntOrNull()
-                            } else {
-                                null
-                            }
-                            userMappings[option] = targetId.toString()
 
-                            // UI aktualisieren: Option im Ziel anzeigen
-                            (v as? FrameLayout)?.apply {
-                                // LinearLayout für Optionen erstellen, falls noch nicht vorhanden
-                                val optionsLayout = if (getTag() != null && getTag() is LinearLayout) {
-                                    getTag() as LinearLayout
-                                } else {
-                                    LinearLayout(context).apply {
-                                        orientation = LinearLayout.VERTICAL
-                                        layoutParams = FrameLayout.LayoutParams(
-                                            FrameLayout.LayoutParams.WRAP_CONTENT,
-                                            FrameLayout.LayoutParams.WRAP_CONTENT
-                                        ).apply {
-                                            gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM // LinearLayout unten und horizontal zentriert ausrichten
-                                        }
-                                    }.also {
-                                        setTag(it) // LinearLayout mit dem Target verknüpfen
-                                        addView(it) // LinearLayout zum FrameLayout hinzufügen
+                            Log.d("RiddleActivity", "Option dropped: $option")
+
+                            val targetView = v as FrameLayout
+                            var optionsLayout = targetView.getTag() as? LinearLayout
+
+                            if (optionsLayout == null) {
+                                optionsLayout = LinearLayout(targetView.context).apply { // Hier wird context verwendet
+                                    orientation = LinearLayout.VERTICAL
+                                    layoutParams = FrameLayout.LayoutParams(
+                                        FrameLayout.LayoutParams.WRAP_CONTENT,
+                                        FrameLayout.LayoutParams.WRAP_CONTENT
+                                    ).apply {
+                                        gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
                                     }
                                 }
+                                targetView.setTag(optionsLayout)
+                                targetView.addView(optionsLayout)
+                            }
 
-                                // Bild oder Text im Ziel anzeigen:
-                                if (imageResId != null) {
-                                    optionsLayout.removeAllViews()
-                                    // Bild anzeigen, wenn imageResId vorhanden ist:
-                                    optionsLayout.addView(ImageView(context).apply {
-                                        setImageResource(imageResId)
-                                        // Layoutparameter anpassen:
-                                        layoutParams = FrameLayout.LayoutParams(
-                                            FrameLayout.LayoutParams.WRAP_CONTENT,
-                                            FrameLayout.LayoutParams.WRAP_CONTENT,
-                                            Gravity.CENTER // Bild in der Mitte des FrameLayout platzieren
-                                        )
-                                    })
-                                } else {
-                                    // Text anzeigen, wenn imageResId nicht vorhanden ist:
-                                    optionsLayout.addView(TextView(context).apply {
-                                        text = option
-                                    })
+                            val optionView = if (clipData.itemCount > 1) {
+                                ImageView(targetView.context).apply { // Hier wird context verwendet
+                                    val imageResId = clipData.getItemAt(1).text.toString().toInt()
+                                    setImageResource(imageResId)
                                 }
-
-                                // LinearLayout zum FrameLayout hinzufügen, falls noch nicht vorhanden
-                                if (indexOfChild(optionsLayout) == -1) {
-                                    addView(optionsLayout)
+                            } else {
+                                TextView(targetView.context).apply { // Hier wird context verwendet
+                                    text = option
                                 }
                             }
-                            // Option aus der Liste entfernen
+                            optionView.setOnLongClickListener {
+                                // Entferne die Option aus dem Target
+                                optionsLayout.removeView(optionView)
+
+                                // Füge Option dem RecyclerView hinzu
+                                val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<Any>
+                                optionsAdapter.addOption(option) // Methode addOption wird hier aufgerufen
+
+                                userMappings.remove(option) // Entferne das Mapping
+
+                                true
+                            }
+                            optionsLayout.addView(optionView)
+
+                            userMappings[option] = targetView.id.toString()
+
                             val optionsAdapter = optionsRecyclerView.adapter as OptionsAdapter<*>
                             optionsAdapter.removeOption(option)
                             optionsAdapter.notifyDataSetChanged()
+
+                            Log.d("RiddleActivity", "Option added to target: ${targetView.id}")
                             true
+
                         }
+
                         else -> true
                     }
                 }
@@ -540,6 +536,10 @@ class RiddleActivity : AppCompatActivity() {
         riddleTextView.text = currentRiddle.question
     }
 
+    fun isOptionMapped(option: String): Boolean {
+        return userMappings.containsKey(option)
+    }
+
     private fun showImageDialog(imageResource : Int){
         val dialog = RiddleImageViewDialog(this, imageResource)
         dialog.show()
@@ -548,7 +548,6 @@ class RiddleActivity : AppCompatActivity() {
     private fun evaluateAnswer(): Boolean {
         val currentRiddle = riddles[currentRiddleIndex]
         val correctAnswers = currentRiddle.correctAnswers
-        Log.d("RiddleActivity", "Current Question Number: $currentRiddle")
         val selectedAnswers = when {
             currentRiddle.requiresDateInput -> {
                 val dateInput = dateInput.text.toString()
