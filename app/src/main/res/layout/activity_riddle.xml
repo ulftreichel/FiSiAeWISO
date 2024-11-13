@@ -69,14 +69,17 @@
 
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/riddleImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/button_riddle"
-        android:text=" Bild zur Frage "
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="300dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -309,35 +312,40 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/target_border" />
+                android:background="@drawable/target_border"
+                android:minHeight="50dp" />
 
             <FrameLayout
                 android:id="@+id/target2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/target_border" />
+                android:background="@drawable/target_border"
+                android:minHeight="50dp" />
 
             <FrameLayout
                 android:id="@+id/target3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/target_border" />
+                android:background="@drawable/target_border"
+                android:minHeight="50dp" />
 
             <FrameLayout
                 android:id="@+id/target4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/target_border" />
+                android:background="@drawable/target_border"
+                android:minHeight="50dp" />
 
             <FrameLayout
                 android:id="@+id/target5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/target_border" />
+                android:background="@drawable/target_border"
+                android:minHeight="50dp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

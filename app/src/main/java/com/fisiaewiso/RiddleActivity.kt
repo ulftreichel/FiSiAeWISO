@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -48,7 +49,7 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var nextButton: Button
     private lateinit var startButton: Button
     private lateinit var closeButton: Button
-    private lateinit var riddleImageButton: Button
+    private lateinit var riddleImageButton: ImageButton
     private var currentRiddleIndex = 0
     private lateinit var riddles: List<Riddle>
     private val selectedAnswersOrder = mutableListOf<String>()
@@ -223,13 +224,11 @@ class RiddleActivity : AppCompatActivity() {
     }
 
     private fun proceedToNextRiddle() {
-        showNextRiddle() // Nächste Frage laden
-        /*
+        //showNextRiddle() // Nächste Frage laden
         nextButton.isEnabled = false
         Handler(Looper.getMainLooper()).postDelayed({
             nextButton.isEnabled = true
         },2000) // 2 Sekunden Verzögerung
-        */
     }
 
     private fun showNextRiddle() {
@@ -268,6 +267,7 @@ class RiddleActivity : AppCompatActivity() {
                     else -> 0 // Sollte nicht erreicht werden, aber zur Sicherheit
                 }
                 if (imageResource != 0) {
+                    riddleImageButton.setBackgroundResource(imageResource)
                     riddleImageButton.visibility = View.VISIBLE
                     riddleImageButton.setOnClickListener {
                         showImageDialog(imageResource)
@@ -275,7 +275,7 @@ class RiddleActivity : AppCompatActivity() {
                 }
             } else -> { // Für alle anderen Rätsel
             riddleImageButton.visibility = View.GONE
-        }
+            }
         }
         val shouldShuffle = when (currentRiddle.riddleNumber) {
             2 -> true // Fragen, die geshuffelt werden sollen
@@ -784,8 +784,7 @@ class RiddleActivity : AppCompatActivity() {
     }
 
     private fun wrongAnswerDialog(correctAnswers: List<String> = emptyList(), currentRiddleUnit: List<String> = emptyList(), correctMappings: Map<String, String> = emptyMap()) {
-        proceedToNextRiddle()
-        /*
+        //proceedToNextRiddle()
         if (currentRiddle.requiresDragAndDrop) {
             // Richtige Antworten für Drag-and-Drop-Fragen anzeigen
             val dialog = WrongAnswerDialog(this, correctAnswers, currentRiddleUnit, correctMappings) // correctMappings übergeben
@@ -800,7 +799,6 @@ class RiddleActivity : AppCompatActivity() {
                 showNextRiddle() // Nächste Frage laden
             },2000) // 2 Sekunden Verzögerung
         }
-        */
     }
     
 }
