@@ -1,11 +1,9 @@
 package com.fisiaewiso
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.widget.Button
 import android.widget.TextView
-import androidx.compose.ui.semantics.text
 
 class WrongAnswerDialog(context: Context, correctAnswers: List<String>, currentRiddleUnit: List<String>, correctMappings: Map<String, String> = emptyMap()): Dialog(context) {
 

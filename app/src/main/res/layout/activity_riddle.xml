@@ -166,7 +166,36 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+    </RadioGroup>
+
+    <ImageButton
+        android:id="@+id/iBCalculator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="150dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:srcCompat="@drawable/calculator" />
+
+    <Button
+        android:id="@+id/bHelp_Formel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_riddle"
+        android:text="Formeln\nPunkte/2"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iBCalculator" />
 
     <Button
         android:id="@+id/bRiddleNext"
@@ -175,10 +204,22 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Nächste Frage "
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/bRiddleLater"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_riddle"
+        android:text=" Später\n beantworten "
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toStartOf="@+id/bRiddleNext"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/startButton"
@@ -187,6 +228,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Start "
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -198,6 +240,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Schließen "
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />

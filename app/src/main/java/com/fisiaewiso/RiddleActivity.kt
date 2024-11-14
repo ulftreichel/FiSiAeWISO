@@ -22,6 +22,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
@@ -35,6 +36,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Collections
 import kotlin.properties.Delegates
+import kotlin.text.replace
 import kotlin.text.toDoubleOrNull
 
 class RiddleActivity : AppCompatActivity() {
@@ -48,9 +50,12 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var numberInput2: EditText
     private lateinit var dateInput: EditText
     private lateinit var nextButton: Button
+    private lateinit var answerLater: Button
     private lateinit var startButton: Button
     private lateinit var closeButton: Button
     private lateinit var riddleImageButton: ImageButton
+    private lateinit var iBCalculator: ImageButton
+    private lateinit var bHelp: Button
     private var currentRiddleIndex = 0
     private lateinit var riddles: List<Riddle>
     private val selectedAnswersOrder = mutableListOf<String>()
@@ -78,6 +83,8 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var viewModel: RiddleViewModel
     private var riddleMainNumber: Int by Delegates.notNull()
     private var userMappings = mutableMapOf<String, String>()
+    val unansweredQuestions = mutableListOf<Int>()
+    var completedRun = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,10 +115,13 @@ class RiddleActivity : AppCompatActivity() {
         numberInput2 = findViewById(R.id.riddleResultNumber2)
         dateInput = findViewById(R.id.riddleResultDate)
         nextButton = findViewById(R.id.bRiddleNext)
+        answerLater = findViewById(R.id.bRiddleLater)
         startButton = findViewById(R.id.startButton)
         closeButton = findViewById(R.id.bClose)
+        iBCalculator = findViewById(R.id.iBCalculator)
+        bHelp = findViewById(R.id.bHelp_Formel)
         riddleImageButton = findViewById(R.id.riddleImageButton)
-        currentRiddle = Riddle(0,0, 0,"Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
+        currentRiddle = Riddle(0,0, 0, 0, "Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false,false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
         tVRiddle_Initialize.text = currentRiddle.question
         // Intros laden
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -152,7 +162,9 @@ class RiddleActivity : AppCompatActivity() {
             tVRiddle_Initialize.visibility = View.GONE
             tVRiddle_Initialize2.visibility = View.GONE
             startButton.visibility = View.GONE
+            closeButton.visibility = View.GONE
             nextButton.visibility = View.VISIBLE
+            answerLater.visibility = View.VISIBLE
             nextButton.isEnabled = false
             Handler(Looper.getMainLooper()).postDelayed({
                 nextButton.isEnabled = true
@@ -174,13 +186,33 @@ class RiddleActivity : AppCompatActivity() {
         closeButton.setOnClickListener {
             finish()
         }
+        answerLater.setOnClickListener {
+            if (currentRiddleIndex in 0..29) {
+                val textView = answerTextViews[currentRiddleIndex]
+                textView.setBackgroundColor(Color.GRAY)
+            }
+            addUnansweredQuestion(currentRiddle.riddleNumber)
+            proceedToNextRiddle()
+        }
+        unansweredQuestions.clear()
     }
+
     // Initialisiere die Datenbank
     private suspend fun initializeDatabase() {
         withContext(Dispatchers.IO) {
             AppDatabase.getDatabase(this@RiddleActivity)
         }
     }
+
+    fun addUnansweredQuestion(riddleNumber: Int) {
+        unansweredQuestions.add(riddleNumber)
+        Log.d("RiddleActivity", "Unanswered Questions: $unansweredQuestions")
+    }
+
+    fun removeUnansweredQuestion(riddleNumber: Int) {
+        unansweredQuestions.remove(riddleNumber)
+    }
+
     // Lade Rätsel nach Intro
     private fun loadRiddlesByIntro(intro: String) {
         riddleMainNumber = when (intro) {
@@ -232,7 +264,12 @@ class RiddleActivity : AppCompatActivity() {
     }
     // Zeige das nächste Rätsel an
     private fun proceedToNextRiddle() {
-        //showNextRiddle() // Nächste Frage laden
+        if(completedRun){
+            if (unansweredQuestions.isNotEmpty()) {
+                removeUnansweredQuestion(currentRiddle.riddleNumber)
+            }
+        }
+        showNextRiddle() // Nächste Frage laden
         nextButton.isEnabled = false
         Handler(Looper.getMainLooper()).postDelayed({
             nextButton.isEnabled = true
@@ -247,14 +284,81 @@ class RiddleActivity : AppCompatActivity() {
                 selectedAnswersOrder.clear()
                 displayRiddle()
             } else {
-                // Alle Rätsel erfolgreich gelöst
-                showTotalPointsAndSaveResults()
+                if (completedRun) {
+                    completedRun = false
+                    if (unansweredQuestions.isNotEmpty()) {
+                        showAlertUnansweredQuestions()
+                    } else {
+                        showTotalPointsAndSaveResults()
+                    }
+                } else {
+                    completedRun = true
+                    if (unansweredQuestions.isNotEmpty()) {
+                        showAlertUnansweredQuestions()
+                    } else {
+                        showTotalPointsAndSaveResults()
+                    }
+                }
             }
         } else {
-            // Alle Rätsel erfolgreich gelöst
-            showTotalPointsAndSaveResults()
+            if (completedRun) {
+                completedRun = false
+                if (unansweredQuestions.isNotEmpty()) {
+                    showAlertUnansweredQuestions()
+                } else {
+                    showTotalPointsAndSaveResults()
+                }
+            } else {
+                completedRun = true
+                if (unansweredQuestions.isNotEmpty()) {
+                    showAlertUnansweredQuestions()
+                } else {
+                    showTotalPointsAndSaveResults()
+                }
+            }
         }
     }
+
+    private fun showAlertUnansweredQuestions() {
+        val crowd = unansweredQuestions.size
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Unbeantwortete Fragen")
+        builder.setMessage("Es gibt noch $crowd unbeantwortete Fragen. Möchtest du diese jetzt beantworten?")
+        builder.setPositiveButton("OK") { dialog, which ->
+            loadUnAnsweredQuestion {
+                viewModel.updateCurrentRiddle(currentRiddle)
+            }
+        }
+        builder.setNegativeButton("Abbrechen") { dialog, which ->
+            showTotalPointsAndSaveResults()
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    fun loadUnAnsweredQuestion(onRiddlesLoaded: () -> Unit) {
+        lifecycleScope.launch {
+            val riddlesToLoad = mutableListOf<Riddle>()
+            withContext(Dispatchers.IO) {
+                for (riddleNumber in unansweredQuestions) {
+                    val riddle: Riddle = AppDatabase.getDatabase(this@RiddleActivity).riddleDao().getRiddleByNumber(riddleNumber)
+                    riddlesToLoad.add(riddle.copy(
+                        question = riddle.question.replace(";", ","),
+                        answers = riddle.answers.map { it.replace(";", ",") },
+                        correctAnswers = riddle.correctAnswers.map { it.replace(";", ",") }
+                    ))
+                }
+            }
+            riddles = riddlesToLoad
+            if (riddles.isNotEmpty()) {
+                currentRiddleIndex = 0 // Setze den aktuellen Rätselindex auf 0
+                currentRiddle = riddles[currentRiddleIndex] // Setze das aktuelle Rätsel
+                displayRiddle() // Zeige das erste Rätsel an
+                onRiddlesLoaded()
+            }
+        }
+    }
+
     // Zeige das Rätsel an
     private fun displayRiddle() {
         //Entferne die vorherigen Antworten
@@ -467,6 +571,18 @@ class RiddleActivity : AppCompatActivity() {
             }
         } else {
             if (currentRiddle.requiresNumberInput || currentRiddle.requiresTwoNumberInputs || currentRiddle.requiresDateInput || currentRiddle.requiresTimeInput) {
+                if (currentRiddle.requiresCalculate){
+                    iBCalculator.visibility = View.VISIBLE
+                    bHelp.visibility = View.VISIBLE
+                    iBCalculator.setOnClickListener {
+                        val dialog = CalculatorDialog()
+                        dialog.show(supportFragmentManager, "calculatorDialog")
+                    }
+                    bHelp.setOnClickListener {
+                        val dialog = HelpDialog(currentRiddle.riddleNumber)
+                        dialog.show(supportFragmentManager, "helpDialog")
+                    }
+                }
                 // Eingabefelder anzeigen
                 numberInput.text.clear()
                 numberInput2.text.clear()
@@ -576,6 +692,8 @@ class RiddleActivity : AppCompatActivity() {
     }
     // Überprüfe die Antwort
     private fun evaluateAnswer(): Boolean {
+        val riddleNumber = riddles[currentRiddleIndex].riddleNumber // Ermittle die Rätselnummer
+        val textViewIndex = riddleNumber - 1 // Berechne den Index des TextViews
         val currentRiddle = riddles[currentRiddleIndex]
         val correctAnswers = currentRiddle.correctAnswers
         val selectedAnswers = when {
@@ -632,8 +750,8 @@ class RiddleActivity : AppCompatActivity() {
             val numPossibleAnswers = correctAnswers.size
             val isCorrect = selectedAnswers == correctAnswers
             partiallyCorrect = numCorrectAnswers > 0 && numCorrectAnswers < correctAnswers.size
-            if (currentRiddleIndex in 0..29) {
-                val textView = answerTextViews[currentRiddleIndex]
+            if (textViewIndex in 0..29) {
+                val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
@@ -658,8 +776,8 @@ class RiddleActivity : AppCompatActivity() {
             // und nicht alle selectedAnswers sind korrekt
             partiallyCorrect = numCorrectAnswers > 0 && !isCorrect
             // TextView für das aktuelle Rätsel markieren
-            if (currentRiddleIndex in 0..29) {
-                val textView = answerTextViews[currentRiddleIndex]
+            if (textViewIndex in 0..29) {
+                val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
@@ -679,8 +797,8 @@ class RiddleActivity : AppCompatActivity() {
             // Überprüfen, ob die ausgewählte Antwort korrekt ist
             val isCorrect = currentRiddle.correctAnswers.contains(selectedAnswer)
             // Punkte vergeben, wenn die Antwort korrekt ist
-            if (currentRiddleIndex in 0..29) {
-                val textView = answerTextViews[currentRiddleIndex]
+            if (textViewIndex in 0..29) {
+                val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
@@ -722,8 +840,8 @@ class RiddleActivity : AppCompatActivity() {
                 }
             }
 
-            if (currentRiddleIndex in 0..29) {
-                val textView = answerTextViews[currentRiddleIndex]
+            if (textViewIndex in 0..29) {
+                val textView = answerTextViews[textViewIndex]
 
                 if (correctAnswers == totalAnswers) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
@@ -743,8 +861,8 @@ class RiddleActivity : AppCompatActivity() {
             // Fragen mit nur einer richtigen Antwort
             val isCorrect = correctAnswers == selectedAnswers
             // TextView für das aktuelle Rätsel markieren
-            if (currentRiddleIndex in 0..29) {
-                val textView = answerTextViews[currentRiddleIndex]
+            if (textViewIndex in 0..29) {
+                val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
@@ -815,5 +933,4 @@ class RiddleActivity : AppCompatActivity() {
             },2000) // 2 Sekunden Verzögerung
         }
     }
-    
 }

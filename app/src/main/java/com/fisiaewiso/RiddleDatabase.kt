@@ -35,6 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 1,
+                                riddleIndex = 1,
                                 question = "Sabine Medstein hat sich nach erfolgreichen Abschluss Ihrer Berufsausbildung zur Fachinformatikerin Anwendungsentwicklung bei der Ecotec GmbH beworben und soll zum 01. Oktober 2023 eingestellt werden.\n\nBringen Sie die folgenden Schritte bei der Einstellung von Frau Medstein in die richtige Reihenfolge.\n\nOrdnen Sie die unteren Schritte in die richtige Reihenfolge ein.",
                                 answers = listOf(
                                     "Vorstellungsgespräch",
@@ -51,6 +52,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Überweisung der ersten Vergütung",
                                     "Ende der Probezeit"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -66,6 +68,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 2,
+                                riddleIndex = 2,
                                 question = "Frau Medstein hatte auch ein Vorstellungsgespräch bei der Leuchtturm-IT GmbH.\nWelche der folgenden Fragen ist in einem Gespräch unzulässig?\n\nWählen Sie die unzulässige Antwort aus.",
                                 answers = listOf(
                                     "der Mitgliedschaft bei einer Gewerkschaft.",
@@ -75,6 +78,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "der Gehaltsvorstellung."),
                                 correctAnswers = listOf("der Mitgliedschaft bei einer Gewerkschaft."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -90,6 +94,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 3,
+                                riddleIndex = 3,
                                 question = "Welche der folgenden Unterlagen muss Frau Medstein Ihrem neuen Arbeitgeber auf Anforderung zukommen lassen?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Nachweis über die private Unfallversicherung",
@@ -102,6 +107,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Urlaubsbescheinigung des letzten Arbeitgebers",
                                     "Steuerliche Identifikationsnummer (IdNr/TIN/eTIN)"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -117,10 +123,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 4,
+                                riddleIndex = 4,
                                 question = "Für den Monat November 2023 erhält Frau Medstein von der Personalabteilung der Ecotec GmbH die folgende Abrechnung:\nDer Stundenlohn beträgt 15,80 EUR.\nIm vergangenen Monat hat Frau Medstein 170 Stunden gearbeitet, davon zwölf Stunden an Samstagen.\nFür Samstagsarbeit erhält Frau Medstein zusätzliche 30 % auf den Stundenlohn.\nZusätzlich erhält Frau Medstein eine freiwillige Sonderzahlung als Urlaubsgeld in Höhe von 250,00 EUR brutto.\n\nBerechnen Sie ...\na) den Bruttolohn von Frau Medstein für den Monat November 2023.\nb)den Beitrag von Frau Medstein zur gesetzlichen Rentenversicherung (Beitragssatz 2023: 18,6 %). ",
                                 answers = listOf(""),
                                 correctAnswers = listOf("2992.88", "278.34"),
                                 unit = listOf("EUR", "EUR"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -136,6 +144,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 5,
+                                riddleIndex = 5,
                                 question = "Die Ecotec GmbH wird im Handelsregister geführt. Welche der folgenden Aussagen über das Handelsregister trifft zu?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "In der Abteilung A werden Großunternehmen; in Abteilung B alle anderen Unternehmen geführt.",
@@ -145,6 +154,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Kleinunternehmen können wählen; ob sie lieber in Abteilung A oder B eingetragen werden wollen."),
                                 correctAnswers = listOf("In Abteilung A werden die Personengesellschaften; in Abteilung B die Kapitalgesellschaften geführt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -160,6 +170,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 6,
+                                riddleIndex = 6,
                                 question = "Frau Medstein soll die Aufgaben einer Sicherheitsbeauftragten in Ihrer Abteilung übernehmen.\nAn welche der folgenden für die Unfallverhütung zuständige Einrichtung muss Sie sich wenden; um genauere Informationen zu diesem Thema zu erhalten?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Gewerbeaufsichtsbehörde",
@@ -169,6 +180,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Industrie- und Handelskammer"),
                                 correctAnswers = listOf("Berufsgenossenschaft"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -184,10 +196,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 7,
+                                riddleIndex = 7,
                                 question = "$7 Wahlberechtigung\nWahlberechtigt sind alle Arbeitnehmer des Betrieb, die das 16. Lebensjahr vollendet haben. Werden Arbeitnehmer eines anderen Arbeitgebers zur Arbeitsleistung überlassen; so sind diese wahlberechtigt; wenn Sie länger als drei Monate im Betrieb eingesetzt werden.\n\n§8 Wählbarkeit\n(1)Wählbar sind alle Wahlberechtigten die das 18. Lebensjahr vollendet haben und sechs Monate dem Betrieb angehören...\n\n$9 Zahl der Betriebsratsmitglieder\nDer Betriebsrat besteht in Betrieben mit in der Regel\n5-20 wahlberechtigten Arbeitnehmern aus einer Person\n21-50 wahlberechtigten Arbeitnehmern aus 3 Mitglieder\n 51-100 Arbeitnehmern aus 5 Mitgliedern\n101-200 Arbeitsnehmern aus 7 Mitgliedern\n201-400 Arbeitnehmern aus 9 Mitgliedern\n401-700 Arbeitnehmern aus 11 Mitgliedern\n\n\nIn der Ecotec GmbH soll ein neuer Betriebsrat gewählt werden.\nInsgesamt sind dort 61 Mitarbeiter beschäftigt; die sich wie folgt zusammensetzen:\n- 45 volljährige Mitarbeiter (ohne Auszubildene)\n- 8 volljährige Auszubildene\n- 3 volljährige Mitarbeiter aus Arbeitnehmerüberlassung (Zeitarbeit); seit einem Monat in der Ecotec GmbH eingesetzt\n- 3 jugendliche Auszubildene (16 Jahre alt)\n- 2 jugendliche Auszubildene (17 Jahre alt)\n\nErmitteln Sie; wie viele Mitarbeiter der Ecotec GmbH insgesamt bei der Betriebsratswahl wählen können.\n\nTragen das Ergebnis unten ein:",
                                 answers = listOf(""),
                                 correctAnswers = listOf("58.0"),
                                 unit = listOf("Mitarbeitende"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -203,6 +217,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 8,
+                                riddleIndex = 8,
                                 question = "Die Betriebsratswahl soll zwei Monate nachdem Frau Medstein Ihren neuen Arbeitsplatz bei der Ecotec GmbH angetreten hat; stattfinden.\nFrau Medstein überlegt; sich für die Wahlen aufstellen zu lassen. Sie ist sich aber nicht sicher; ob dies möglich ist.\nSie fragt eine Kollegin; ob Sie zu diesem Zeitpunkt in den Betriebsrat wählbar ist.\nWelche der folgenden Aussagenüber die Wählbarkeit von Frau Medstein trifft zu?\n\nWählen Sie die korrekte Antwort aus.\nFrau Medstein ist...",
                                 answers = listOf(
                                     "wählbar; weil jeder Arbeitnehmer sofort bei Eintritt in den Betrieb wählbar ist.",
@@ -212,6 +227,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "nicht wählbar; weil Sie kein Gewerkschaftsmitglied ist."),
                                 correctAnswers = listOf("nicht wählbar; weil Sie noch keine sechs Monate bei der Ecotec GmbH beschäftigt ist."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -227,6 +243,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 9,
+                                riddleIndex = 9,
                                 question = "In der Ecotec GmbH wurde der Betriebsrat gewählt.\nWelche der Aussagen über die Wahl des Betriebsrats ist zutreffend?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Ein Betriebsrat muss alle vier Jahre neu gewählt werden.",
@@ -236,6 +253,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Ein Betriebsrat kann von allen Arbeitnehmern eines Betriebs gewählt werden; die das 25. Lebensjahr vollendet haben."),
                                 correctAnswers = listOf("Ein Betriebsrat muss alle vier Jahre neu gewählt werden."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -251,6 +269,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 10,
+                                riddleIndex = 10,
                                 question = "Die Geschäftsleitung der Ecotec GmbH arbeitet eng mit dem Betriebsrat zusammen.\nIn welchen der folgenden Angelegenheiten hat der Betriebsrat laut Betriebsverfassungsgesetz ein Mitbestimmungsrecht?\n\nWählen Sie die korrekten Antwort aus",
                                 answers = listOf(
                                     "Einführung von Überwachungskameras im Warenlager",
@@ -263,6 +282,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Einführung von Überwachungskameras im Warenlager",
                                     "Festlegung von Beginn und Ende der täglichen Arbeitszeit"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -278,6 +298,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 11,
+                                riddleIndex = 11,
                                 question = "Auszug Jugendarbeitsschutzgesetz\n$11 Ruhepausen, Aufenthaltsräume\n(1) Jugendlichen müssen im voraus feststehende Ruhepausen von angemessener Dauer gewährt werden. Die Ruhepausen müssen mindestens betragen.\n1. 30 Minuten bei einer Arbeitszeit von mehr als viereinhalb bis zu sechs Stunden\n2. 60 Minuten bei einer Arbeitszeit von mehr als sechs Stunden.\nAls Ruhepause gilt nur eine Arbeitsunterbrechung von mindestens 15 Minuten\n\n(2) Die Ruhepause müssen in angemesserner zeitlicher Lage gewährt werden; frühestens eine Stunde nach Beginn und spätestens eine Stunde vor Ende der Arbeitszeit. Länger als viereinhalb Stunden hintereinander dürfen Jugendliche nicht ohne Ruhepause beschäftigt werden.\n\nHeiko Pateria; 17 Jahre alt; ist Auszubildender bei der Ecotec GmbH. Er erhält den folgenden Dienstplan.\nEr zeigt Frau Medstein seinen Dienstplan; da er der Meinung ist; dass am einem Tag der Beginn der ersten Pause gegen das Jugendarbeitsschutzgesetzt verstößt.\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Montag 8:00-15:00 Uhr; Beginn der ersten Pause 11.30 Uhr",
@@ -287,6 +308,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Freitag 9:00-17:30 Uhr; Beginn der ersten Pause 14.00 Uhr"),
                                 correctAnswers = listOf("Freitag 9:00-17:30 Uhr; Beginn der ersten Pause 14.00 Uhr"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -302,6 +324,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 12,
+                                riddleIndex = 12,
                                 question = "Die Ausbildungsleiterin der Ecotec GmbH; Sandra Wilke; schlägt vor; dass Frau Medstein mittelfristig als Ausbilderin arbeiten soll.\nWelche der folgenden Voraussetzungen muss ein Ausbilder nach den gesetzlichen Regelungen u.a. erfüllen?\n\nWählen Sie die korrekte Antwort aus.\n\nEr muss...",
                                 answers = listOf(
                                     "Mitglied im zuständigen Prüfungsausschuss sein",
@@ -311,6 +334,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Mitglied einer Gewerkschaft sein."),
                                 correctAnswers = listOf("über eine notwendige persönliche und fachliche Eignung verfügen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -326,6 +350,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 13,
+                                riddleIndex = 13,
                                 question = "Sven Moritz; einem Mitarbeiter der Ecotec GmbH; wurde außerordentlich (fristlos) gekündigt.\n\nWelche der folgenden Ursachen rechtfertigt eine außerordentliche (fristlose) Kündigung?\n\nWählen Sie die korrekte Antwort aus.\n\nDie außerordentliche (fristlose) Kündigung eines Arbeitnehmers kann u.a. erfolgen bei...",
                                 answers = listOf(
                                     "Arbeitsmangel",
@@ -335,6 +360,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "unverschuldeter Krankheit."),
                                 correctAnswers = listOf("Diebstahl von Eigentum der Ecotec GmbH."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -350,35 +376,41 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 14,
-                                question = "In der Ecotec GmbH sollen noch weiteren Mitarbeitern gekündigt werden.\nNach dem Kündigungsschutzgesetz ist eine Kündigung nur möglich; wenn sie sozial gerechtfertigt ist.\n\nBei den Kündigungsgründen wird unterschieden zwischen\n1.betriebsbedingter Kündigung\n2.personenbedingter Kündigung\n3.verhaltensbedingter Kündigung\n\nOrdnen Sie die folgenden Fälle den Kündigungsgründen zu.\n\nWählen Sie die korrekte Antwort aus.\n\nFälle...",
-                                answers = listOf(
-                                    "Ein Mitarbeiter hat heimlich Kundendaten kopiert und an einen Konkurrenten der Ecotec GmbH weiterverkauft",
-                                    "Der Lohnbuchhalterin wird gekündigt weil der Standort geschlossen und der Aufgabenbereich an das Steuerberatungsbüro der Ecotec GmbH abgegeben wird",
-                                    "Ein Programmierer erfüllt nicht mehr die Anforderungen an seine Stelle seine Arbeit ist häufig fehlerhaft und eine Fortbildung lehnt er ab"),
+                                riddleIndex = 14,
+                                question = "In der Ecotec GmbH sollen noch weiteren Mitarbeitern gekündigt werden.\nNach dem Kündigungsschutzgesetz ist eine Kündigung nur möglich; wenn sie sozial gerechtfertigt ist.\n\nBei den Kündigungsgründen wird unterschieden zwischen\n1.betriebsbedingter Kündigung\n2.personenbedingter Kündigung\n3.verhaltensbedingter Kündigung\n\nOrdnen Sie die folgenden Fälle den Kündigungsgründen zu.\n\nFälle...",
+                                answers = listOf(),
                                 correctAnswers = listOf(
                                     "Der Lohnbuchhalterin wird gekündigt weil der Standort geschlossen und der Aufgabenbereich an das Steuerberatungsbüro der Ecotec GmbH abgegeben wird",
                                     "Ein Programmierer erfüllt nicht mehr die Anforderungen an seine Stelle seine Arbeit ist häufig fehlerhaft und eine Fortbildung lehnt er ab",
                                     "Ein Mitarbeiter hat heimlich Kundendaten kopiert und an einen Konkurrenten der Ecotec GmbH weiterverkauft"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
                                 requiresTwoNumberInputs = false,
-                                requiresOrderedAnswers = true,
+                                requiresOrderedAnswers = false,
                                 requiresDateInput = false,
                                 requiresTimeInput = false,
-                                requiresDragAndDrop = false,
-                                options = listOf(),
+                                requiresDragAndDrop = true,
+                                options = listOf("Ein Mitarbeiter hat heimlich Kundendaten kopiert und an einen Konkurrenten der Ecotec GmbH weiterverkauft",
+                                    "Der Lohnbuchhalterin wird gekündigt weil der Standort geschlossen und der Aufgabenbereich an das Steuerberatungsbüro der Ecotec GmbH abgegeben wird",
+                                    "Ein Programmierer erfüllt nicht mehr die Anforderungen an seine Stelle seine Arbeit ist häufig fehlerhaft und eine Fortbildung lehnt er ab"),
                                 optionsWithImage = listOf(),
-                                targets = listOf(),
-                                correctMappings = mapOf()),
+                                targets = listOf("Betriebsbedingter Kündigung", "Personbedingter Kündigung", "Verhaltensbedingter Kündigung"),
+                                correctMappings = mapOf(
+                                    "Der Lohnbuchhalterin wird gekündigt weil der Standort geschlossen und der Aufgabenbereich an das Steuerberatungsbüro der Ecotec GmbH abgegeben wird" to "Betriebsbedingter Kündigung",
+                                    "Ein Programmierer erfüllt nicht mehr die Anforderungen an seine Stelle seine Arbeit ist häufig fehlerhaft und eine Fortbildung lehnt er ab" to "Personbedingter Kündigung",
+                                    "Ein Mitarbeiter hat heimlich Kundendaten kopiert und an einen Konkurrenten der Ecotec GmbH weiterverkauft" to "Verhaltensbedingter Kündigung")),
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 15,
+                                riddleIndex = 15,
                                 question = "Die Freunde Robert Meyer und Julia Dango wollen ein IT-Serviceunternehmen gründen.\n- Beide wollen gleichberechtige Geschäftsführer sein.\n- Die Haftung soll sich auf das Gesellschaftsvermögen beschränken.\n- Beide haben jeweils 20.000;-€ Eigenkapital; das Sie in das Unternehmen einbringen können.\n\nWelche der folgenden Rechtsformen ist für das Unternehmen als Rechtsform unter den genannten Bedingungen geeignet?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("AG", "KG", "GmbH", "eG", "GbR"),
                                 correctAnswers = listOf("GmbH"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -394,10 +426,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 16,
+                                riddleIndex = 16,
                                 question = "Die Freunde Robert Meyer und Julia Dango wollen ein IT-Serviceunternehmen gründen.\n- Beide wollen gleichberechtige Geschäftsführer sein.\n- Die Haftung soll sich auf das Gesellschaftsvermögen beschränken.\n- Beide haben jeweils 20.000;-€ Eigenkapital; das Sie in das Unternehmen einbringen können.\n\nIm ersten Geschäftsjahr hat das Unternehmen einen Gewinn von 3.140;-€ erzielt.\nDas eingesetzte Eigentkapital beträgt 40.000;-€\nErmitteln Sie die Eigenkapitalrentabilität in Prozent.\n\nTragen Sie das Ergebnis unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("7.85"),
                                 unit = listOf("%"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -413,6 +447,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 17,
+                                riddleIndex = 17,
                                 question = "Herr Meyer und Frau Dango haben Fragen bezüglich des gesetzlichen Kündigungsschutzes.\nWelche der folgenden Personengruppen genießt keinen besonderen Kündigungsschutz?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Betriebsratsmitglieder",
@@ -422,6 +457,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Auszubildene nach der Probezeit"),
                                 correctAnswers = listOf("leitende Angestellte"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -437,10 +473,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 18,
+                                riddleIndex = 18,
                                 question = "Frau Müller bringt nach der regulären Schwangerschaftszeit ein gesundes Kind zur Welt.\nWie viele Wochen Mutterschutz stehen Frau Müller nach der Entbindung laut Mutterschutzgesetz zu?\n\nTragen Sie den zutreffenden Zeitraum (Wochen) unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("8.0"),
-                                unit = listOf("Tage"),
+                                unit = listOf("Wochen"),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -456,6 +494,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 19,
+                                riddleIndex = 19,
                                 question = "Bei der Gründung des Unternehmens wurde von Herr Meyer und Frau Dango die Rechtsform GmbH gewählt.\nWelche der folgenden Aussagen trifft auf eine GmbH zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "GmbH-Anteile werden an der Börse gehandelt.",
@@ -465,6 +504,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Aufsichtsrat leitet die GmbH."),
                                 correctAnswers = listOf("Das Stammkapital der GmbH muss bei der Gründung mindestens 25.000;-€ betragen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -480,10 +520,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 20,
+                                riddleIndex = 20,
                                 question = "Für vier durchgeführte Aufträge des Unternehmens liegen folgende Zahlen vor:\n- Auftrag 1: Aufwand 300.000;-€ Ertrag: 360.000;-€\n- Auftrag 2: Aufwand 80.000;-€ Ertrag: 100.000;-€\n- Auftrag 3: Aufwand 80.000;-€ Ertrag: 104.000;-€\n- Auftrag 4: Aufwand 100.000;-€ Ertrag: 124.000;-€\n\nWelcher Auftrag wurde am wirtschaftlichsten abgewickelt?\n\nTragen Sie unten die Auftragsnummer ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("3.0"),
                                 unit = listOf("Auftrag"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -499,6 +541,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 21,
+                                riddleIndex = 21,
                                 question = "Das folgende Schema zeigt das Leitungssystem des neuen Unternehmens:\n\nNach welchen der folgenden Leitungssysteme arbeitet das Unternehmen?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Einliniensystem",
@@ -508,6 +551,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Abteilungssystem"),
                                 correctAnswers = listOf("Mehrliniensystem"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -523,6 +567,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 22,
+                                riddleIndex = 22,
                                 question = "Die finanzierende Bank erwartet von Existenzgründern die Vorlage eines Businessplans.\nWelche der folgenden Aussagen über einen Businessplan trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Der Businessplan wird von der zuständigen IHK ausgestellt; in dem das Unternehmen gegründet wurde.",
@@ -532,6 +577,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Im Businessplan werden u.a. die strategischen Ziele des Unternehmens festgelegt."),
                                 correctAnswers = listOf("Im Businessplan werden u.a. die strategischen Ziele des Unternehmens festgelegt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -547,6 +593,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 23,
+                                riddleIndex = 23,
                                 question = "Die Ecotec GmbH hat Probleme mit einem vermeintlichen Kartell\nWelche der Aussagen trifft auf ein Kartell zu?\n\nWählen Sie die korrekte Antwort aus.\n\nKartelle...",
                                 answers = listOf(
                                     "sind Absprachen auf gleicher Produktionsstufe; um durch Beschränkung des Wettbewerbs; wirtschaftlich stärker zu sein.",
@@ -556,6 +603,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "werden von den zuständigen Handelskammern überprüft."),
                                 correctAnswers = listOf("sind Absprachen auf gleicher Produktionsstufe; um durch Beschränkung des Wettbewerbs; wirtschaftlich stärker zu sein."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -571,6 +619,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 24,
+                                riddleIndex = 24,
                                 question = "Der Tarifvertrag für die IT-Branche wurde fristgemäß gekündigt.\nEs finden daraufhin Tarifverhandlungen statt\nWelche der folgenden Vertragsparteien schließen den Tarifvertrag ab?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Bundesministerium für Arbeit und Soziales",
@@ -581,6 +630,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Bundesagentur für Arbeit"),
                                 correctAnswers = listOf("Arbeitgeberverband", "Gewerkschaft"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -596,6 +646,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 25,
+                                riddleIndex = 25,
                                 question = "Die Tarifparteien haben das Recht; Löhne; Gehälter und andere Arbeitsbedingungen unter Beachtung der gesetzlichen Vorschriften selbständig zu regeln.\nWelche der folgenden Fachbegriffe beschreibt dieses Recht zutreffend?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Generationenvertrag",
@@ -605,6 +656,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Tarifbindung"),
                                 correctAnswers = listOf("Tarifautonomie"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -620,6 +672,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 26,
+                                riddleIndex = 26,
                                 question = "Eine Tarifvertragspartei beabsichtigt; nach verbindlicher Laufzeit des Tarifvertrages die Löhne neu zu verhandeln.\n\nBringen Sie die folgenden Schritte; die erfolgen müssen; damit ein Tarifvertrag zustande kommt; in die richtige Reihenfolge.",
                                 answers = listOf(
                                     "Schlichter empfiehlt 3.5% Lohnerhöhung",
@@ -638,6 +691,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Schlichter empfiehlt 3.5% Lohnerhöhung",
                                     "Schlichtung wird von den Tarifparteien angenommen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -653,10 +707,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 27,
+                                riddleIndex = 27,
                                 question = "Ein Bekannter von Frau Medstein; Matthias Räwer; will sich beruflich verändern und hat sich daher bei der Ecotec GmbH beworben. Nach der Zusage seitens der Ecotec GmbH kündigt er sein altes Arbeitsverhältnis am 06.05.2023 schriftlich.\n\n Mit welchen Datum endet das alte Arbeitsverhältnis von Herrn Räwer frühestens? (Es gelten die gesetzlichen Regelungen.)\n\n Tragen Sie das Datum unten ein.\nBeispiel 01.01.2030\n\n§ 622 - BGB\n(1) Das Arbeitsverhältnis eines Arbeiters oder eines Angestellten (Arbeitnehmers) kann mit einer Frist von vier Wochen zum fünfzehnten oder zum Ende eines Kalendermonats gekündigt werden.\n(...)",
                                 answers = listOf(),
                                 correctAnswers = listOf("15.06.2023"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -672,6 +728,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 28,
+                                riddleIndex = 28,
                                 question = "Die gesetzliche Unfallversicherung bietet den Versicherten; wie auch Frau Medstein; verschiedene Leistungen.\n\nOrdnen Sie die folgenden Beispiele den nachstehenden Leistungen der gesetzlichen Unfallversicherung zu.\n\n1. Übernahme der Reha-Kosten nach einem Unfall auf dem direkten Weg zur Arbeit.\n2. Finanzielle Unterstützung zum Lebensunterhalt des Versicherten im Fall der Arbeitsunfähigkeit wegen eines Arbeitsunfalls\n3. Finanzielle Unterstützung der Pflegebedürftigkeit nach einem Arbeitsunfall\n4. Rente bei einem dauerhaften Gesundheitsschaden durch einen Arbeitsunfall; wenn die Erwerbsfähigkeit um mindestens 20% gemindert ist.",
                                 answers = listOf(
                                     "Verletztengeld",
@@ -684,6 +741,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Pflegegeld",
                                     "Rente"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -699,6 +757,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 29,
+                                riddleIndex = 29,
                                 question = "Auch für die Ecotec GmbH ist ein nachhaltiges Konzept wichtig.\nWelche der folgenden Maßnahmen unterstützen Nachhaltigkeit?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Die Ecotec GmbH stellt für Mitarbeiter und Kunden Ladesäulen bereit.",
@@ -711,6 +770,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Ecotec GmbH stellt für Mitarbeiter und Kunden Ladesäulen bereit.",
                                     "In der Kantine müssen Behälter für Getränke und Speisen -to go- (zum Mitnehmen) aus nachwachsenden Rohstoffen hergestellt sein."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -726,6 +786,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 1,
                                 riddleNumber = 30,
+                                riddleIndex = 30,
                                 question = "Die Ecotec GmbH möchte nachhaltiger wirtschaften und die Umwelt weniger belasten.\nWelche der folgenden Maßnahmen dient der Vermeidung bzw. Verringerung von Umweltbelastungen durch die Ecotec GmbH?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die fällige Sanierung des Lagerdaches wird nicht zum Anlass genommen; eine moderne Photovoltaik-Anlage zu installieren",
@@ -735,6 +796,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die aus recyceltem Papier hergestellten Verpackungen werden nicht mehr aus dem europäischen Ausland bezogen; sondern von einem lokalen Hersteller."),
                                 correctAnswers = listOf("Die aus recyceltem Papier hergestellten Verpackungen werden nicht mehr aus dem europäischen Ausland bezogen; sondern von einem lokalen Hersteller."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -750,6 +812,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 31,
+                                riddleIndex = 1,
                                 question = "Zur GreenByte GmbH liegen folgende Daten vor: \n- Gesellschaft mit beschränkter Haftung\n- IT-Dienstleister\n- 25 % Marktanteil in der Region\n- 110 Mitarbeiter\n- 1.520.000 EUR Gewinn im Jahr 2020\n\nWelche der folgenden Angaben treffen auf die GreenByte GmbH zu?\nWählen Sie zwei korrekte Antworten aus.",
                                 answers = listOf(
                                     "Kapitalgesellschaft",
@@ -762,6 +825,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Kapitalgesellschaft",
                                     "Erwerbswirtschaftliches Unternehmen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -777,6 +841,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 32,
+                                riddleIndex = 2,
                                 question = "Die GreenByte GmbH plant; zwei Fachinformatiker Anwendungsentwicklung (m/w/d) einzustellen.\nWelche der folgenden Formulierungen in einer Stellenanzeige verstößt gegen das Allgemeine Gleichbehandlungsgesetz (AGG).\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Sie verfügen über hervorragende Kenntnisse in Webprogrammierung.",
@@ -786,6 +851,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Sie beherrschen die englische Sprache verhandlungssicher in Wort und Schrift."),
                                 correctAnswers = listOf("Sie passen in unser junges dynamisches Team; wenn Sie jünger als 30 Jahre alt sind."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -801,6 +867,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 33,
+                                riddleIndex = 3,
                                 question = "In der Geschäftsführung der GreenByte GmbH werden Maßnahmen zur Arbeitssicherheit im Unternehmen diskutiert.\nWelche der folgenden Aussagen trifft auf die Arbeitssicherheit im Unternehmen zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Betriebliche Arbeitsschutzbestimmungen sind eine freiwillige Leistung des Arbeitgebers",
@@ -810,6 +877,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Ergonomie von Arbeitsplätzen ist nicht notwendig; weil die Ergonomie nicht der Arbeitssicherheit dient."),
                                 correctAnswers = listOf("Der Arbeitgeber muss alle notwendigen Maßnahmen des Arbeitsschutzes treffen und die Einhaltung im Betrieb überwachen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -825,6 +893,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 34,
+                                riddleIndex = 4,
                                 question = "Die GreenByte GmbH möchte zukünftig in den Arbeitsverträgen eine Probezeit von sechs Monaten vereinbaren.\nWelche der folgenden Aussagen trifft auf die Probezeit zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Eine Probezeit darf nur bei unbefristeten Arbeitsverträgen vereinbart werden.",
@@ -834,6 +903,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Während der Probezeit kann nur der Arbeitnehmer das Arbeitsverhältnis kündigen."),
                                 correctAnswers = listOf("Eine Probezeit von sechs Monaten ist gesetzlich zulässig."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -849,6 +919,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 35,
+                                riddleIndex = 5,
                                 question = "Die GreenByte GmbH ist Mitglied des Arbeitgeberverbandes.\nBei welcher der folgenden Vereinbarungen des Arbeitsvertrages ist die GreenByte GmbH an kollektives Arbeitsrecht gebunden?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Wochenarbeitszeit beträgt regelmäßig 38 Stunden.",
@@ -858,6 +929,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die GreenByte GmbH bietet dem Mitarbeitenden die Möglichkeit; ein Jobticket für den ÖPNV zu erwerben."),
                                 correctAnswers = listOf("Die Wochenarbeitszeit beträgt regelmäßig 38 Stunden."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -873,6 +945,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 36,
+                                riddleIndex = 6,
                                 question = "In der Unternehmenszentrale der GreenByte GmbH in Hamburg arbeiten insgesamt 110 Mitarbeitende. Durch Unterbrechungen in der Lieferkette auf Auftragsstornierungen von Kunden können für voraussichtlich zwei Monate die Mitarbeitenden nur zum geringen Teil beschäftigt werden. Das Unternehmen möchte aber den Mitarbeitenden möglichst nicht kündigen; weil sich zum Jahresende die Auftragslage voraussichtlich wieder normalisiert.\n\nWelche der folgenden Aussagen trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die GreenByte GmbH muss allen Mitarbeitenden außerordentlich kündigen.",
@@ -882,6 +955,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die GreenByte GmbH kann bei der Bundesagentur für Arbeit für die Mitarbeitenden Kurzarbeitergeld beantragen."),
                                 correctAnswers = listOf("Die GreenByte GmbH kann bei der Bundesagentur für Arbeit für die Mitarbeitenden Kurzarbeitergeld beantragen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -897,6 +971,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 37,
+                                riddleIndex = 7,
                                 question = "In der GreenByte GmbH wurde ein Betriebsrat gewählt.\n\nWelche der folgenden Aussagen über den Betriebsrat ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Ein Betriebsrat kann in der GreenByte GmbH nicht gewählt werden; weil Sie weniger als 200 Mitarbeitende hat.",
@@ -906,6 +981,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Ein Betriebsrat kann nur in tarifvertraglich gebundenen Kapitalgesellschaften gewählt werden."),
                                 correctAnswers = listOf("Ein Betriebsrat kann von allen Arbeitnehmern eines Betriebs gewählt werden; die das 18. Lebensjahr vollendet haben."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -921,6 +997,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 38,
+                                riddleIndex = 8,
                                 question = "Die Geschäftsleitung der GreenByte GmbH arbeitet eng mit dem Betriebsrat zusammen.\nIn welchen der folgenden Angelegenheiten hat der Betriebsrat laut Betriebsverfassungsgesetz ein Mitbestimmungsrecht?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Errichtung eines neuen Hochregallagers",
@@ -932,6 +1009,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Einführung eines neuen elektronischen Zeiterfassungssystems",
                                     "Festlegung von Richtlinien zur gleitenden Arbeitszeit"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -947,6 +1025,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 39,
+                                riddleIndex = 9,
                                 question = "Für Arbeitgeber und Arbeitnehmer ist die Tarifautonomie gesetzlich festgeschrieben.\nWelche der folgenden Aussagen treffen auf die Tarifautonomie zu?\n\nWählen Sie die korrekten Antwort aus.\n\n Die Tarifautonomie...",
                                 answers = listOf(
                                     "gibt den Vertragsparteien das Recht; die Arbeits- und Wirtschaftsbedingungen unabhängig von staatlicher Einflussnahme zu regeln.",
@@ -959,6 +1038,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "gibt den Vertragsparteien das Recht; die Arbeits- und Wirtschaftsbedingungen unabhängig von staatlicher Einflussnahme zu regeln.",
                                     "gibt den Vertragsparteien das Recht zu Vereinbarungen; die von den Vertragspartner nicht einseitig zu Ungunsten der Arbeitnehmer abgeändert werden dürfen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -974,6 +1054,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 40,
+                                riddleIndex = 10,
                                 question = "Die berufliche Weiterbildung wird in der GreenByte GmbH gefördert; um die Wettbewerbsfähigkeit des Unternehmens auch in Zukunft zu gewährleisten.\nWelche der folgenden Aussagen zur beruflichen Weiterbildung ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nDie berufliche Weiterbildung...",
                                 answers = listOf(
                                     "ist in der IT-Branche zur Vertiefung und Erweiterung von Kenntnissen und Fertigkeiten notwendig.",
@@ -983,6 +1064,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "ist nur in einem anerkannten Ausbildungsberuf zulässig."),
                                 correctAnswers = listOf("ist in der IT-Branche zur Vertiefung und Erweiterung von Kenntnissen und Fertigkeiten notwendig."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -998,6 +1080,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 41,
+                                riddleIndex = 11,
                                 question = "Eine Mitarbeiterin der GreenByte GmbH ist arbeitsunfähig; weil Sie am Vortag auf dem direkten Weg zur Arbeit bei einem Sturz vom Fahrrad schwer verletzt wurde.\nWelche der folgenden Aussagen ist in diesem Zusammenhang zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nDie GreenByte GmbH...",
                                 answers = listOf(
                                     "muss den Unfall der Krankenversicherung der Mitarbeiterin melden.",
@@ -1007,6 +1090,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "muss den Unfall der Berufsgenossenschaft melden."),
                                 correctAnswers = listOf("muss den Unfall der Berufsgenossenschaft melden."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1022,6 +1106,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 42,
+                                riddleIndex = 12,
                                 question = "Nach der letzten Gehaltserhöhung übersteigt das Bruttogehalt von Melanie Fuchs die Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung.\nWelche der folgenden Konsequenzen ergibt sich aus der Gehaltserhöhung für Frau Fuchs?\n\nWählen Sie die korrekte Antwort aus.\n\nFrau Fuchs...",
                                 answers = listOf(
                                     "muss sich nun privat versichern.",
@@ -1031,6 +1116,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "kann die Beiträge an die Rentenversicherung gegen Selbstbehalt reduzieren."),
                                 correctAnswers = listOf("muss nun für einen Teil ihres Gehalts keinen Rentenversicherungsbeitrag mehr leisten."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1046,6 +1132,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 43,
+                                riddleIndex = 13,
                                 question = "Die Solidarität ist ein gesellschaftspolitisches Prinzip; das in der Bundesrepublik Deutschland angewendet wird.\nWelcher der folgenden Sachverhalte entspricht dem Prinzip der Solidarität?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Der Staat hebt die Beitragsbemessungsgrenze für die gesetzliche Krankenkasse an.",
@@ -1055,6 +1142,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Beitrag zur Krankenversicherung steigt mit individuellem Krankheitsrisiko der Versicherten."),
                                 correctAnswers = listOf("Der Staat hebt die Beitragsbemessungsgrenze für die gesetzliche Krankenkasse an."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1070,6 +1158,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 44,
+                                riddleIndex = 14,
                                 question = "Die Mitarbeiter der GreenByte GmbH diskutieren über die unterschiedlichen Möglichkeiten einer privaten Altersvorsorge.\nWelcher der folgenden Sachverhalte gefährdet eine private Altersvorsorge?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Steigende Zinsen für Spareinlagen",
@@ -1081,6 +1170,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Einführung von Kurzarbeitergeld für ein Jahr als Folge der Pandemie",
                                     "Anhebung der Beitragsbemessungsgrenze in der gesetzlichen Rentenversicherung"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = true,
                                 requiresNumberInput = false,
@@ -1096,6 +1186,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 45,
+                                riddleIndex = 15,
                                 question = "Die GreenByte GmbH ist ein erwerbswirtschaftliches Unternehmen.\nWelche der folgenden Aussagen treffen auf ein erwerbswirtschaftliches Unternehmen zu?\n\nWählen Sie die korrekten Antwort aus.\n\nDie GreenByte GmbH...",
                                 answers = listOf(
                                     "kann nur Konsumgüter herstellen.",
@@ -1108,6 +1199,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "arbeitet gewinnorientiert.",
                                     "richtet ihr Portfolio am Marktumfeld aus."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1123,10 +1215,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 46,
+                                riddleIndex = 16,
                                 question = "Die Gesellschafter der GreenByte GmbH haben insgesamt Stammeinlagen in Höhe von 1.375.000€ in die GmbH eingebracht. Im Jahr 2019 erzielte die GreenByte GmbH einen Gewinn von 116.875€. Im Geschäftsjahr 2020 ist der Gewinn auf 129.250€ bei unveränderten Stammeinlagen gestiegen.\n\na) Ermitteln Sie die Eigenkapitalrentabilität im Jahr 2020 in Prozent\nb) Ermitteln Sie; um wieviel Prozentpunkte die Eigenkapitalrentabilität 2020 im Vergleich zu 2019 gestiegen ist.\n\nBerechnen Sie die korrekten Werte und tragen Sie unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("9.4", "0.9"),
                                 unit = listOf("%", "%"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -1142,10 +1236,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 47,
+                                riddleIndex = 17,
                                 question = "Die Geschäftsführung der GreenByte GmbH möchte überprüfen; wie sich der gesunkene Umsatz 2020 im Vergleich zu 2019 auf den Umsatz je Mitarbeiter ausgewirkt hat.\n\nFolgende Zahlen liegen der Geschäftsführung vor:\nUmsatz pro Mitarbeiter im Jahr 2019: 112.000€\nDer Umsatz im Geschäftsjahr 2020 mit 32 Mitarbeitenden betrug 3.763.200€\n\nBerechnen Sie die korrekten Werte und tragen Sie unten ein.\n\na)den Umsatz pro Mitarbeitenden für das Jahr 2020.\nb)die prozentuale Veränderung des Umsatzes pro Mitarbeitenden von 2019 auf 2020.",
                                 answers = listOf(),
                                 correctAnswers = listOf("117600", "5.0"),
                                 unit = listOf("EUR", "%"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -1161,6 +1257,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 48,
+                                riddleIndex = 18,
                                 question = "In der GreenByte GmbH wird die Zusammenarbeit von Unternehmen in ihrem wirtschaftlichen Umfeld beobachtet.\nBei welchem der folgenden Sachverhalte handelt es sich um eine Fusion?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Lüders KG und die Felder KG führen gemeinsam einen Großauftrag aus.",
@@ -1170,6 +1267,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die HASE KG nimmt einen neuen Gesellschafter auf."),
                                 correctAnswers = listOf("Zwei Kunden der GreenByte GmbH; die Schmidt GmbH und die Weber KG; schließen sich zur Schmidt GmbH & Co.KG zusammen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1185,6 +1283,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 49,
+                                riddleIndex = 19,
                                 question = "Die GreenByte GmbH will ein IT-Servicecenter in der Rechtsform einer GmbH gründen.\n\nMit welchem der folgenden Ereignisse wird eine GmbH rechtsfähig?\n\nWählen Sie die korrekte Antwort aus.\n\nMit..",
                                 answers = listOf(
                                     "der Einzahlung eines Stammkapitals",
@@ -1194,6 +1293,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "der Einberufung der ersten Gesellschafterversammlung"),
                                 correctAnswers = listOf("der Eintragung in das Handelsregister"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1209,6 +1309,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 50,
+                                riddleIndex = 20,
                                 question = "Die GreenByte GmbH will ein IT-Servicecenter in der Rechtsform einer GmbH gründen.\n\nWelche der folgenden Aussagen zur GmbH ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Das Stammkapital muss mindestens 50.000€ betragen.",
@@ -1218,6 +1319,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die neu gegründete GmbH ist eine juristische Person des öffentlichen Rechts."),
                                 correctAnswers = listOf("Ein Gesellschafter kann gleichzeitig Geschäftsführer sein."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1233,6 +1335,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 51,
+                                riddleIndex = 21,
                                 question = "Das Verhalten von Konsumenten hängt von verschiedenen Faktoren ab.\nWelche der folgenden Aussagen ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Der Bedarf der Konsumenten ist unabhängig von der Menge ihrer Bedürfnisse.",
@@ -1242,6 +1345,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Bedürfnisse der Konsumenten entsprechen deren Nachfrage."),
                                 correctAnswers = listOf("Die Nachfrage der Konsumenten ist abhängig von der Kaufkraft."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1257,6 +1361,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 52,
+                                riddleIndex =22,
                                 question = "Die GreenByte GmbH bietet ihren Kunden seit zwei Jahren erfolgreich ein Dokumentenmanagementsystem an. Da Dokumentenmanagementsysteme im markt ein hohes Wachstumspotenzial haben; wurde das Angebot im Markt durch mehrere neuen Mitbewerber stark erhöht. Die Nachfrage ist im geringeren Maß als die Erhöhung des Angebots gestiegen.\n\nWelche der folgenden Aussagen trifft auf diese Marktsituation zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Es ist ein Verkäufermarkt; weil das gestiegene Angebot Preissteigerungen ermöglicht hat.",
@@ -1266,6 +1371,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Bei dem Angebotsüberhang können die Unternehmen bei Lohnsteigerungen leichter die Preise erhöhen."),
                                 correctAnswers = listOf("Es ist ein Käufermarkt; weil das gestiegene Angebot Preissenkungen erwarten lässt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1281,6 +1387,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 53,
+                                riddleIndex = 23,
                                 question = "In einem vollkommenden Markt beeinflusst der erzielbare Preis eines Produkts die angebotene Menge des Produkts.\nWelche der folgenden Aussagen über den Zusammenhang von angebotener Menge und Preis eines Produktes trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Je höher die angebotene Menge des Produkts; umso niedriger ist der Preis.",
@@ -1290,6 +1397,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Preis eines Produkts hat keinen Einfluss auf die angebotene Menge."),
                                 correctAnswers = listOf("Je höher der Preis des Produkts ist; umso höher ist die angebotene Menge"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1305,6 +1413,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 54,
+                                riddleIndex = 24,
                                 question = "Die GreenByte GmbH hat mit der Volt GmbH einen Vertrag geschlossen; der von seiten der Volt GmbH wie folgt unterschrieben wurde.\n\nWelche der folgenden Positionen haben Sylvia Heimer und Dr. Karl Pfeffer in der Volt GmbH laut ihrer Unterschriften?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Kommanditist/-in",
@@ -1317,6 +1426,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Prokurist/-in",
                                     "Handlungsbevollmächtigte/-r"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1332,6 +1442,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 55,
+                                riddleIndex = 25,
                                 question = "Der Verbraucherschutz ist ein zentrales Element der sozialen Marktwirtschaft.\nWelche der folgenden Aussagen trifft auf den Verbraucherschutz zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Träger des Verbraucherschutzes sind die Unternehmen; welche die Verbraucher umfassend und objektiv über ihre Produkte und Dienstleistungen informieren müssen.",
@@ -1341,6 +1452,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Verbraucherschutz ist ein Zweig der Sozialversicherung zur Absicherung von Risiken aus privatrechtlichen Verträgen wie Kaufverträgen und Mietverträgen."),
                                 correctAnswers = listOf("Viele dem Verbraucherschutz dienenden Rechtsformen sind um Bürgerlichen Gesetzbuch (BGB) verankert; z.B. die Vorschriften über Fernabsatzverträge."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1356,6 +1468,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 56,
+                                riddleIndex = 26,
                                 question = "Arbeitnehmer können Maßnahmen zur persönlichen Existenzgründung treffen.\nWelche der folgenden Maßnahmen ist zur persönlichen Existenzsicherung geeignet?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Abschluss einer Garantieverlängerung für das neue Smartphone",
@@ -1365,6 +1478,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Abschluss einer privaten Zusatzkrankenversicherung"),
                                 correctAnswers = listOf("Abschluss einer Versicherung für den Fall der Berufsunfähigkeit"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1380,6 +1494,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 57,
+                                riddleIndex = 27,
                                 question = "Herr Scholz will ein Unternehmen gründen; das in einem Onlineshop IT-Zubehör vertreibt. das Unternehmen erfordert nach Art und Umfang einen kaufmännischen Geschäftsbetrieb.\nWelche der folgenden Aussagen zur Unternehmensgründung ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Zur Absicherung von Krediten muss die Unternehmensform Gesellschaft mit beschränkter Haftung (GmbH) gewählt werden.",
@@ -1389,6 +1504,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Als selbstständiger Kaufmann benötigt Herr Scholz keine Krankenversicherung."),
                                 correctAnswers = listOf("Herr Scholz muss als Ist-Kaufmann sein kaufmännisch geführtes Unternehmen im Handelsregister eintragen lassen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1404,6 +1520,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 58,
+                                riddleIndex = 28,
                                 question = "Die Arbeitsleistung der GreenByte GmbH wird von verschiedenen Wirtschaftseinheiten erbracht.\nIn welchem der folgenden Fälle handelt es sich um eine betriebliche Arbeitsteilung (Arbeitszerlegung)?\n\nWählen Sie die korrekte Antwort aus.\n\nDie GreenByte GmbH...",
                                 answers = listOf(
                                     "gliedert einen Schritt eines Leistungsprozesses an die OS GmbH aus.",
@@ -1413,6 +1530,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "produziert ein Produkt in mehreren Arbeitsschritten; die von verschiedenen Arbeitskräften ausgeführt werden."),
                                 correctAnswers = listOf("produziert ein Produkt in mehreren Arbeitsschritten; die von verschiedenen Arbeitskräften ausgeführt werden."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1428,6 +1546,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 59,
+                                riddleIndex = 29,
                                 question = "Die GreenByte GmbH hat sich mit den Auswirkungen der Globalisierung auseinanderzusetzen.\nWelche der folgenden Auswirkungen trifft auch auf die GreenByte GmbH zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Das unternehmerische Risiko sinkt; weil neue Märkte erschlossen werden.",
@@ -1437,6 +1556,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Das unternehmerische Risiko steigt; weil durch die notwendigen Warentransporte Lieferketten unterbrochen werden können."),
                                 correctAnswers = listOf("Das unternehmerische Risiko steigt; weil durch die notwendigen Warentransporte Lieferketten unterbrochen werden können."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1452,6 +1572,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 2,
                                 riddleNumber = 60,
+                                riddleIndex = 30,
                                 question = "Die Wirtschaftsordnung Deutschlands wird als soziale Marktwirtschaft bezeichnet.\nWelche der folgenden Aussagen trifft auf die soziale Marktwirtschaft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Produktionsmittel dürfen kein privates Eigentum sein",
@@ -1461,6 +1582,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die staatliche Wettbewerbspolitik soll den Wettbewerb einschränken und Monopole sowie Kartelle zur Stabilisierung der Märkte fördern."),
                                 correctAnswers = listOf("Die Sozialgesetzgebung soll den einzelnen vor der negativen Auswirkung des Marktes schützen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1476,6 +1598,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 61,
+                                riddleIndex = 1,
                                 question = "Die Sachs-IT GmbH hat mit dem 25 jährigen Harry Petry einen Einzelarbeitsvertrag geschlossen.\nWelche der folgenden Aussagen ist in diesem Zusammenhang zutreffend.\n\nWählen Sie die korrekte Antwort aus.\n\nEin Einzelarbeitsvertrag...",
                                 answers = listOf(
                                     "kann nur geschlossen werden wenn für die Sachs-IT GmbH kein gültiger Tarifvertrag vorliegt.",
@@ -1485,6 +1608,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "darf für höchstens zwei Jahre geschlossen werden."),
                                 correctAnswers = listOf("ist auch gültig wenn das vereinbarte Arbeitsentgelt über dem tarifvertraglich geregelten liegt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1500,6 +1624,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 62,
+                                riddleIndex = 2,
                                 question = "In Herrn Petrys Arbeitsvertrag ist auch eine Angabe zur Probezeit vorgesehen.\nWelche der folgenden Aussagen dazu sind zutreffend?\n\nWählen Sie die korrekten Antwort aus.\n\nDie Probezeit...",
                                 answers = listOf(
                                     "könnte ggf. ganz entfallen.",
@@ -1510,6 +1635,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "kann neuerdings bis zu zwei Jahre betragen."),
                                 correctAnswers = listOf("könnte ggf. ganz entfallen.", "kann bis zu sechs Monate betragen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1525,10 +1651,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 63,
+                                riddleIndex = 3,
                                 question = "Henry Witting; 17 Jahre; hat am 1. Januar 2021 seine Berufsausbildung als Fachinformatiker Systemintegration bei der Sachs-IT GmbH begonnen.\nDa einige Mitarbeitende der IT-Abteilung erkrankt sind; muss der Dienstplan für Herrn Witting geändert werden. Bei der Änderung wird die Pausenregelung entsprechend angepasst.\nAuszug Jugendarbeitsschutzgesetz (JArbSchG)\n$14 Nachtruhe\n(1) Jugendliche dürfen nur in der Zeit von 6-20 Uhr beschäftigt werden.\n(2)Jugendliche über 16 Jahre dürfen\n1. im Gaststätten- und Schaustellergewerbe bis 22 Uhr,\n2. in mehrschichtigen Betrieben bis 23 Uhr.\n3. in der Landwirtschaft ab 5 Uhr oder bis 21 Uhr,\n4. in Bäckereien und Konditoreien ab 5 Uhr beschäftigt werden.\nDienstplan (alt) für Henry Witting\nMontag 09:00-13:00 Uhr; 13:00-14:00; 14:00-18:00 Uhr\nDienstag 09:00-13:00 Uhr; 13:00-14:00; 14:00-18:00 Uhr\nMittwoch 09:00-13:00 Uhr; 13:00-14:00; 14:00-18:00 Uhr\nDonnerstag  09:00-13:00 Uhr; 13:00-14:00; 14:00-18:00 Uhr\nFreitag  09:00-13:00 Uhr; 13:00-14:00; 14:00-18:00 Uhr\nSamstag und Sonntag frei\n\nZu welcher Uhrzeit könnte Herr Witting unter Beachtung des JArbSchG frühestens seinen Dienst beginnen?\nTragen Sie die zutreffende Uhrzeit ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("06.00"),
                                 unit = listOf("Uhr"),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1544,6 +1672,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 64,
+                                riddleIndex = 4,
                                 question = "Welche der folgenden Vorschriften gilt für den 17 jährigen Herrn Witting laut Jugendarbeitsschutzgesetz?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Jugendliche dürfen nur an fünf Tagen in der Woche beschäftigt werden.",
@@ -1553,6 +1682,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Jugendliche dürfen nicht mehr als 48 Stunden wöchentlich beschäftigt werden."),
                                 correctAnswers = listOf("Jugendliche dürfen nur an fünf Tagen in der Woche beschäftigt werden."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1568,10 +1698,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 65,
+                                riddleIndex = 5,
                                 question = "Herr Witting möchte wissen; wie viel Urlaub ihm für das Kalenderjahr 2022 zusteht und bittet Sie um Hilfe. Er zeigt Ihnen die beiden unten abgebildeten Unterlagen. Der Auszubildene vollendet am 04.April 2022 das 18. Lebensjahr.\nAuf wie viele Tage Urlaub hat Herr Witting demnach im Kalenderjahr 2022 Anspruch?\n\nTragen Sie die Anzahl der Urlaubstage unten ein.\n\n",
                                 answers = listOf(),
                                 correctAnswers = listOf("30.0"),
                                 unit = listOf("Tage"),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -1587,6 +1719,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 66,
+                                riddleIndex = 6,
                                 question = "Die Ausbildungsleiterin der Sachs-IT GmbH sucht mittelfristig Mitarbeitende; die als Ausbilder tätig werden wollen.\nWelche der folgenden Voraussetzungen muss ein Ausbilder nach den gesetzlichen Regelungen u.a. erfüllen?\n\nWählen Sie die korrekte Antwort aus.\n\nEr/Sie muss...",
                                 answers = listOf(
                                     "Mitglied im zuständigen Prüfungsausschuss sein",
@@ -1596,6 +1729,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Mitglied einer Gewerkschaft sein."),
                                 correctAnswers = listOf("über eine notwendige persönliche und fachliche Eignung verfügen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1611,6 +1745,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 67,
+                                riddleIndex = 7,
                                 question = "Einem Mitarbeiter der Sachs-IT GmbH wurde ohne Anhörung des Betriebsrates gekündigt.\nWelche der folgenden Aussagen entspricht dem Betriebsverfassungsgesetz?\n\nWählen Sie die korrekte Antwort aus.\n\nDie Kündigung...",
                                 answers = listOf(
                                     "ist wirksam; weil eine Zustimmung des Betriebsrates nicht vorgeschrieben ist.",
@@ -1620,6 +1755,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "ist unwirksam; wenn das Arbeitsgericht nicht beteiligt wurde."),
                                 correctAnswers = listOf("ist unwirksam; weil eine Anhörung des Betriebsrates zwingend vorgeschrieben ist."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1635,6 +1771,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 68,
+                                riddleIndex = 8,
                                 question = "Am 12.03.2022 kündigt die 17-jährige Pamela Bommering ihr Ausbildungsverhältnis mit nachstehenden Schreiben. Das Schreiben geht der Sachs-IT GmbH noch am selben Tag zu.\n\nAuszug aus dem Schreiben...\nSehr geehrte Damen und Herren,\nnach langer Überlegung kündige ich das Arbeitsverhältnis zum 15.04.2022; weil ich eine Ausbildung in einem anderen Beruf beginnen möchte.\nBitte stellen Sie mir ein qualifiziertes Zeugnis aus.\nMfG Pamela Bommering\n\n Hat Frau Bommering wirksam gekündigt?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Ja; weil das Kündigungsschreiben rechtzeitig übergeben wurde.",
@@ -1644,6 +1781,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Nein; weil die Kündigungsfrist von vier Wochen nicht eingehalten wurde."),
                                 correctAnswers = listOf("Nein; weil die Unterschrift eines/der Erziehungsberechtigten als gesetzliche Vertreter fehlt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1659,6 +1797,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 69,
+                                riddleIndex = 9,
                                 question = "Frau Bommering wünscht nach der Beendigung des Ausbildungsvertrages mir der Sachs-IT GmbH ein qualifiziertes Zeugnis\nWelche der folgenden Formulierungen in einem Ausbildungszeugnis macht das Zeugnis zu einem qualifizierten Zeugnis?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Pamela Bommering; geboren am 03.12.2004;...",
@@ -1668,6 +1807,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Wir wünschen Frau Bommering für die Zukunft alles Gute."),
                                 correctAnswers = listOf("Frau Bommering erledigte die ihr übertragenen Aufgaben stets zu unserer vollsten Zufriedenheit."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1683,6 +1823,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 70,
+                                riddleIndex = 10,
                                 question = "In der Sachs-IT GmbH wurde ein Betriebsrat gewählt.\nWelche der folgenden Aussagen über den Betriebsrat ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nEin Betriebsrat...",
                                 answers = listOf(
                                     "muss in jeder Gesellschaft mit beschränkter Haftung gewählt werden.",
@@ -1692,6 +1833,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "besitzt bei der Aufstellung des Urlaubsplans ein Mitbestimmungsrecht."),
                                 correctAnswers = listOf("besitzt bei der Aufstellung des Urlaubsplans ein Mitbestimmungsrecht."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1707,6 +1849,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 71,
+                                riddleIndex = 11,
                                 question = "Peter Meyer; Ausbilder bei der Sachs-IT GmbH; informiert seine neuen Auszubildenen über die Anforderungen und Möglichkeiten; sich in die Jugend- und Auszubildenen Vertretung (JAV) wählen zu lassen.\nWelche der folgenden Aussagen zur JAV ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Es ist ausreichend; wenn Sie eine Liste von drei Vorgesetzten vorlegen; die Ihre Wahl unterstützen; um für die Wahl aufgestellt zu werden.",
@@ -1716,6 +1859,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Mit der Zweitstimme können Sie als Ersatzmitglied in die JAV gewählt werden."),
                                 correctAnswers = listOf("Als Auszubildende/-r unter 25 Jahren sind Sie wahlberechtigt und auch wählbar."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1731,6 +1875,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 72,
+                                riddleIndex = 12,
                                 question = "In der Sachs-IT GmbH sind zwei Drittel der Mitarbeiter Mitglied einer Gewerkschaft und an die absolute Friedenspflicht gebunden.\nWelcher der folgenden Sachverhalte trifft auf die im Tarifrecht genannte absolute Friedenspflicht zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Erzeugung eines guten Betriebsklimas",
@@ -1740,6 +1885,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Konstruktive Zusammenarbeit zwischen Arbeitgeber und Arbeitnehmer"),
                                 correctAnswers = listOf("Verbot eines Arbeitskampfes während eines geltenden Tarifvertrages"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1755,6 +1901,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 73,
+                                riddleIndex = 13,
                                 question = "Die Sachs-IT GmbH ist tarifgebunden und schließt Arbeitsverträge auf der Grundlage des aktuellen Tarifvertrags.\nWelche der folgenden Aussagen treffen auf einen Tarifvertrag zu?\n\nWählen Sie die korrekten Antwort aus.\n\nEin Tarifvertrag...",
                                 answers = listOf(
                                     "kommt durch freie Vereinbarung der Tarifpartner zustande.",
@@ -1764,6 +1911,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "gibt Höchstgrenzen für Löhne und Gehälter an."),
                                 correctAnswers = listOf("kommt durch freie Vereinbarung der Tarifpartner zustande.", "schließt günstigere Betriebsvereinbarungen nicht aus."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1779,6 +1927,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 74,
+                                riddleIndex = 14,
                                 question = "Neben einem neuen Gehaltstarifvertrag wird von den Tarifpartnern auch ein neuer Mantel- oder Rahmentarifvertrag geschlossen.\nWelcher der folgenden Sachverhalte wird darin u.a. geregelt?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Vergütung für Auszubildene",
@@ -1788,6 +1937,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Betrag des Ecklohns"),
                                 correctAnswers = listOf("Die Anzahl der Sonderurlaubstage"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1803,6 +1953,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 75,
+                                riddleIndex = 15,
                                 question = "Herr Petry bittet in der Personalabteilung der Sachs-IT GmbH um Informationen zur Sozialversicherung.\nWelche der folgenden Versicherungen sind nicht im Beitragssatz des Arbeitsnehmers zur Sozialversicherung enthalten?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Krankenversicherung",
@@ -1813,6 +1964,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Unfallversicherung"),
                                 correctAnswers = listOf("Lebensversicherung", "Unfallversicherung"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1828,6 +1980,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 76,
+                                riddleIndex = 16,
                                 question = "Eine Auszubildene der Sachs-IT GmbH will einen Teil ihrer Berufsausbildung im Ausland durchführen. In Zusammenhang mit diesem Auslandsaufenthalt weist die Sachs-IT GmbH die Auszubildende auf den Europass hin.\nWelche der folgenden Aussagen zum Europass ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Europass ist ein kostenpflichtiger Dienst",
@@ -1837,6 +1990,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Europass zertifiziert Fremdsprachenkenntnisse im Europass-Sprachkenntnisse"),
                                 correctAnswers = listOf("Der Europass unterstützt Auszubildene; erworbene Qualifikationen; Fähigkeiten und Kompetenzen bei Bewerbungen europaweit verständlich darzustellen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1852,10 +2006,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 77,
+                                riddleIndex = 17,
                                 question = "Volkswirtschaften werden in Wirtschaftssektoren eingeteilt.\n\nOrdnen Sie die nachstehenden Sachverhalten die folgenden Sektoren zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1881,6 +2037,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 78,
+                                riddleIndex = 18,
                                 question = "Bei der Gründung der Sachs-IT GmbH wurde von Günter Sachs die Rechtsform GmbH gewählt.\nWelche der folgenden Aussagen trifft aus eine GmbH zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "GmbH-Anteile werden an der Börse gehandelt",
@@ -1890,6 +2047,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Gewinnbeteiligung erfolgt der gesetzlichen Regelung entsprechend nach Geschäftsanteilen"),
                                 correctAnswers = listOf("Die Gewinnbeteiligung erfolgt der gesetzlichen Regelung entsprechend nach Geschäftsanteilen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1905,10 +2063,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 79,
+                                riddleIndex = 19,
                                 question = "Für die folgenden vier durchgeführten Aufträge der Sachs-IT GmbH liegen folgende Zahlen vor:\n\nAuftrag Nr.1 Aufwand 150.000€; Ertrag 180.000€\nAuftrag Nr.2 Aufwand 40.000€; Ertrag 50.000€\nAuftrag Nr.3 Aufwand 40.000€; Ertrag 52.000€\nAuftrag Nr.4 Aufwand 50.000€; Ertrag 62.000€\n\nTragen Sie unten die Auftragsnummer ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("3.0"),
                                 unit = listOf("Auftrag"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -1924,6 +2084,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 80,
+                                riddleIndex = 20,
                                 question = "Die Sachs-IT GmbH hat die Bätje GmbH gekauft und betreibt diese unter Beibehaltung der Firma Bätje GmbH weiter.\nUm welche der folgenden Formen eines Unternehmenszusammenschlusses handelt es sich?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Fusion",
@@ -1933,6 +2094,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Konzern"),
                                 correctAnswers = listOf("Konzern"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1948,6 +2110,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 81,
+                                riddleIndex = 21,
                                 question = "Das folgende Schema zeigt das Leitungssystem der Sachs-IT GmbH:\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Einliniensystem",
@@ -1957,6 +2120,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Abteilungssystem"),
                                 correctAnswers = listOf("Matrixsystem"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1972,6 +2136,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 82,
+                                riddleIndex = 22,
                                 question = "Die Sachs-IT GmbH kauft Waren; die in weltweiter Arbeitsteilung hergestellt werden.\nWelche der folgenden Auswirkungen hat die weltweite Arbeitsteilung?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Produktion erfolgt jeweils in den Ländern mit den ökologisch besten Standards.",
@@ -1981,6 +2146,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Auf dem weltweiten Arbeitsmarkt herrscht eine allgemeine Arbeitnehmerfreizügigkeit."),
                                 correctAnswers = listOf("Durch Nutzung der jeweils wirtschaftlich günstigsten Rohstoff- und Produktionsbedingungen nimmt die Menge der transportierten Waren weltweit zu."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -1996,10 +2162,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 83,
+                                riddleIndex = 23,
                                 question = "Herr Petry wird von der Sicherheitsfachkraft der Sachs-IT GmbH über Schutzmaßnahmen am Arbeitsplatz informiert. Dabei legt die Sicherheitsfachkraft Wert darauf; dass die Sicherheitskennzeichen bekannt sind.\n\n Welche der folgenden Sicherheitskennzeichen sind den daneben stehenden Bedeutungen zuzuordnen?\n\nOrdnen Sie die korrekten Antwort zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2027,6 +2195,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 84,
+                                riddleIndex = 24,
                                 question = "Die Mitarbeitenden der Sachs-IT GmbH müssen die Vorschriften zu Unfallverhütung und zum Arbeits- und zum Gesundheitsschutz am Arbeitsplatz kennen und einhalten.\n\nWelche der folgenden Aussagen trifft auf die Informationspflicht über Unfallverhütungsvorschriften zu?\n\nWählen Sie die korrekte Antwort aus.\n\nDie Sachs-IT GmbH muss...",
                                 answers = listOf(
                                     "ihre Mitarbeiter schriftlich informieren; dass an den Arbeitsplätzen Unfallverhütungsvorschriften einzuhalten sind; die sie bei der zuständigen Berufsgenossenschaft einsehen können",
@@ -2036,6 +2205,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "jeden neuen Mitarbeiter zu einer Informationsveranstaltung über Arbeitssicherheit und Gesundheitsschutz bei der zuständigen Berufsgenossenschaft anmelden"),
                                 correctAnswers = listOf("die Unfallverhütungsvorschriften im Betrieb gut sichtbar aushängen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2051,10 +2221,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 85,
+                                riddleIndex = 25,
                                 question = "Herrn Petry liegen die folgenden Piktogramme; die das Löschen mithilfe von Feuerlöschgeräten zum Thema haben; vor. Eine Kollegin meint; dass eins der Piktogramme ein unzutreffendes Verhalten darstellt.\n\nWelches der folgenden Piktogramme stellt unzutreffendes Verhalten im Löschfall dar?\n\nZiehen Sie das unzutreffende Verhalten in das Feld für Falsches Verhalten.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2076,6 +2248,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 86,
+                                riddleIndex = 26,
                                 question = "Zur Brandbekämpfung verwendet die Sachs-IT GmbH u.a. Feuerlöscher. Herr Petry weist die Auszubildenen in die Handhabung der Feuerlöscher mit Dauerdruck ein.\n\nBringen Sie die folgenden Schritte zur Bedienung eines Feuerlöschers in die richtige Reihenfolge.",
                                 answers = listOf(
                                     "Sicherungsstift/Sicherungslasche ziehen",
@@ -2090,6 +2263,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Schlauch in Richtung Feuer halten",
                                     "Bestätigungshebel ziehen/Bestätigungstaste drücken"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2105,6 +2279,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 87,
+                                riddleIndex = 27,
                                 question = "Im Rahmen des Umweltschutzes soll künftig stärker das Verursacherprinzip berücksichtigt werden.\n\nWelche der folgenden Aussagen zum Verursacherprinzip trifft zu?\n\nWählen Sie die korrekte Antwort aus.\n\nDas Verursacherprinzip bedeutet; dass...",
                                 answers = listOf(
                                     "die Kosten für die Beseitigung von Umweltschäden auf alle Mitglieder der Solidargemeinschaft gleichmäßig aufgeteilt werden",
@@ -2114,6 +2289,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "ausreichend Verpackungsmaterial eingesetzt wird; damit die Ware nicht beschädigt wird"),
                                 correctAnswers = listOf("die Kosten für die Beseitigung von Umweltschäden diejenigen tragen; die für die Schäden verantwortlich sind"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2129,6 +2305,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 88,
+                                riddleIndex = 28,
                                 question = "Zweck des Kreislaufwirtschaftsgesetzes ist es unter anderem; das Recycling von Abfällen zu fördern.\nWelche der folgenden Handlungen im Betriebsablauf der Sachs-IT GmbH wird als Recycling bezeichnet?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Sachs-IT GmbH verwendet für Verpackungen bei Briefen und Paketen nur Materialien mit dem Umweltsiegel",
@@ -2138,6 +2315,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "In der Kantine werden nur Lebensmittel aus biologischer Erzeugung verwendet"),
                                 correctAnswers = listOf("Anfallende Verpackungen werden erst nach Materialien getrennt und dann dem Dualen System zugeführt"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2153,6 +2331,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 89,
+                                riddleIndex = 29,
                                 question = "Die Sachs-IT GmbH möchte ihr <<Diversity Management>> neu bewerten und überlegt; der 2006 in Leben gerufenen <<Charta der Vielfalt>> beizutreten.\nHierbei handelt es sich um eine Selbstverpflichtung von Unternehmen und anderen Organisationen; ein möglichst vorurteilfreies Arbeitsumfeld zu schaffen\n\nWelcher der folgenden Punkte wird in der Charta nicht berücksichtigt?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Alter",
@@ -2162,6 +2341,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Nationalität/ethnische Herkunft"),
                                 correctAnswers = listOf("Ausbildungsstand/Art des Abschlusses"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2177,6 +2357,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 3,
                                 riddleNumber = 90,
+                                riddleIndex = 30,
                                 question = "Ihr Kollege möchte sich näher mit dem Thema beschäftigen und fragt Sie; was das Ziel des Diversity Managements ist.\n\nWelche der folgenden Antworten geben Sie ihm?\n\nWählen Sie die korrekte Antwort aus.\n\nDiversity Management...",
                                 answers = listOf(
                                     "ist ein klassischer Teil des Personalwesens und soll die bestehenden Vorurteile bei Kunden ausnutzen",
@@ -2186,6 +2367,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "will die in der Vielfalt der Belegschaft liegenden Potenziale für das Unternehmen nutzbar machen"),
                                 correctAnswers = listOf("will die in der Vielfalt der Belegschaft liegenden Potenziale für das Unternehmen nutzbar machen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2201,10 +2383,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 91,
+                                riddleIndex = 1,
                                 question = "Die Data IT GmbH hat viele Kunden aus unterschiedlichen Wirtschaftssektoren\nOrdnen Sie die folgenden Unternehmen den nachstehenden Wirtschaftssektoren zu.\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2232,6 +2416,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 92,
+                                riddleIndex = 2,
                                 question = "Die Data IT GmbH will eine Stelle neu besetzen. Mit einer Bewerberin soll ein Einstellungsgespräch geführt werden.\nAuf Fragen nach welcher der folgenden Eigenschaften muss die Bewerberin in einem Einstellungsgespräch nicht wahrheitsgemäß antworten?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "schulischer Werdegang",
@@ -2241,6 +2426,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Religionszugehörigkeit"),
                                 correctAnswers = listOf("Religionszugehörigkeit"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2256,6 +2442,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 93,
+                                riddleIndex = 3,
                                 question = "Die Data IT GmbH schließt mit der Bewerberin Diana Maier einen befristeten Arbeitsvertrag auf der Grundlage des aktuellen Tarifvertrages. Die Data IT GmbH ist an einen Tarifvertrag gebunden.\nWelche der folgenden Vereinbarungen ist in einem Arbeitsvertrag zulässig?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Die Data IT GmbH kann bei befristeten Arbeitsverträgen eine längere Wochenarbeitszeit festlegen als im Tarifvertrag vereinbart",
@@ -2265,6 +2452,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die tarifvertraglichen Regelungen dürfen nur auf gewerkschaftlich organisierte Arbeitnehmer der Data IT GmbH angewendet werden"),
                                 correctAnswers = listOf("Diana Maier erhält als außertarifliche Leistung einen Zuschuss zum Jobticket für den ÖPNV"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2280,6 +2468,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 94,
+                                riddleIndex = 4,
                                 question = "Der Mitarbeiter der Data IT GmbH Paul Schmitz hat sich bei Arbeiten im heimischen Garten verletzt und ist laut Arbeitsunfähigkeitsbescheinigung seiner Hausärztin für zwei Wochen arbeitsunfähig.\nWelche der folgenden Aussagen über die Entgeltfortzahlung im Krankheitsfall trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Paul Schmitz muss ab dem ersten Tag der Arbeitsunfähigkeit Krankengeld bei seiner Krankenkasse beantragen",
@@ -2289,6 +2478,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Für die Dauer der Arbeitsunfähigkeit hat Paul Schmitz einen Anspruch auf Grundsicherung"),
                                 correctAnswers = listOf("Paul Schmitz hat während der Arbeitsunfähigkeit einen Anspruch auf Entgeltfortzahlung gegen die Data IT GmbH"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2304,10 +2494,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 95,
+                                riddleIndex = 5,
                                 question = "Im Zuge einer Umstrukturierung will die Data IT GmbH den Arbeitsvertrag mit einem Mitarbeiter zum 31. Dezember 2022 fristgerecht kündigen.\nDer Mitarbeiter ist 42 Jahre alt und seit dem 01. Juli 2015 bei der Data IT GmbH beschäftigt.\nErmitteln Sie das Datum; an dem die Kündigung zum 31. Dezember 2022 dem Mitarbeiter spätestens zugegangen sein muss; damit die Kündigung wirksam ist.\n\nAuszug aus dem Bürgerlichen Gesetzbuch(BGB)\n$622 Kündigungsfristen bei Arbeitsverhältnissen\n(1) Das Arbeitsverhältnis eines Arbeiters oder Angestellten(Arbeitsnehmers) kann mit einer Frist von vier Wochen zum fünfzehnten oder zm Ende eines Kalendermonats gekündigt werden.\n(2) Für eine Kündigung durch den Arbeitgeber beträgt die Kündigungsfrist; wenn das Arbeitsverhältnis in dem Betrieb oder Unternehmen...\n1. zwei Jahre bestanden hat; einen Monat zum Ende eines Kalendermonats;\n2. fünf Jahre bestanden hat; zwei Monate zum Ende eines Kalendermonats;\n3. acht Jahre bestanden hat; drei Monate zum Ende eines Kalendermonats;\n4. zehn Jahre bestanden hat; vier Monate zum Ende eines Kalendermonats;\n5. zwölf Jahre bestanden hat; fünf Monate zum Ende eines Kalendermonats;\n6. 15 Jahre bestanden hat; sechs Monate zum Ende eines Kalendermonats;\n7. 20 Jahre bestanden hat; sieben Monate zum Ende eines Kalendermonats\n\nTragen Sie unten das korrekte Datum ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("31.10.2022"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2323,6 +2515,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 96,
+                                riddleIndex = 6,
                                 question = "Der Betriebsrat der Data IT GmbH will mit dem Arbeitgeber eine Betriebsvereinbarung abschließen.\nWelche der folgenden Sachverhalte können durch eine Betriebsvereinbarung geregelt werden?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(
                                     "Die Dauer der Entgeltfortzahlung im Krankheitsfall",
@@ -2333,6 +2526,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Erhöhung der regelmäßigen täglichen Arbeitszeit auf 12 Stunden"),
                                 correctAnswers = listOf("Aufstellung des Urlaubsplans", "Einführung einer neuen Pausenregelung"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2348,6 +2542,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 97,
+                                riddleIndex = 7,
                                 question = "In der IT-Solutions GmbH; einem Kunden der Data IT GmbH; arbeiten der Arbeitgeber und der Betriebsrat einen Sozialplan aus.\nIn welchem der folgenden Fälle ist ein Sozialplan auszuarbeiten?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Massenentlassung",
@@ -2357,6 +2552,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Kurzarbeit"),
                                 correctAnswers = listOf("Massenentlassung"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2372,6 +2568,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 98,
+                                riddleIndex = 8,
                                 question = "Arbeitgeberverbände und Gewerkschaften werden in der Wirtschaftsordnung der sozialen Marktwirtschaft in der Bundesrepublik Deutschland als Sozialpartner bezeichnet.\nWelches der folgenden Rechte steht den beiden Sozialpartnern zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Festlegung der Versicherungspflichtgrenze in der gesetzlichen Krankenversicherung",
@@ -2381,6 +2578,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Abschluss von Tarifverträgen"),
                                 correctAnswers = listOf("Abschluss von Tarifverträgen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2396,6 +2594,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 99,
+                                riddleIndex = 9,
                                 question = "In der Data IT GmbH werden die Interessen der Mitarbeiter durch den gewählten Betriebsrat vertreten.\nIn welcher der folgenden Angelegenheiten hat der Betriebsrat laut Betriebsverfassungsgesetz ein Mitbestimmungsrecht?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Einführung eines elektronischen Zeiterfassungssystems",
@@ -2405,6 +2604,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Erhöhung des Stammkapitals der GmbH"),
                                 correctAnswers = listOf("Einführung eines elektronischen Zeiterfassungssystems"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2420,6 +2620,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 100,
+                                riddleIndex = 10,
                                 question = "Im Rahmen der Tarifverhandlung wird zwischen Lohn- und Gehaltstarifvertrag und dem normalerweise längerfristig geltenden Manteltarifvertrag unterschieden.\nWelcher der folgenden Inhalte wird typischerweise in einem Lohn- und Gehaltstarifvertrag geregelt?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Kündigungsfristen",
@@ -2434,6 +2635,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Zuschlagssätze für Mehrarbeit",
                                     "Gleitzeitregelung"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = true,
                                 requiresNumberInput = false,
@@ -2449,6 +2651,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 101,
+                                riddleIndex = 11,
                                 question = "Die Data IT GmbH überträgt dem neuen Filialleiter Lukas Winter Prokura.\nWelche der folgenden Aussagen auf die Prokura trifft zu?\n\nWählen Sie die korrekte Antwort aus.\n\nDer Prokurist...",
                                 answers = listOf("kann ohne besondere Vollmacht Grundstücke verkaufen",
                                     "unterschreibt die Steuererklärung der Data IT GmbH",
@@ -2457,6 +2660,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "unterschreibt die jährliche Bilanz"),
                                 correctAnswers = listOf("unterschreibt Geschäftsbriefe mit ppa. Lukas Winter"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2472,6 +2676,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 102,
+                                riddleIndex = 12,
                                 question = "Nach der Abschlussprüfung informieren Sie sich über Möglichkeiten der beruflichen Fortbildung.\nWelcher der folgenden Sachverhalte ist ein Beispiel für eine berufliche Fortbildung?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Lars Ruschmeyer besucht nach dem Realschulabschluss (MSA) die Berufsfachschule für Kaufmännische Assistenten",
                                     "Jonas Meffert; Auszubildener der Data IT GmbH; nimmt in einer überbetrieblichen Ausbildungsstätte  an einem Lehrgang zum Thema IT-Sicherheit teil",
@@ -2480,6 +2685,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Sie besuchen an der Volkshochschule einen Segelkurs"),
                                 correctAnswers = listOf("Die Mitarbeiterin Lena Hellmers nimmt nach der Ausbildung zur IT-Systemkauffrau an einem Lehrgang für Warenwirtschaftssysteme teil"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2495,10 +2701,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 103,
+                                riddleIndex = 13,
                                 question = "Die Auszubildene Paula Gerstner erfährt im Berufsschulunterricht; welche Risiken von der gesetzlichen Sozialversicherung gedeckt werden.\n\nOrdnen Sie die folgenden Fälle den Sozialversicherungszweigen zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2523,6 +2731,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 104,
+                                riddleIndex = 14,
                                 question = "Die Data IT GmbH ist gesetzlich verpflichtet; für die Mitarbeiter Einkommenssteuer abzuführen.\nWelche der folgenden Aussagen trifft auf die Einkommenssteuer zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Einkommenssteuer zahlen nur sozialversicherungspflichtige Arbeitnehmerinnen und Arbeitnehmer",
                                     "Die Einkommenssteuer wird zwischen Bund; Ländern und Gemeinden aufgeteilt",
@@ -2531,6 +2740,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Einkommenssteuersätze sind in jedem Bundesland unterschiedlich"),
                                 correctAnswers = listOf("Die Einkommenssteuer wird zwischen Bund; Ländern und Gemeinden aufgeteilt"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2546,6 +2756,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 105,
+                                riddleIndex = 15,
                                 question = "Eine Mitarbeiterin der Data IT GmbH erwartet in Kürze ihr erstes Kind. Sie möchte Elterngeld beantragen.\nWelche der folgenden Aussagen stimmt mit dem Bundeselterngeld- und Elternzeitgesetz (BEEG) überein?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Elternzeit kann nur dann in Anspruch genommen werden; wenn während der Elternzeit Regeln für mobiles Arbeiten mit dem Arbeitgeber vereinbart werden",
                                     "Elternzeit kann nur von Müttern in Anspruch genommen werden",
@@ -2554,6 +2765,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Elterngeld wird einheitlich und einkommensunabhängig gewährt"),
                                 correctAnswers = listOf("Elterngeld kann für maximal 14 Monate beantragt werden"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2569,6 +2781,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 106,
+                                riddleIndex = 16,
                                 question = "Kunden der Data IT GmbH sind sowohl öffentlich-rechtliche Unternehmen; die nach dem Kostendeckungsprinzip arbeiten; als auch erwerbswirtschaftliche Unternehmen; die gewinnorientiert arbeiten.\nWelches der folgenden Unternehmen arbeitet nach dem erwerbswirtschaftlichen Prinzip?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "SAP AG",
@@ -2578,6 +2791,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Kassenärztliche Vereinigung"),
                                 correctAnswers = listOf("SAP AG"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2593,6 +2807,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 107,
+                                riddleIndex = 17,
                                 question = "Die Data IT GmbH verfolgt unterschiedliche Zielsetzungen. Einige Ziele lassen sich gut miteinander verbinden (komplementäre Ziele). Andere Ziele schließen sich jedoch gegenseitig aus (konkurrierende Ziele)\nIn welcher der folgenden Aussagen handelt es sich um komplementäre Ziele?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Senkung der Transportkosten und Erhöhung der Exportquote",
@@ -2602,6 +2817,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Erhöhung der Sozialleistung und Senkung der Lohnnebenkosten"),
                                 correctAnswers = listOf("Senkung der Gemeinkosten und Verringerung der Bürofläche"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2617,10 +2833,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 108,
+                                riddleIndex = 18,
                                 question = "Für die Data IT GmbH liegen zum Geschäftsjahr 2021 folgende Daten vor:\nStammkapital: 2.500.000€\nGewinn: 225.000€\n\nEin Gesellschafter der Data IT GmbH besitzt eine Stammeinlage von 600.000€. Er erhält für das Geschäftsjahr 2021 einen Gewinnanteil von 75.000€.\n\nErmitteln Sie die Eigenkapitalrentabilität der Stammeinlage des Gesellschafters in Prozent.\nRunden Sie das Ergebnis gegebenen falls kaufmännisch auf eine Stelle nach dem Komma.\n\nTragen Sie das Ergebnis unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("12.5"),
                                 unit = listOf("%"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -2636,6 +2854,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 109,
+                                riddleIndex = 19,
                                 question = "Die Data IT GmbH will mit der Cashsystems GmbH fusionieren. Die Cashsystems GmbH verliert ihre wirtschaftliche und rechtliche Selbständigkeit.\nWelche der folgenden Aussagen trifft auf eine Fusion zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Durch eine Fusion lassen sich immer Preissteigerungen durchsetzen",
                                     "Die Data IT GmbH erhofft sich höhere Gewinne durch Erweiterung des Portfolios",
@@ -2644,6 +2863,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Fusion führt immer zu kostengünstigerer Produktion durch Eröffnung neuer Standorte"),
                                 correctAnswers = listOf("Die Data IT GmbH erhofft sich höhere Gewinne durch Erweiterung des Portfolios"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2659,6 +2879,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 110,
+                                riddleIndex = 20,
                                 question = "Die Data IT GmbH plant; eine Servicegesellschaft in der Rechtsform einer GmbH mit vorerst fünf Mitarbeitern zu gründen.\nWelche der folgenden Vorschriften sind dabei zu beachten?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf("Die Data IT GmbH kann nicht Gesellschafter einer neu gegründeten GmbH werden",
                                     "Die Gründung der Servicegesellschaft muss vom Kartellamt genehmigt werden",
@@ -2669,6 +2890,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 correctAnswers = listOf("Das Stammkapital muss mindestens 25.000€ betragen",
                                     "Ein Gesellschafter der Data IT GmbH kann auch Gesellschafter der neu gegründeten GmbH werden"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2684,6 +2906,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 111,
+                                riddleIndex = 21,
                                 question = "Die Geschäftsleitung der Data IT GmbH hat für das neue Geschäftsjahr die Marktentwicklung analysiert. Die Marktentwicklung hängt von verschiedenen Faktoren ab; die das Konsumverhalten beeinflussen.\nWelche der folgenden Aussagen trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Eine erhöhte Nachfrage führt immer zu Preissenkungen",
                                     "Eine erhöhte Kaufkraft der Konsumenten kann zu einer erhöhten Nachfrage führen",
@@ -2692,6 +2915,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Änderungen der Kaufkraft beeinflussen nicht die Marktsituation"),
                                 correctAnswers = listOf("Eine erhöhte Kaufkraft der Konsumenten kann zu einer erhöhten Nachfrage führen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2707,6 +2931,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 112,
+                                riddleIndex = 22,
                                 question = "Die folgende Grafik zeigt die Marksituation auf dem Markt für ein von der Data IT GmbH vertriebenes Karten-Lesegerät.\nWelche der folgenden Aussagen können aus der Grafik abgeleitet werden?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf("Bei einem Preis von 55 EUR beträgt der Nachfrageüberhang 20 Stück",
                                     "Bei einem Preis von 55 EUR beträgt der Angebotsüberhang 20 Stück",
@@ -2717,6 +2942,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 correctAnswers = listOf("Der Absatz zum Gleichgewichtspreis beträgt 35 Stück",
                                     "Der Umsatz zum Gleichgewichtspreis beträgt 1.225 EUR"),
                                 unit = listOf(),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2732,6 +2958,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 113,
+                                riddleIndex = 23,
                                 question = "In einem Arbeitstreffen analysieren Sie verschiedene Marktsituationen.\nWelcher der folgenden Indikatoren weist auf einen Käufermarkt hin?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Auf dem Markt für USB Sticks gibt es nur noch wenige Anbieter",
                                     "Einem großen Angebot an Laptops steht eine relativ geringe Nachfrage gegenüber",
@@ -2740,6 +2967,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Nachfrage nach USB Sticks ist größer als das Angebot"),
                                 correctAnswers = listOf("Einem großen Angebot an Laptops steht eine relativ geringe Nachfrage gegenüber"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2755,6 +2983,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 114,
+                                riddleIndex = 24,
                                 question = "Der Staat möchte durch geeignete wirtschaftspolitische Maßnahmen die Kaufkraft der Verbraucher stärken; um die Konjunktur zu beleben.\nWelche der folgenden Maßnahmen erhöht die Kaufkraft der Verbraucher?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Der Staat erhöht den steuerfreien Grundbetrag in der Einkommenssteuer",
                                     "Die Abschreibungsmöglichkeiten für Unternehmen werden Eingeschränkt",
@@ -2763,6 +2992,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Zuschüsse zur Wohnungsförderung werden reduziert"),
                                 correctAnswers = listOf("Der Staat erhöht den steuerfreien Grundbetrag in der Einkommenssteuer"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2778,10 +3008,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 115,
+                                riddleIndex = 25,
                                 question = "Die Data IT GmbH hat der Fresh GmbH ein Kassensystem verkauft:\n- Rechnungsbetrag: 12.500;00 EUR\n- Rechnungsdatum: 24.01.2022\n- Zahlungsziel: 10.02.2022\n- Zahlungsbedingung: fällig ohne Abzug\n- Lieferung am: 24.01.2022\n\nDie Fresh GmbH hat das Kassensystem bisher nicht bezahlt.\nAn Welchem Tag um 00:00 Uhr verjährt der Anspruch der Data IT GmbH auf die Zahlung der Fresh GmbH?\n\nTragen Sie unten das korrekte Datum ein.\n\n $ 195 (BGB) Regelmäßige Verjährungsfrist\nDie regelmäßige Verjährungsfrist beträgt drei Jahre\n$ 199 (BGB) Beginn der regelmäßigen Verjährungsfrist und Verjährungshöchstfristen\n(1) Die regelmäßige Verjährungsfrist beginnt; soweit nicht ein anderer Verjährungsbeginn bestimmt ist; mit dem Schluss des Jahres; in dem\n1. der Anspruch entstanden ist und\n2. der Gläubiger von den den Anspruch begründeten Umständen und der Person des Schuldners Kenntnis erlangt oder ohne grobe Fahrlässigkeit erlangen müsste.",
                                 answers = listOf(),
                                 correctAnswers = listOf("01.01.2026"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2797,6 +3029,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 116,
+                                riddleIndex = 26,
                                 question = "Die 19-jährige Auszubildene Petra Müller kauft einen Motorroller im Wert von 2.299;00 EUR.\nWelche der folgenden Aussagen trifft auf dieses Rechtsgeschäft zu?\n\nWählen Sie die korrekte Antwort aus.\n\nDas Rechtsgeschäft ist ...",
                                 answers = listOf("nichtig; weil Petra Müller beschränkt geschäftsfähig ist",
                                     "anfechtbar; weil die Zustimmung der gesetzlichen Vertreter fehlt",
@@ -2805,6 +3038,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "schwebend unwirksam; solange Petra Müller noch in Ausbildung ist"),
                                 correctAnswers = listOf("gültig; weil Petra Müller unbeschränkt geschäftsfähig ist"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2820,6 +3054,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 117,
+                                riddleIndex = 27,
                                 question = "Heinz Müller und Petra Schmitz; die mehrere Jahre in der Data IT GmbH beschäftigt waren; wollen sich mit einem IT-Unternehmen selbständig machen. Die finanzierende Bank erwartet von den Existenz Gründern die Vorlage eines Businessplans.\nWelche der folgenden Aussagen über einen Businessplan trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Im Businessplan werden die unternehmerischen Ziele festgelegt",
                                     "Ein Businessplan kann nur nach erfolgreicher Gründung einer Kapitalgesellschaft erstellt werden",
@@ -2828,6 +3063,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Ein Businessplan ist nur bei der Aufnahme von Darlehen notwendig"),
                                 correctAnswers = listOf("Im Businessplan werden die unternehmerischen Ziele festgelegt"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2843,6 +3079,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 118,
+                                riddleIndex = 28,
                                 question = "Die Data IT GmbH handelt mit Waren die in weltweiter Arbeitsteilung hergestellt werden.\nWelche der folgenden Aussagen zur Auswirkung auf die weltweite Arbeitsteilung ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Durch die weltweite Arbeitsteilung werden in allen Ländern gleich hohe soziale und ökologische Standards garantiert",
                                     "Die Umweltbelastung durch den Transport der Waren nimmt zu",
@@ -2851,6 +3088,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Produktion erfolgt jeweils in den Ländern mit den ökologisch besten Standards"),
                                 correctAnswers = listOf("Die Umweltbelastung durch den Transport der Waren nimmt zu"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2866,6 +3104,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 119,
+                                riddleIndex = 29,
                                 question = "Die Volkswirtschaft der Bundesrepublik Deutschland profitiert von der Globalisierung.\nWelche der folgenden Maßnahmen fördert die Globalisierung?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Senkung der Importzölle",
                                     "Die Erhöhung von Steuern für Transportdienstleistungen",
@@ -2874,6 +3113,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Ein ausländisches Unternehmen schließt die Fertigung in Deutschland"),
                                 correctAnswers = listOf("Die Senkung der Importzölle"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2889,6 +3129,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 4,
                                 riddleNumber = 120,
+                                riddleIndex = 30,
                                 question = "Die soziale Marktwirtschaft ist in Deutschland ein gesellschafts- und wirtschaftspolitisches Leitbild.\nWelche der folgenden Aussagen zur sozialen Marktwirtschaft ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Der Staat fördert Monopole und Kartelle; um einen Leistungswettbewerb zu verhindern",
                                     "Der Staat greift regulierend in Märkte ein; indem er für Waren Mindest- und Höchstpreise sowie Angebotsmengen festsetzt",
@@ -2897,6 +3138,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Durch soziale Sicherungssysteme sollen durch marktwirtschaftliche Ereignisse verursachte Härten abgemildert werden"),
                                 correctAnswers = listOf("Durch soziale Sicherungssysteme sollen durch marktwirtschaftliche Ereignisse verursachte Härten abgemildert werden"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2912,10 +3154,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 121,
+                                riddleIndex = 1,
                                 question = "Die Gramberg GmbH hat viele Kunden aus unterschiedlichen Wirtschaftssektoren.\n\nOrdnen Sie die folgenden Unternehmen den entsprechenden Wirtschaftssektoren zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2942,6 +3186,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 122,
+                                riddleIndex = 2,
                                 question = "Das folgende Schema zeigt das Leitungssystem der Gramberg GmbH\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Einliniensystem",
                                     "Stabsystem",
@@ -2950,6 +3195,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Matrixsystem"),
                                 correctAnswers = listOf("Mehrliniensystem"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2965,6 +3211,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 123,
+                                riddleIndex = 3,
                                 question = "Die Gramberg GmbH hat mit Stefan Brüning einen Einzelarbeitsvertrag geschlossen.\n\nWelcher der folgenden Aussagen ist in diesem Zusammenhang zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nEin Einzelarbeitsvertrag...",
                                 answers = listOf("ist gültig; wenn das vereinbarte Arbeitsentgelt über dem tarifvertraglichen liegt.",
                                     "kann nur geschlossen werden; wenn für die Gramberg GmbH kein gültiger Tarifvertrag vorliegt.",
@@ -2973,6 +3220,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "ist ohne Urlaubsregelung ungültig."),
                                 correctAnswers = listOf("ist gültig; wenn das vereinbarte Arbeitsentgelt über dem tarifvertraglichen liegt."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -2988,6 +3236,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 124,
+                                riddleIndex = 4,
                                 question = "Hans Baumgart; 38 Jahre; Vater von zwei Kindern; erhält aus betriebsbedingten Gründen die Kündigung.\nDa er diese für sozial ungerechtfertigt hält; wendet er sich an den Betriebsrat.\n\nPrpüfen Sie; welche der folgenden Aussagen zu den Kündigungsmodalitäten richtig ist.\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Der Betriebsrat muss angehört werden. Hält der Betriebsrat die Kündigung für ungerechtfertigt; dann darf der Arbeitgeber nicht kündigen.",
                                     "Der Betriebsrat muss angehört werden. Herr Baumgart kann innerhalb von drei Wochen nach Zugang der Kündigung Klage beim zuständigen Arbeitsgericht einreichen.",
@@ -2996,6 +3245,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Betriebsbedingte Kündigungen sind immer gültig. Hier braucht der Betriebsrat nicht angehört werden."),
                                 correctAnswers = listOf("Der Betriebsrat muss angehört werden. Herr Baumgart kann innerhalb von drei Wochen nach Zugang der Kündigung Klage beim zuständigen Arbeitsgericht einreichen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3011,6 +3261,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 125,
+                                riddleIndex = 5,
                                 question = "Michael Kuper; ein Mitarbeiter der Gramberg GmbH; ist erkrankt und muss operiert werden. Er wird insgesamt fünf Wochen nicht im Betrieb arbeiten können.\n\nWelche der folgenden Aussagen trifft auf die geschilderte Situation zu?\n\nWählen Sie die korrekte Antwort aus.\n\n Herr Kuper erhält von...",
                                 answers = listOf("der Gramberg GmbH weiterhin sein Bruttogehalt",
                                     "der gesetzlichen Krankenkasse Krankengeld",
@@ -3019,6 +3270,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "seiner privaten Berufsunfähigkeitsversicherung eine Versicherungsleistung"),
                                 correctAnswers = listOf("der Gramberg GmbH weiterhin sein Bruttogehalt"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3034,6 +3286,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 126,
+                                riddleIndex = 6,
                                 question = "Michael Butt hat mit der Gramberg GmbH einen schriftlichen Arbeitsvertrag geschlossen.\n\nWelcher der folgenden Bestandteile seines Arbeitsvertrags bindet die Gramberg GmbH am kollektives Arbeitsrecht?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Herr Butt bekommt einen Dienstwagen",
                                     "Er arbeitet als Sachbearbeiter im Kundenservice",
@@ -3042,6 +3295,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Gramberg GmbH gewährt einen monatlichen Fahrtkostenzuschuss von 100;00 EUR"),
                                 correctAnswers = listOf("Die reguläre wöchentliche Arbeitszeit beträgt gemäß Tarifvertrag 38;5 Stunden"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3057,10 +3311,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 127,
+                                riddleIndex = 7,
                                 question = "In der Gramberg GmbH sind Regelungen aus dem Arbeitsrecht zu beachten.\n\nOrdnen Sie die folgenden Sachverhalte den Gesetzen zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3087,6 +3343,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 128,
+                                riddleIndex = 8,
                                 question = "Die Gramberg GmbH will eine neue Mitarbeiterin zunächst befristet für ein Jahr einstellen.\n\nWelche der folgenden Aussagen über befristete Arbeitsverträge trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Befristete Arbeitsverträge können vom Arbeitgeber während der Laufzeit nicht gekündigt werden.",
                                     "Der befristete Arbeitsvertrag endet mit Ablauf der Frist; ohne dass es einer Kündigung bedarf.",
@@ -3095,6 +3352,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Befristete Arbeitsverträge dürfen nur mit arbeitslosen Bewerbern abgeschlossen werden."),
                                 correctAnswers = listOf("Der befristete Arbeitsvertrag endet mit Ablauf der Frist; ohne dass es einer Kündigung bedarf."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3110,6 +3368,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 129,
+                                riddleIndex = 9,
                                 question = "Die Gramberg GmbH nimmt an einer Messe teil. Beim Aufbau des Messestandes fällt eine Mitarbeiterin von der Leiter und bricht sich das rechte Bein.\n\nWelche der folgenden Institutionen muss für die Heilbehandlungskosten aufkommen; wenn die Unfallverhütungsvorschriften eingehalten wurden?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Krankenkasse; bei der die Mitarbeiterin versichert ist",
                                     "Die private Unfallversicherung der Mitarbeiterin",
@@ -3119,6 +3378,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Berufsgenossenschaft der Messegesellschaft"),
                                 correctAnswers = listOf("Die Berufsgenossenschaft; der die Gramberg GmbH angehört"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3134,6 +3394,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 130,
+                                riddleIndex = 10,
                                 question = "Die Gramberg GmbH musste den Betrieb auf behördliche Anordnung vorübergehend schließen. Der Geschäftsbetrieb ruht. Die Mitarbeiter dürfen die Geschäftsräume für die Dauer der Schließung nicht mehr betreten. Die Dauer der Schließung ist noch nicht absehbar.\n\nWelche der folgenden Aussagen ist in diesem Zusammenhang zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Gramberg GmbH kann für die Dauer der Schließung bei der Bundesagentur für Arbeit Kurzarbeitergeld beantragen.",
                                     "Die Gehaltszahlungen für die Mitarbeiter muss die Behörde übernehmen; die die Schließung angeordnet hat.",
@@ -3142,6 +3403,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Gramberg GmbH muss die Schließung der Kreditanstalt für Wiederaufbau melden; die gesetzlich alle Kosten der Betriebsschließung übernehmen muss."),
                                 correctAnswers = listOf("Die Gramberg GmbH kann für die Dauer der Schließung bei der Bundesagentur für Arbeit Kurzarbeitergeld beantragen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3157,6 +3419,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 131,
+                                riddleIndex = 11,
                                 question = "Die Gramberg GmbH ist Mitglied eines Arbeitgeerverbandees.\n\nWelche der folgenden Verpflichtungen ergibt sich unter anderem daraus?\n\nWählen Sie die korrekte Antwort aus.\n\nDie Gramberg GmbH...",
                                 answers = listOf("muss Lohnabrechnungen beim Verband prüfen lassen.",
                                     "darf höchstens Tariflöhne zahlen.",
@@ -3165,6 +3428,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "darf sich nicht an Aussperrungen beteiligen."),
                                 correctAnswers = listOf("muss mindestens Tariflöhne zahlen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3180,6 +3444,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 132,
+                                riddleIndex = 12,
                                 question = "In der Gramberg GmbH wurd eein Betriebsrat gewählt.\n\nIn welchen der folgenden Angelegenheiten hat der Betriebsrat der Gramberg GmbH ein zwingendes Mitbestimmungsrecht?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf("Rationalisierungsmaßnahmen",
                                     "Kündigung",
@@ -3189,6 +3454,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Einstellung leitender Angestellter"),
                                 correctAnswers = listOf("Beginn und Ende der täglichen Arbeitszeit", "Einführung von Arbeitszeiterfassungsgeräten"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3204,6 +3470,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 133,
+                                riddleIndex = 13,
                                 question = "Im Rahmen eines Arbeitskampfes fällt der Begriff <<Aussperrung>>\n\nWelche der folgenden Aussagen trifft auf die Arbeitskampfmaßnahme <<Aussperrung>> zu?\n\nWählen Sie die korrekte Antwort aus.\n\n Aussperrung bedeutet...",
                                 answers = listOf("eine planmäßige organisierte Arbeitsniederlegung aller Mitarbeiter eines Betriebes.",
                                     "eine planmäßig organisierte Arbeitsübertragung aller Mitarbeiter an den nächst näheren Betrieb.",
@@ -3213,6 +3480,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "dass im Rahmen eines Insolvenzverfahrens der Insolvenzverwalter den Betrieb zusperrt."),
                                 correctAnswers = listOf("die vorübergehende Freistellung von Arbeitnehmern für den Zeitraum des Arbeitskampfes."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3228,6 +3496,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 134,
+                                riddleIndex = 14,
                                 question = "Im Rahmen der Tarifverhandlung wird zwischen lohn- und Gehaltstarif und dem normalerweise längerfristig geltenden Manteltarif unterschieden.\n\nWelcher der folgenden Inhalte wird typischerweise in einem Lohn- und Gehaltstarif geregelt?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Kündigungsfristen",
                                     "tägliche und wöchentliche Arbeitszeit",
@@ -3236,6 +3505,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Arbeitsbefreiung für Prüfertätigkeiten bei der IHK-Prüfung"),
                                 correctAnswers = listOf("Gehaltssätze für die einzelnen Gehaltsgruppen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3251,6 +3521,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 135,
+                                riddleIndex = 15,
                                 question = "Eine Auszubildene der Gramberg GmbH will einen Teil ihrer Berufsausbildung im Ausland durchführen. In Zusammenhang wurde Sie auf den Dienst Europass hingewiesen. Sie bittet um weitere Erläuterungen.\n\nWelche der folgenden Aussagen zum Europass ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Europass ist ein kostenpflichtiger Dienst",
@@ -3260,6 +3531,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Der Europass zertifiziert Fremdsprachenkenntnisse im Europass-Sprachkenntnisse"),
                                 correctAnswers = listOf("Der Europass unterstützt Auszubildene; erworbene Qualifikationen; Fähigkeiten und Kompetenzen bei Bewerbungen europaweit verständlich darzustellen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3275,6 +3547,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 136,
+                                riddleIndex = 16,
                                 question = "Nach der letzten Gehaltserhöhung übersteigt das Bruttogehalt von Dagmar Fitschen die Beitragsbemessungsgrenze für die gesetzliche Rentenversicherung.\nWelche der folgenden Konsequenzen ergibt sich aus der Gehaltserhöhung für Frau Fitschen?\n\nWählen Sie die korrekte Antwort aus.\n\nFrau Fitschen...",
                                 answers = listOf(
                                     "ist von der gesetzlichen Rentenversicherungspflicht befreit",
@@ -3284,6 +3557,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "kann die Beiträge an die Rentenversicherung gegen Selbstbehalt reduzieren"),
                                 correctAnswers = listOf("muss nur noch für einen Teil ihres Gehaltes einen Beitrag zur gesetzlichen Rentenversicherung leisten"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3299,6 +3573,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 137,
+                                riddleIndex = 17,
                                 question = "Tom Sauer; ein Mitarbeiter der Gramberg GmbH; erkrankt während seines Urlaubs.\n\nWelche der folgenden Aussagen trifft auf diesen Sachverhalt zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Tage der Arbeitsunfähigkeit werden voll auf den Jahresurlaub angerechnet",
                                     "Die ärztlich nachgewiesenen Tage der Arbeitsunfähigkeit werden nicht auf den Jahresurlaub angerechnet.",
@@ -3307,6 +3582,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Die Tage der Arbeitsunfähigkeit werden zur Hälfte auf den Jahresurlaub angerechnet."),
                                 correctAnswers = listOf("Die ärztlich nachgewiesenen Tage der Arbeitsunfähigkeit werden nicht auf den Jahresurlaub angerechnet."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3322,10 +3598,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 138,
+                                riddleIndex = 18,
                                 question = "Die Auszubildene Maren Wichern möchte wissen; welche Sachverhalte von der gesetzlichen Sozialversicherung gedeckt werden.\n\nOrdnen Sie die folgenden Sachverhalte zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3353,6 +3631,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 139,
+                                riddleIndex = 19,
                                 question = "Die Solidarität ist ein gesellschaftspolitisches Prinzip; das in der Bundesrepublik Deutschland angewendet wird.\nWelcher der folgenden Sachverhalte entspricht dem Prinzip der Solidarität?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Der Staat erhöt die Erbschaftssteuer zur Umverteilung großer Vermögen",
                                     "Die Kommune senkt die Zuschüsse für Kindertagesstätten",
@@ -3361,6 +3640,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Kindergartenfreibeträge sind für alle Eltern; unabhängig vom Einkommen; gleich hoch"),
                                 correctAnswers = listOf("Der Staat erhöt die Erbschaftssteuer zur Umverteilung großer Vermögen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3376,6 +3656,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 140,
+                                riddleIndex = 20,
                                 question = "Nach der Abschlussprüfung informieren Sie sich über Möglichkeiten der beruflichen Fortbildung.\nWelcher der folgenden Sachverhalte ist ein Beispiel für eine berufliche Fortbildung?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Mustafa Akil beginnt nach dem mittlerem Schulabschluss (MSA) die Ausbildung zum Kaufmann für Büromanagement",
                                     "Ein Auszubildener der Gramberg GmbH nimmt in einer überbetrieblichen Ausbildungsstätte  an einem Lehrgang zum Thema IT-Sicherheit teil",
@@ -3384,6 +3665,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Sie besuchen an der Volkshochschule einen Segelkurs"),
                                 correctAnswers = listOf("Die Mitarbeiterin Claudia Langer nimmt nach der Ausbildung zur IT-System-Kauffrau an einem Lehrgang für <<Business-English>> teil"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3399,6 +3681,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 141,
+                                riddleIndex = 21,
                                 question = "Die Gramberg GmbH verfolgt unterschiedliche Zielsetzungen. Einige Ziele lassen sich gut miteinander verbinden (komplementäre Ziele). Andere Ziele schließen sich jedoch gegenseitig aus (konkurrierende Ziele)\nIn welcher der folgenden Aussagen handelt es sich um komplementäre Ziele?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Einrichtung einer Betriebskantine und Erhöhung der Exportquote",
                                     "Reduzierung der Kosten und Erhöhung der Löhne",
@@ -3407,6 +3690,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Erhöhung der Sozialleistungen und Senkung der Lohnnebenkosten"),
                                 correctAnswers = listOf("Abbau von Arbeitsplätzen und Outsourcing des Rechnungswesens"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3422,10 +3706,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 142,
+                                riddleIndex = 22,
                                 question = "Für die folgenden vier durch geführten Aufträge der Gramberg GmbH liegen nachstehende Zahlen vor:\nAuftragNr. 1; Aufwand 300.000 EUR; Ertrag 360.000 EUR\nAuftragNr. 2; Aufwand 80.000 EUR; Ertrag 100.000 EUR\nAuftragNr. 3; Aufwand 80.000 EUR; Ertrag 104.000 EUR\nAuftragNr. 4; Aufwand 100.000 EUR; Ertrag 124.000 EUR\n\na) Welcher Auftrag wurde am wirtschaftlichsten abgewickelt?\nErmitteln Sie die Kennzahl für die Wirtschaftlichkeit dieses Auftrags. Runden Sie das Ergebnis auf zwei Stellen nach dem Komma.\n\nTragen Sie das Ergebnis unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("3.0", "1.30"),
                                 unit = listOf("AuftragsNr.", "Kennzahl"),
+                                requiresCalculate = true,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3441,6 +3727,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 143,
+                                riddleIndex = 23,
                                 question = "Die Gramberg GmbH hat die Bätje GmbH gekauft und betreibt diese unter Beibehaltung der Firma Bätje GmbH weiter.\nUm welche der folgenden Formen eines Unternehmenszusammenschlusses handelt es sich?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf(
                                     "Fusion",
@@ -3450,6 +3737,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Konzern"),
                                 correctAnswers = listOf("Konzern"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3465,6 +3753,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 144,
+                                riddleIndex = 24,
                                 question = "Die Gramberg GmbH plant will ein Tochterunternehmen in der Rechtsform einer GmbH mit vorerst zwanzig Mitarbeitern gründen.\nWelche der folgenden Vorschriften sind dabei zu beachten?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf("Als Firma muss eine Sachfirma gewählt werden",
                                     "Ein Aufsichtsrat muss bestellt werden",
@@ -3475,6 +3764,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 correctAnswers = listOf("Das Stammkapital muss mindestens 25.000€ betragen",
                                     "Die Gründung kann allein durch die Gramberg GmbH erfolgen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3490,6 +3780,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 145,
+                                riddleIndex = 25,
                                 question = "Bei der Unternehmensgründung wurde vom Firmengründer Günter Gramberg die Rechtsform der GmbH gewählt.\n\nWelche der folgenden Aussagen trifft auf eine GmbH zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die GmbH hat einen Komplementär und einen Kommandisten",
                                     "Der Komplementär leitet die GmbH",
@@ -3498,6 +3789,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Alle Gesellschafter der GmbH sind jederzeit zur Geschäftsführung berechtigt"),
                                 correctAnswers = listOf("Nach der gesetzlichen Regelung erfolgt die Gewinnverteilung nach Geschäftsanteilen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3513,6 +3805,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 146,
+                                riddleIndex = 26,
                                 question = "Für die Dienstleistungen der Gramberg GmbH gibt es viele Konkurrenten. Der Kundenkreis ist sehr umfangreich.\n\nWelcher der folgenden Begriffe beschreibt diese Marktform?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Angebotsmonopol",
                                     "Angebotsoligopol",
@@ -3521,6 +3814,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Nachfrageoligopol"),
                                 correctAnswers = listOf("Polypol"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3536,6 +3830,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 147,
+                                riddleIndex = 27,
                                 question = "Der 16-jährige-Auszubildene Murat Safin kauft ein E-Bike im Wert von 2799;00 EUR\n\nWelche der folgenden Aussagen trifft auf dieses Rechtsgeschäft zu?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Das Rechtsgeschäft ist nichtig",
                                     "Das Rechtsgeschäft ist anfechtbar",
@@ -3544,6 +3839,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Das Rechtsgeschäft ist bis zur Zustimmung der gesetzlichen Vertreter schwebend unwirksam"),
                                 correctAnswers = listOf("Das Rechtsgeschäft ist bis zur Zustimmung der gesetzlichen Vertreter schwebend unwirksam"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3559,6 +3855,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 148,
+                                riddleIndex = 28,
                                 question = "Sie wollen sich mit einem Software-Unternehmen selbstständig machen. Bei den Kreditgesprächen mit einer Bank wird die Vorlage eines Businessplanes verlangt.\n\nAn welcher der folgenden Stellen in Ihrem Businessplan erwartet die Bank Aussagen zu anderen Unternehmen; die ähnliche Dienstleistungen anbieten?\n\nWählen Sie die korrekte Antwort aus.\n\nBei der...",
                                 answers = listOf("Unternehmensbeschreibung",
                                     "Standortbeschreibung",
@@ -3567,6 +3864,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Finanzplanung"),
                                 correctAnswers = listOf("Markt- und Wewttbewerbsanalyse"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3582,6 +3880,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 149,
+                                riddleIndex = 29,
                                 question = "Die Volkswirtschaft der Bundesrepublik Deutschland profitiert von der Globalisierung.\nWelche der folgenden Maßnahmen fördert die Globalisierung?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Erhöhung der Impomportzölle",
                                     "Die Erhöhung von Steuern für Transportdienstleistungen",
@@ -3590,6 +3889,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Ein deutshces Unternehmen zentralisiert die Fertigung in Deutschland"),
                                 correctAnswers = listOf("Ein deutsches Unternehmen eröffnet Niederlassungen in Asien und Afrika"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3605,6 +3905,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 5,
                                 riddleNumber = 150,
+                                riddleIndex = 30,
                                 question = "In der Mittagspause ist vom <<magischen Viereck>> die Rede.\n\nWelche der folgenden wirtschaftspolitischen Ziele sind nicht gemeint; wenn vom <<magischen Viereck>> gesprochen wird?\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf("Preisstabilität",
                                     "Außenwirtschaftliches Gleichgewicht",
@@ -3614,6 +3915,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Gleichgewicht zwischen Ökonomie und Ökologie"),
                                 correctAnswers = listOf("Gerechte Einkommens- und Vermögensverteilung", "Gleichgewicht zwischen Ökonomie und Ökologie"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3629,10 +3931,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 151,
+                                riddleIndex = 1,
                                 question = "In den Ausbildungsverträgen der Koch-IT GmbH wird auch eine Probezeit vereinbart.\nWieviele Monate muss die Probezeit eines Auszubildenden nach dem Gesetz\na) mindestens dauern\nund wieviele Monate darf Sie\nb) maximal dauern\n\nTragen Sie die Zahlen unten ein.",
                                 answers = listOf(),
                                 correctAnswers = listOf("1", "4"),
                                 unit = listOf("Monat", "Monate"),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = true,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = true,
@@ -3648,6 +3952,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 152,
+                                riddleIndex = 2,
                                 question = "Die Auszubildenden bei der Koch-IT GmbH sind verpflichtet; einen Ausbildungsnachweis (Berichtsheft) zu führen. Ein neuer Auszubildender fragt Sie nach dem Sinn und Zweck eines solchen Berichtsheft.\n\nWelchem der folgenden Zwecke dient ein solcher Ausbildungsnachweis?\n\nWählen Sie die korrekte Antwort aus.\n\nDas Berichtsheft dient...",
                                 answers = listOf("der Prüfung der Einhaltung der tariflich vereinbarten Ausbildungszeiten durch die Gewerkschaft.",
                                     "als Grundlage für die Benotung der Abschlussprüfung",
@@ -3656,6 +3961,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "der Dokumentation der vermittelten Ausbildungsinhalte."),
                                 correctAnswers = listOf("der Dokumentation der vermittelten Ausbildungsinhalte."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3671,10 +3977,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 153,
+                                riddleIndex = 3,
                                 question = "Die Koch-IT GmbH kann ein Arbeitsverhältnis gegen den Willen eines Arbeitnehmers kündigen. Eine solche Kündigung kann sowohl als ordentliche wie auch als außerordentliche Kündigung erfolgen. Erforderlich ist aber in beiden Fällen ein Kündigungsgrund.\n\nOrdnen Sie die Kündigungsgründe entsprechend zu.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3698,6 +4006,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 154,
+                                riddleIndex = 4,
                                 question = "Zwischen der Koch-IT GmbH und deren Betriebsrat wurde bezüglich der betrieblichen Arbeitszeit und Gleitzeit eine Betriebsvereinbarung getroffen.\n\nWelche der folgenden Aussagen zu dieser Betriebsvereinbarung ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die getroffene Betriebsvereinbarung ist ein Vertrag zwischen der Koch-IT GmbH und der zuständigen Gewerkschaft.",
                                     "Diese Betriebsvereinbarung gilt für die gesamte Branche.",
@@ -3706,6 +4015,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Besteht ein Tarifvertrag; so ist die Regelung weiterer Angelegenheiten durch diese Betriebsvereinbarung ausgeschlossen."),
                                 correctAnswers = listOf("Die getroffene Betriebsvereinbarung schafft verbindliche Normen für alle in der Vereinbarung genannten Mitarbeitergruppen der Koch-IT GmbH."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3721,6 +4031,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 155,
+                                riddleIndex = 5,
                                 question = "Eine Mitarbeiterin der Koch-IT GmbH ist schwanger - für Sie gelten die Regelungen des Mutterschutzgesetzes.\n\nWelche der folgenden Aussagen zum Mutterschutzgesetz ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nDie Mitarbeiterin...",
                                 answers = listOf("darf dem Arbeitgeber Ihre Schwangerschaft nicht mitteilen.",
                                     "kann in der Schwangerschaft ihre Arbeitszeiten (Kommen- und Gehen-Zeiten sowie Dauer) frei wählen.",
@@ -3729,6 +4040,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "kann vom Arbeitgeber in der Schutzfrist nach der Entbindung beschäftigt werden."),
                                 correctAnswers = listOf("besitzt während ihrer Schwangerschaft und nach der Entbindung einen besonderen Kündigungsschutz."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3744,6 +4056,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 156,
+                                riddleIndex = 6,
                                 question = "Im betrieblichen Unterricht der Koch-IT GmbH werden aufgrund anstehender Tarifverhandlungen die Themenbereiche <<Tarifvertrag und Gewerkschaften>> besprochen und die folgende Frage thematisiert:\n\nWelche der folgenden Wirkungen enthalten Tarifverträge\n\nWählen Sie die korrekte Antwort aus.",
                                 answers = listOf("Die Bestimmungen eines deutschen Tarifvertrages gelten in allen Ländern der Europäischen Union.",
                                     "Die Tarifverträge sind rechtlich nicht bindend; sondern stellen lediglich Empfehlungen für die Mitglieder der Tarifparteien dar.",
@@ -3752,6 +4065,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Haustarifverträge gelten jeweils für die gesamte Branche."),
                                 correctAnswers = listOf("Allgemeinverbindlich erklärte Tarifverträge gelten für alle Arbeitnehmer dieser Branche; unabhängig von derer Gewerkschaftszugehörigkeit."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3767,6 +4081,7 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 157,
+                                riddleIndex = 7,
                                 question = "Bringen Sie die folgenden Schritte bis zum schlussendlichen Zustandekommen eines neuen Tarifvertrages in die richtige Reihenfolge.",
                                 answers = listOf("Spruch eines neutralen Schlichters",
                                     "Tarífverhandlungen",
@@ -3781,6 +4096,7 @@ abstract class AppDatabase : RoomDatabase() {
                                     "Annahme der Schlichtung",
                                     "Abschluss des neuen Tarifvertrags"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3796,10 +4112,17 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 158,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 8,
+                                question = "Der Auszubildene Alex Konstantinus spricht mit seinem Ausbilder über die gesetzliche Altersvorsorge. Herr Konstantinus überlegt; ob es notwendig ist; in eine private Altersvorsorge zu investieren.\n\nWelche der folgenden Aussagen über die Notwendigkeit einer privaten Altersvorsorge trifft zu?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Eine private Altersvorsorge ist notwendig; weil die gesetzliche Rentenversicherung voraussichtlich nicht ausreichen wird.",
+                                    "Eine private Altersvorsorge ist nicht notwendig; die gesetzliche Rentenversicherung ist bereits ausreichend.",
+                                    "Der demografische Wandel sorgt auch in Zukunft für genug Beitragszahler; weshalb das Rentenniveau der gesetzlichen Rentenversicherung steigt.",
+                                    "Eine private Altersvorsorge ist nicht sinnvoll; weil das Rentenniveau der gesetzlichen Rentenversicherung stetig steigt.",
+                                    "Eine private Altersvorsorge lohnt sich nicht; weil jedem Arbeitnehmer eine Betriebsrente zusteht.",
+                                    "Eine private Altersvorsorge ist nur notwendig; wenn die Inflationsrate steigt."),
+                                correctAnswers = listOf("Eine private Altersvorsorge ist notwendig; weil die gesetzliche Rentenversicherung voraussichtlich nicht ausreichen wird."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3815,10 +4138,18 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 159,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 9,
+                                question = "Die vermögenswirksamen Leistungen (VL) ist eine staatlich geförderte Sparform. Oftmals gewährt der Arbeitgeber; so auch die Koch-IT GmbH; hierfür unabhängig vom Gehalt eine vereinbarte Geldleistung. Der Auszubildende Alex Konstantinus möchte von dieser Möglichkeit Gebrauch machen.\n\nWelche der folgenden Anlageformen werden im Rahmen der VL staatlich gefördert?\n\nWählen Sie die korrekten Antwort aus.",
+                                answers = listOf("Spardose bei einer Bank",
+                                    "Aktien der Kaufmarkt AG",
+                                    "Bausparvertrag",
+                                    "Unfallversicherung",
+                                    "Sterbegeldversicherung",
+                                    "Spezieller VL-Sparplan der Bank",
+                                    "Kryptowährungen"),
+                                correctAnswers = listOf("Bausparvertrag", "Spezieller VL-Sparplan der Bank"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3834,10 +4165,16 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 160,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 10,
+                                question = "Herr Heppner; Auszubildener im ersten Jahr bei der Koch-IT GmbH; möchte von Ihnen wissen; welche Bestimmungen in einer Ausbildungsordnung geregelt sind.\n\nWelche der folgenden Aussagen beschreibt Regelungen einer Ausbildungsordnung?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Angaben über die Höhe der Ausbildungsvergütung",
+                                    "Planungshilfen in Bezug auf die Urlaubsdauer der Auszubildenden",
+                                    "Richtlinien für die Anpassung des Berufsschulunterricht an den betrieblichen Ausbildungsplan",
+                                    "Bestimmungen über die Dauer der überbetrieblichen Ausbildung",
+                                    "Bestimmungen über Kenntnisse; Fertigkeiten und Fähigkeiten; die während der Ausbildung zu vermitteln sind."),
+                                correctAnswers = listOf("Bestimmungen über Kenntnisse; Fertigkeiten und Fähigkeiten; die während der Ausbildung zu vermitteln sind."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3853,10 +4190,16 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 161,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 11,
+                                question = "Die Koch-IT GmbH hat mit der ledigen; kinderlosen Kauffrau für Digitalisierungsmanagement Petra Remmert einen Einzelarbeitsvertrag geschlossen.\n\nIn welcher der folgenden Lohnsteuerklassen wird Frau Remmert eingruppiert?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Lohnsteuerklasse 1",
+                                    "Lohnsteuerklasse 2",
+                                    "Lohnsteuerklasse 3",
+                                    "Lohnsteuerklasse 4",
+                                    "Lohnsteuerklasse 5"),
+                                correctAnswers = listOf("Lohnsteuerklasse 1"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3872,10 +4215,16 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 162,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 12,
+                                question = "Herr Rögener hat vor einigen Jahren seine Ausbildung zum Informatikkaufmann bei der Koch-IT GmbH abgeschlossen und dort gearbeitet. Jetzt überlegt er; selbst eine IT-Dienstleistungs-GmbH zu gründen\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Die Gesellschafter der GmbH haften auch mit Ihrem Privatvermögen",
+                                    "Das Stammkapital muss mindestens 25.000 EUR betragen",
+                                    "Die GmbH hat einen Kommandisten und einen Komplementär",
+                                    "Der Komplementär der GmbH leitet die GmbH",
+                                    "Die GmbH ist eine Personengesellschaft"),
+                                correctAnswers = listOf("Das Stammkapital muss mindestens 25.000 EUR betragen"),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3891,10 +4240,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 163,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
+                                riddleIndex = 13,
+                                question = "Die Koch-IT GmbH überlegt; ihre Organisationsstruktur zu vereinfachen.\n\nWelche der folgenden Organisationsformen sind den nachstehenden Beschreibungen zuzuordnen?\n\na) Dem Nachteil einer uneinheitlichen Führung steht der Vorteil der kurzen Wege gegenüber\nb) Es werden besonders hohe Ansprüche an die Teamfähigkeit der Mitarbeiter gestellt; darüber hinaus herrscht ein besonders hoher Kommunikationsbedarf.\n\nc) Einige Instanzen werden entlastet und die Spezialkenntnisse der Stabstellen werden besser genutzt.\n\nd) Da alle Informationen über eine Instanz laufen, kann es zu Engpässen in der Kommunikation kommen. Dies führt zu eventuellen Verzögerungen, insbesondere wenn der oder die Vorgesetzte überlastet ist oder sich in Abwesenheit befindet.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3902,18 +4253,31 @@ abstract class AppDatabase : RoomDatabase() {
                                 requiresOrderedAnswers = false,
                                 requiresDateInput = false,
                                 requiresTimeInput = false,
-                                requiresDragAndDrop = false,
+                                requiresDragAndDrop = true,
                                 options = listOf(),
-                                optionsWithImage = listOf(),
-                                targets = listOf(),
-                                correctMappings = mapOf()),
+                                optionsWithImage = listOf(
+                                    OptionWithImage("einliniensystem", R.drawable.einliniensystemklein),
+                                    OptionWithImage("mehrliniensystem", R.drawable.mehrliniensystemklein),
+                                    OptionWithImage("stabliniensystem", R.drawable.stabliniensystemklein),
+                                    OptionWithImage("matrixliniensystem", R.drawable.matrixsystemklein)),
+                                targets = listOf("A", "B", "C", "D"),
+                                correctMappings = mapOf("einliniensystem" to "D",
+                                    "mehrliniensystem" to "A",
+                                    "matrixliniensystem" to "B",
+                                    "stabliniensystem" to "C")),
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 164,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 14,
+                                question = "Die Koch-IT GmbH hat als Ausbildungsbetrieb im Rahmen der Berufsausbildung gegenüber der Industrie- und Handelskammer (IHK) Rechte und Pflichten.\n\nWelche der folgenden Aussagen ist zutreffend?\n\nWählen Sie die korrekte Antwort aus.\n\nDie Koch-IT GmbH...",
+                                answers = listOf("das Recht; Auszubildende ohne Zustimmung der IH auszubilden.",
+                                    "die Pflicht; eine Verkürzung der Ausbildung eines Auszubildenden von der IHK genehmigen zu lassen.",
+                                    "die Pflicht; jede Fehlzeit der Auszubildenden sofort der IHK zu melden.",
+                                    "die Pflicht; dem Schlichtungsausschluss der IHK jede Unstimmigkeit mit Auszubildenden mitzuteilen.",
+                                    "das Recht; von der IHK eine Verschiebung des Prüfungstermins zu verlangen; wenn die Auftragslage es erfordert."),
+                                correctAnswers = listOf("die Pflicht; eine Verkürzung der Ausbildung eines Auszubildenden von der IHK genehmigen zu lassen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3929,10 +4293,17 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 165,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 15,
+                                question = "Frau Monion ist seit dem 01.01.2021 in der Koch-IT GmbH beschäftigt. Am 16.04. desselben Jahres wurde sie 18 Jahre alt. Im Mai 2021 wird in dem Betrieb ein neuer Betriebsrat gewählt.\n\nDarf Frau Monion bei der Betriebsratswahl ihre Stimme abgeben?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Nein; weil sie zu Beginn des Jahres noch minderjährig war",
+                                    "Nein; weil sie noch nicht lange genug bei der Koch-IT GmbH beschäftigt ist.",
+                                    "Ja; aber nur; wenn sie Gewerkschaftsmitglied ist.",
+                                    "Ja; weil sie volljährig ist.",
+                                    "Ja; solange sie mit dem Betriebsratvorsitzenden verwandt ist.",
+                                    "Ja; wenn die Geschäftsleitung damit einverstanden ist."),
+                                correctAnswers = listOf("Ja; weil sie volljährig ist."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3948,10 +4319,16 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 166,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                riddleIndex = 16,
+                                question = "Der Betriebsrat hat gegenüber dem Arbeitgeber verschiedene Rechte\n\nIn welchem der folgenden Fälle hat der Betriebsrat ein Mitbestimmungsrecht?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Eine neue Mitarbeiterin kündigt innerhalb der Probezeit; um eine besser bezahlte Stelle anzutreten.",
+                                    "Der Arbeitgeber möchte während der Weihnachtssaison Mehrarbeit anordnen.",
+                                    "Der gesetzliche Mindeststundenlohn wird von der Bundesregierung um 1,00 EUR/h erhöht.",
+                                    "Das Unternehmen besetzt die Stelle des Geschäftsführers neu.",
+                                    "Eine Auszubildende hat die Abschlussprüfung bestanden und möchte zu einem anderen Arbeitgeber wechseln."),
+                                correctAnswers = listOf("Der Arbeitgeber möchte während der Weihnachtssaison Mehrarbeit anordnen."),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3967,10 +4344,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 167,
+                                riddleIndex = 17,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -3986,10 +4365,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 168,
+                                riddleIndex = 18,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4005,10 +4386,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 169,
+                                riddleIndex = 19,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4024,10 +4407,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 170,
+                                riddleIndex = 20,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4043,10 +4428,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 171,
+                                riddleIndex = 21,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4062,10 +4449,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 172,
+                                riddleIndex = 22,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4081,10 +4470,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 173,
+                                riddleIndex = 23,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4100,10 +4491,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 174,
+                                riddleIndex = 24,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4119,10 +4512,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 175,
+                                riddleIndex = 25,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4138,10 +4533,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 176,
+                                riddleIndex = 26,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4157,10 +4554,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 177,
+                                riddleIndex = 27,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4176,10 +4575,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 178,
+                                riddleIndex = 28,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4195,10 +4596,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 179,
+                                riddleIndex = 29,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4214,10 +4617,12 @@ abstract class AppDatabase : RoomDatabase() {
                             Riddle(
                                 riddleMainNumber = 6,
                                 riddleNumber = 180,
+                                riddleIndex = 30,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,
@@ -4245,14 +4650,16 @@ abstract class AppDatabase : RoomDatabase() {
     }
 }
 
-/*
+/* Modell zum kopieren
                             Riddle(
                                 riddleMainNumber = ,
                                 riddleNumber = ,
+                                riddleIndex = ,
                                 question = "\n\nWählen Sie die korrekten Antwort aus.",
                                 answers = listOf(),
                                 correctAnswers = listOf(),
                                 unit = listOf(),
+                                requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
                                 hasdifferentanswers = false,
                                 requiresNumberInput = false,

@@ -24,7 +24,11 @@ interface RiddleDao {
     suspend fun getRiddleById(id: Int): Riddle
 
     @Query("SELECT * FROM riddles WHERE riddleNumber = :riddleNumber")
-    suspend fun getRiddleByNumber(riddleNumber: Int): List<Riddle>
+    fun getRiddleByNumber(riddleNumber: Int): Riddle
+
+    @Query("SELECT * FROM riddles WHERE riddleIndex = :riddleIndex")
+    suspend fun getRiddleByIndex(riddleIndex: Int): Riddle
+
 }
 @Dao
 interface ResultDao {
