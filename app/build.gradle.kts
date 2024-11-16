@@ -60,6 +60,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation(libs.androidx.recyclerview)
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
+    implementation("net.objecthunter:exp4j:0.4.8")
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.room.ktx)

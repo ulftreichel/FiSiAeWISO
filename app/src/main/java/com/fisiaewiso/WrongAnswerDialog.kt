@@ -6,7 +6,7 @@ import android.widget.Button
 import android.widget.TextView
 
 class WrongAnswerDialog(context: Context, correctAnswers: List<String>, currentRiddleUnit: List<String>, correctMappings: Map<String, String> = emptyMap()): Dialog(context) {
-
+    var listener: WrongAnswerDialogListener? = null
     init {
         setContentView(R.layout.wrong_answer_dialog)
         val correctAnswerTextView = findViewById<TextView>(R.id.correctAnswerTextView)
@@ -29,7 +29,13 @@ class WrongAnswerDialog(context: Context, correctAnswers: List<String>, currentR
             correctAnswerTextView.text = "Die richtige${if (correctAnswers.size > 1) "n Antworten wären" else " Antwort wäre"}:\n\n$correctAnswersWithUnits"
         }
         okButton.setOnClickListener {
-            dismiss() // Schließe den Dialog
+            listener?.onOkClicked()
+            dismiss()
         }
     }
+
+    interface WrongAnswerDialogListener {
+        fun onOkClicked()
+    }
+
 }

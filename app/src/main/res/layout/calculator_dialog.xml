@@ -1,103 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/calculator_display"
+    <ScrollView
+        android:id="@+id/scrollViewQuestionCalc"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fadeScrollbars="false"
+        android:fadingEdge="none"
+        android:fillViewport="false"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="0dp"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tVQuestionCalc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:textSize="24sp" />
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewQuestionCalc">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="4"
-        android:rowCount="6">
+        <EditText
+            android:id="@+id/calculator_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/button_percent"
-            android:text="%" />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="4"
+            android:rowCount="6">
 
-        <Button
-            android:id="@+id/button_ce"
-            android:text="CE" />
+            <Button
+                android:id="@+id/button_percent"
+                android:background="@drawable/button_riddle"
+                android:text="%" />
 
-        <Button
-            android:id="@+id/button_c"
-            android:text="C" />
+            <Button
+                android:id="@+id/button_ce"
+                android:background="@drawable/button_riddle"
+                android:text="CE" />
 
-        <Button
-            android:id="@+id/button_del"
-            android:text="DEL" />
+            <Button
+                android:id="@+id/button_c"
+                android:background="@drawable/button_riddle"
+                android:text="C" />
 
-        <Button
-            android:id="@+id/button_7"
-            android:text="7" />
+            <Button
+                android:id="@+id/button_del"
+                android:background="@drawable/button_riddle"
+                android:text="DEL" />
 
-        <Button
-            android:id="@+id/button_8"
-            android:text="8" />
+            <Button
+                android:id="@+id/button_7"
+                android:background="@drawable/button_riddle"
+                android:text="7" />
 
-        <Button
-            android:id="@+id/button_9"
-            android:text="9" />
+            <Button
+                android:id="@+id/button_8"
+                android:background="@drawable/button_riddle"
+                android:text="8" />
 
-        <Button
-            android:id="@+id/button_divide"
-            android:text="/" />
+            <Button
+                android:id="@+id/button_9"
+                android:background="@drawable/button_riddle"
+                android:text="9" />
 
-        <Button
-            android:id="@+id/button_4"
-            android:text="4" />
+            <Button
+                android:id="@+id/button_divide"
+                android:background="@drawable/button_riddle"
+                android:text="/" />
 
-        <Button
-            android:id="@+id/button_5"
-            android:text="5" />
+            <Button
+                android:id="@+id/button_4"
+                android:background="@drawable/button_riddle"
+                android:text="4" />
 
-        <Button
-            android:id="@+id/button_6"
-            android:text="6" />
+            <Button
+                android:id="@+id/button_5"
+                android:background="@drawable/button_riddle"
+                android:text="5" />
 
-        <Button
-            android:id="@+id/button_multiply"
-            android:text="*" />
+            <Button
+                android:id="@+id/button_6"
+                android:background="@drawable/button_riddle"
+                android:text="6" />
 
-        <Button
-            android:id="@+id/button_1"
-            android:text="1" />
+            <Button
+                android:id="@+id/button_multiply"
+                android:background="@drawable/button_riddle"
+                android:text="*" />
 
-        <Button
-            android:id="@+id/button_2"
-            android:text="2" />
+            <Button
+                android:id="@+id/button_1"
+                android:background="@drawable/button_riddle"
+                android:text="1" />
 
-        <Button
-            android:id="@+id/button_3"
-            android:text="3" />
+            <Button
+                android:id="@+id/button_2"
+                android:background="@drawable/button_riddle"
+                android:text="2" />
 
-        <Button
-            android:id="@+id/button_subtract"
-            android:text="-" />
+            <Button
+                android:id="@+id/button_3"
+                android:background="@drawable/button_riddle"
+                android:text="3" />
 
-        <Button
-            android:id="@+id/button_decimal"
-            android:text="." />
+            <Button
+                android:id="@+id/button_subtract"
+                android:background="@drawable/button_riddle"
+                android:text="-" />
 
-        <Button
-            android:id="@+id/button_0"
-            android:text="0" />
+            <Button
+                android:id="@+id/button_decimal"
+                android:background="@drawable/button_riddle"
+                android:text="." />
 
-        <Button
-            android:id="@+id/button_equals"
-            android:text="=" />
+            <Button
+                android:id="@+id/button_0"
+                android:background="@drawable/button_riddle"
+                android:text="0" />
 
-        <Button
-            android:id="@+id/button_add"
-            android:text="+" />
+            <Button
+                android:id="@+id/button_equals"
+                android:background="@drawable/button_riddle"
+                android:text="=" />
 
-    </GridLayout>
+            <Button
+                android:id="@+id/button_add"
+                android:background="@drawable/button_riddle"
+                android:text="+" />
 
-</LinearLayout>
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2">
+
+            <RadioGroup
+                android:id="@+id/radio_group_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- RadioButtons hier hinzufügen -->
+
+            </RadioGroup>
+
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_riddle"
+                android:text="Übernehmen" />
+
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_riddle"
+                android:text="Speichern" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,48 +32,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <ScrollView
+        android:id="@+id/scrollViewQuestion"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        android:fadeScrollbars="false"
+        android:fadingEdge="none"
+        android:fillViewport="false"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="0dp"
+        app:layout_constraintHeight_percent="0.33"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintHeight_default="spread">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadingEdge="none"
-            android:fillViewport="false"
-            android:scrollbars="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/riddleImageButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="300dp"
         android:adjustViewBounds="true"
@@ -82,7 +77,7 @@
         app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewQuestion" />
 
     <EditText
         android:id="@+id/riddleResultNumber2"
@@ -178,11 +173,12 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="150dp"
         android:adjustViewBounds="true"
+        android:backgroundTint="@android:color/transparent"
         android:scaleType="fitCenter"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintTop_toBottomOf="@+id/scrollViewQuestion"
         app:srcCompat="@drawable/calculator" />
 
     <Button
@@ -191,7 +187,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_riddle"
-        android:text="Formeln\nPunkte/2"
+        android:text="Formel\nzur Frage\n !!!Punkte/2!!! "
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -204,7 +200,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Nächste Frage "
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -216,7 +212,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Später\n beantworten "
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toStartOf="@+id/bRiddleNext"
         app:layout_constraintStart_toStartOf="parent" />
@@ -228,7 +224,6 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Start "
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -240,7 +235,6 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
         android:text=" Schließen "
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -260,29 +254,31 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutSpinners"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAnswers"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bRiddleNext"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollViewQuestion" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayoutRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@id/scrollViewQuestion">
 
         <LinearLayout
             android:id="@+id/linearTextView"
@@ -565,7 +561,6 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -736,12 +731,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="196dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

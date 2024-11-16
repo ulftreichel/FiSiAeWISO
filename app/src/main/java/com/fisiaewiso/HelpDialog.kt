@@ -27,7 +27,9 @@ class HelpDialog (private val currentRiddleNumber: Int): DialogFragment() {
                 helpText.text = getString(R.string.Wirtschaftlichkeit)
             } else if (currentRiddleNumber == 80) {
                 helpText.text = getString(R.string.Eigenkapitalrentabilität)
-            } else if (currentRiddleNumber == 142) {
+            } else if (currentRiddleNumber == 108) {
+                helpText.text = getString(R.string.Eigenkapitalrentabilität)
+            }else if (currentRiddleNumber == 142) {
                 helpText.text = getString(R.string.Wirtschaftlichkeit)
             } else {
                 helpText.text = "es gibt keine Hilfe zur aktuellen Frage"
