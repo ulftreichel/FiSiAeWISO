@@ -152,7 +152,6 @@ class CalculatorDialog(private val question: String) : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-
     fun addRadioButton(result: Double) {
         buttonApply.isEnabled = true
         buttonCe.isEnabled = true
@@ -171,8 +170,8 @@ class CalculatorDialog(private val question: String) : DialogFragment() {
             return 0.0
         }
     }
+}
 
-    interface CalculatorDialogListener {
-        fun onCalculatorResult(result: Double)
-    }
+interface CalculatorDialogListener {
+    fun onCalculatorResult(result: Double)
 }
