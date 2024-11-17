@@ -161,21 +161,10 @@
         </GridLayout>
 
         <GridLayout
+            android:id="@+id/gridLayoutCal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnCount="2">
-
-            <RadioGroup
-                android:id="@+id/radio_group_results"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <!-- RadioButtons hier hinzufügen -->
-
-            </RadioGroup>
-
-        </GridLayout>
+            android:columnCount="2"/>
 
         <LinearLayout
             android:layout_width="match_parent"

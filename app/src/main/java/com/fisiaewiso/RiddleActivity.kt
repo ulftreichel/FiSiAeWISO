@@ -1,6 +1,8 @@
 package com.fisiaewiso
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -22,6 +24,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -89,6 +94,7 @@ class RiddleActivity : AppCompatActivity() {
     var completedRun = false
     var needHelp = false
     private lateinit var adapter: SortableRecyclerViewAdapter
+    var inputCount = 0
     var adminmode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,7 +143,8 @@ class RiddleActivity : AppCompatActivity() {
             getString(R.string.Riddle2),
             getString(R.string.Riddle3),
             getString(R.string.Riddle4),
-            getString(R.string.Riddle5)
+            getString(R.string.Riddle5),
+            getString(R.string.Riddle6)
         )
         // Wenn es ein erster Start ist, wähle einen zufälligen Intro-Text
         if (lastIntro == null) {
@@ -235,6 +242,7 @@ class RiddleActivity : AppCompatActivity() {
             getString(R.string.Riddle3) -> 3
             getString(R.string.Riddle4) -> 4
             getString(R.string.Riddle5) -> 5
+            getString(R.string.Riddle6) -> 6
             else -> return // Oder eine andere Fehlerbehandlung
         }
         lifecycleScope.launch {
@@ -456,8 +464,8 @@ class RiddleActivity : AppCompatActivity() {
                     viewHolder: RecyclerView.ViewHolder,
                     target: RecyclerView.ViewHolder
                 ): Boolean {
-                    val fromPosition = viewHolder.adapterPosition
-                    val toPosition = target.adapterPosition
+                    val fromPosition = viewHolder.bindingAdapterPosition
+                    val toPosition = target.bindingAdapterPosition
                     val adapter = recyclerView.adapter as SortableRecyclerViewAdapter
                     Collections.swap(adapter.items, fromPosition, toPosition)
                     adapter.notifyItemMoved(fromPosition, toPosition)
@@ -623,8 +631,15 @@ class RiddleActivity : AppCompatActivity() {
                     iBCalculator.visibility = View.VISIBLE
                     bHelp.visibility = View.VISIBLE
                     iBCalculator.setOnClickListener {
-                        val dialog = CalculatorDialog(currentRiddle.question)
-                        dialog.show(supportFragmentManager, "calculatorDialog")
+                        inputCount = when {
+                            currentRiddle.requiresNumberInput -> 1
+                            currentRiddle.requiresTwoNumberInputs -> 2
+                            else -> 0 // Oder einen anderen Standardwert, falls keine Eingabe benötigt wird
+                        }
+                        val intent = Intent(this, CalculatorActivity::class.java)
+                        intent.putExtra("question", currentRiddle.question)
+                        intent.putExtra("inputCount", inputCount)
+                        startForResult.launch(intent)
                     }
                     bHelp.setOnClickListener {
                         AlertDialog.Builder(this)
@@ -736,6 +751,25 @@ class RiddleActivity : AppCompatActivity() {
         riddleTextView.text = currentRiddle.question
     }
 
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            when (inputCount) {
+                1 -> {
+                    val resultValue = intent?.getStringExtra("result")
+                    numberInput.setText(resultValue) // Ergebnis in numberInput anzeigen
+                }
+                2 -> {
+                    val resultValue1 = intent?.getStringExtra("result1")
+                    val resultValue2 = intent?.getStringExtra("result2")
+                    numberInput.setText(resultValue1) // Ergebnis in numberInput anzeigen
+                    numberInput2.setText(resultValue2) // Ergebnis in numberInput2 anzeigen
+                }
+                else -> { /* Keine Aktion erforderlich */ }
+            }
+        }
+    }
+
     fun isOptionMapped(option: String): Boolean {
         return userMappings.containsKey(option)
     }
@@ -831,19 +865,21 @@ class RiddleActivity : AppCompatActivity() {
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
+                        textView.setBackgroundColor(Color.MAGENTA) // Teilweise richtig: Gelb
                     } else {
                         totalPoints += 3.33333
+                        textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
-                    textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     proceedToNextRiddle()
                 } else if (partiallyCorrect){
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 * (numCorrectAnswers.toDouble() / numPossibleAnswers) / 2
+                        textView.setBackgroundColor(Color.MAGENTA)
                     } else {
                         totalPoints += 3.33333 * (numCorrectAnswers.toDouble() / numPossibleAnswers)
+                        textView.setBackgroundColor(Color.YELLOW) // Teilweise richtig: Gelb
                     }
-                    textView.setBackgroundColor(Color.YELLOW) // Teilweise richtig: Gelb
                     wrongAnswerDialog(correctAnswers, currentRiddle.unit)
                 } else {
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
@@ -863,10 +899,11 @@ class RiddleActivity : AppCompatActivity() {
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
+                        textView.setBackgroundColor(Color.MAGENTA)
                     } else {
                         totalPoints += 3.33333
+                        textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
-                    textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     proceedToNextRiddle()
                 } else {
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
@@ -898,7 +935,6 @@ class RiddleActivity : AppCompatActivity() {
                 } else {
                     "" // Fehlerfall behandeln
                 }
-
                 if (targetText == correctTargetIdString) {
                     correctAnswers++
                 } else {
@@ -908,7 +944,6 @@ class RiddleActivity : AppCompatActivity() {
 
             if (textViewIndex in 0..29) {
                 val textView = answerTextViews[textViewIndex]
-
                 if (correctAnswers == totalAnswers) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
@@ -930,12 +965,13 @@ class RiddleActivity : AppCompatActivity() {
             if (textViewIndex in 0..29) {
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
-                    textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
+                        textView.setBackgroundColor(Color.MAGENTA)
                     } else {
                         totalPoints += 3.33333
+                        textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
                     proceedToNextRiddle()
                 } else {

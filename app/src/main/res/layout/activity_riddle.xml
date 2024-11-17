@@ -170,28 +170,28 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="150dp"
+        android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
         android:backgroundTint="@android:color/transparent"
         android:scaleType="fitCenter"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bHelp_Formel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollViewQuestion"
         app:srcCompat="@drawable/calculator" />
 
     <Button
         android:id="@+id/bHelp_Formel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="75dp"
         android:background="@drawable/button_riddle"
         android:text="Formel\nzur Frage\n !!!Punkte/2!!! "
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/riddleResultNumber1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iBCalculator" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bRiddleNext"

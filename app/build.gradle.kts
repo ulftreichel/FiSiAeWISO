@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.recyclerview)
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
     implementation("net.objecthunter:exp4j:0.4.8")
+    implementation(libs.material)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.room.ktx)

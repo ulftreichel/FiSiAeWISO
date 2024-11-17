@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.ImageView
 
 class SortableRecyclerViewAdapter(context: Context, private val answers: List<String>) : RecyclerView.Adapter<SortableRecyclerViewAdapter.ViewHolder>() {
@@ -32,12 +33,23 @@ class SortableRecyclerViewAdapter(context: Context, private val answers: List<St
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val answer = answers[position]
         holder.textViewAnswer.text = answer
+        /*
         if (position % 2 == 0) {
             holder.itemView.setBackgroundColor(Color.WHITE)
         } else {
             holder.itemView.setBackgroundColor(Color.LTGRAY)
         }
+         */
+        holder.dragHandle.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    v.performClick() // Rufe performClick auf, wenn der Touch Listener ausgelöst wird
+                    return@setOnTouchListener true
+                }
+                else -> return@setOnTouchListener false
+            }
+        }
+        holder.dragHandle.isClickable = true // Stelle sicher, dass das ImageView klickbar ist
+        holder.dragHandle.isFocusable = true // Stelle sicher, dass das ImageView fokussierbar ist
     }
-
-
 }
