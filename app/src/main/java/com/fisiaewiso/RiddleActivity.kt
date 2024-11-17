@@ -95,7 +95,7 @@ class RiddleActivity : AppCompatActivity() {
     var needHelp = false
     private lateinit var adapter: SortableRecyclerViewAdapter
     var inputCount = 0
-    var adminmode = true
+    var adminmode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,32 +134,49 @@ class RiddleActivity : AppCompatActivity() {
         bHelp = findViewById(R.id.bHelp_Formel)
         riddleImageButton = findViewById(R.id.riddleImageButton)
         currentRiddle = Riddle(0,0, 0, 0, "Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false,false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
-        tVRiddle_Initialize.text = currentRiddle.question
+        //tVRiddle_Initialize.text = currentRiddle.question
         // Intros laden
-        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val lastIntro = sharedPreferences.getString("lastIntro", null)
-        val introTexts = listOf(
-            getString(R.string.Riddle1),
-            getString(R.string.Riddle2),
-            getString(R.string.Riddle3),
-            getString(R.string.Riddle4),
-            getString(R.string.Riddle5),
-            getString(R.string.Riddle6)
-        )
-        // Wenn es ein erster Start ist, wähle einen zufälligen Intro-Text
-        if (lastIntro == null) {
-            // Beim ersten Start: Wähle einen zufälligen Intro-Text
-            currentIntro = introTexts.random()
+        val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
+        val selectedRiddle = sharedPreferences.getString(getString(R.string.pref_available_riddle), null)
+        adminmode = sharedPreferences.getBoolean(getString(R.string.pref_adminmode), false)
+        Log.d("RiddleActivity", "Selected Riddle: $selectedRiddle")
+        if (selectedRiddle != null && selectedRiddle.isNotEmpty() && selectedRiddle != "0") {
+            // Lade das gewünschte Rätsel
+            currentIntro = when (selectedRiddle.toInt()) {
+                1 -> getString(R.string.Riddle1)
+                2 -> getString(R.string.Riddle2)
+                3 -> getString(R.string.Riddle3)
+                4 -> getString(R.string.Riddle4)
+                5 -> getString(R.string.Riddle5)
+                6 -> getString(R.string.Riddle6)
+                else -> return // Oder eine andere Fehlerbehandlung
+            }
         } else {
-            // Bei nachfolgenden Starts: Wähle einen anderen Intro-Text als den letzten
-            do {
+            // Zufallsmodus
+            val lastIntro = sharedPreferences.getString("lastIntro", null)
+            val introTexts = listOf(
+                getString(R.string.Riddle1),
+                getString(R.string.Riddle2),
+                getString(R.string.Riddle3),
+                getString(R.string.Riddle4),
+                getString(R.string.Riddle5),
+                getString(R.string.Riddle6)
+            )
+            // Wenn es ein erster Start ist, wähle einen zufälligen Intro-Text
+            if (lastIntro == null) {
+                // Beim ersten Start: Wähle einen zufälligen Intro-Text
                 currentIntro = introTexts.random()
-            } while (currentIntro == lastIntro)
+            } else {
+                // Bei nachfolgenden Starts: Wähle einen anderen Intro-Text als den letzten
+                do {
+                    currentIntro = introTexts.random()
+                } while (currentIntro == lastIntro)
+            }
+            // Speichere den letzten Intro-Text in den SharedPreferences
+            val editor = sharedPreferences.edit()
+            editor.putString("lastIntro", currentIntro)
+            editor.apply()
         }
-        // Speichere den letzten Intro-Text in den SharedPreferences
-        val editor = sharedPreferences.edit()
-        editor.putString("lastIntro", currentIntro)
-        editor.apply()
         tVRiddle_Initialize2.text = currentIntro
         // TextViews 1-30 für die Antworten
         for (i in 1..30) {

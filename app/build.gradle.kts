@@ -53,11 +53,12 @@ android {
 }
 
 dependencies {
+    implementation("androidx.preference:preference-ktx:1.2.1")
     implementation(libs.androidx.activity.ktx)
-    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.google.code.gson:gson:2.11.0")
     implementation(libs.androidx.room.common)
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation(libs.androidx.recyclerview)
     implementation("com.github.chrisbanes:PhotoView:2.3.0")
     implementation("net.objecthunter:exp4j:0.4.8")

@@ -10,4 +10,10 @@
     <string name="Umsatzrentabilität">Umsatzrentabilität (%) =\n\nGewinn / Umsatz * 100</string>
     <string name="Eigenkapitalrentabilität">Eigenkapitalrentabilität (%) =\n\nJahresüberschuss / Eigenkapital * 100</string>
     <string name="Wirtschaftlichkeit">Wirtschaftlichkeit =\n\nErtrag / Aufwand</string>
+
+    <string name="available_riddle">Verfügbare Rätsel</string>
+    <string name="pref_available_riddle">pref_available_riddles</string>
+    <string name="pref_load_riddle">Welches Rätsel soll geladen werden</string>
+    <string name="pref_adminmode_title">Admin Modus</string>
+    <string name="pref_adminmode">adminmode</string>
 </resources>
