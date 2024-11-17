@@ -4672,6 +4672,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 optionsWithImage = listOf(),
                                 targets = listOf(),
                                 correctMappings = mapOf())
+
                         )
                         GlobalScope.launch {
                             riddleDao.insertAll(*riddles.toTypedArray())
