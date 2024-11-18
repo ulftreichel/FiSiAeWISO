@@ -15,7 +15,9 @@ class HelpDialog (private val currentRiddleNumber: Int): DialogFragment() {
             val inflater = requireActivity().layoutInflater
             val view = inflater.inflate(R.layout.help_formel_dialog, null)
             val helpText = view.findViewById<TextView>(R.id.help_formel_textView)
-            if (currentRiddleNumber == 16) {
+            if (currentRiddleNumber == 4) {
+                helpText.text = getString(R.string.BeitragRente)
+            } else if (currentRiddleNumber == 16) {
                 helpText.text = getString(R.string.Eigenkapitalrentabilität)
             } else if (currentRiddleNumber == 20) {
                 helpText.text = getString(R.string.Wirtschaftlichkeit)

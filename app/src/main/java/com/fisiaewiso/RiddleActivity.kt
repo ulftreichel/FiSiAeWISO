@@ -1,5 +1,6 @@
 package com.fisiaewiso
 
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -26,7 +27,6 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -242,15 +242,6 @@ class RiddleActivity : AppCompatActivity() {
         }
     }
 
-    fun addUnansweredQuestion(riddleNumber: Int) {
-        unansweredQuestions.add(riddleNumber)
-        Log.d("RiddleActivity", "Unanswered Questions: $unansweredQuestions")
-    }
-
-    fun removeUnansweredQuestion(riddleNumber: Int) {
-        unansweredQuestions.remove(riddleNumber)
-    }
-
     // Lade Rätsel nach Intro
     private fun loadRiddlesByIntro(intro: String) {
         riddleMainNumber = when (intro) {
@@ -280,6 +271,7 @@ class RiddleActivity : AppCompatActivity() {
         // currentRiddle im ViewModel aktualisieren
         viewModel.updateCurrentRiddle(currentRiddle)
     }
+
     // Lade Rätsel nach RiddleMainNumber
     private fun loadRiddles(riddleMainNumber: Int, onRiddlesLoaded: () -> Unit) {
         lifecycleScope.launch {
@@ -301,6 +293,7 @@ class RiddleActivity : AppCompatActivity() {
             }
         }
     }
+
     // Zeige das nächste Rätsel an
     private fun proceedToNextRiddle() {
         if(completedRun){
@@ -310,6 +303,7 @@ class RiddleActivity : AppCompatActivity() {
         }
         showNextRiddle() // Nächste Frage laden
     }
+
     // Weiter zur nächsten Frage
     private fun showNextRiddle() {
         if (adminmode){
@@ -322,6 +316,9 @@ class RiddleActivity : AppCompatActivity() {
                 nextButton.isEnabled = true
                 answerLater.isEnabled = true
             },3000) // 2 Sekunden Verzögerung
+            val animator = ObjectAnimator.ofFloat(riddleTextView, "alpha", 0f, 1f)
+            animator.duration = 750 // Animationsdauer in Millisekunden
+            animator.start()
         }
         if (currentRiddleIndex < riddles.size) { // Überprüfe, ob noch Rätsel vorhanden sind
             currentRiddleIndex++ // Index für das nächste Rätsel aktualisieren
@@ -365,6 +362,7 @@ class RiddleActivity : AppCompatActivity() {
         }
     }
 
+    //Abfrage ob nicht beantwortete Rätsel angezeigt werden sollen
     private fun showAlertUnansweredQuestions() {
         val crowd = unansweredQuestions.size
         val builder = AlertDialog.Builder(this)
@@ -382,6 +380,7 @@ class RiddleActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    // Lade unbeantwortete Rätsel
     fun loadUnAnsweredQuestion(onRiddlesLoaded: () -> Unit) {
         lifecycleScope.launch {
             val riddlesToLoad = mutableListOf<Riddle>()
@@ -649,10 +648,11 @@ class RiddleActivity : AppCompatActivity() {
                     bHelp.visibility = View.VISIBLE
                     iBCalculator.setOnClickListener {
                         inputCount = when {
-                            currentRiddle.requiresNumberInput -> 1
                             currentRiddle.requiresTwoNumberInputs -> 2
+                            currentRiddle.requiresNumberInput -> 1
                             else -> 0 // Oder einen anderen Standardwert, falls keine Eingabe benötigt wird
                         }
+                        Log.d("RiddleActivity", "inputCount: $inputCount")
                         val intent = Intent(this, CalculatorActivity::class.java)
                         intent.putExtra("question", currentRiddle.question)
                         intent.putExtra("inputCount", inputCount)
@@ -740,7 +740,7 @@ class RiddleActivity : AppCompatActivity() {
                 Collections.shuffle(shuffledAnswers)
                 // CheckBoxes und RadioButtons anzeigen
                 checkBoxes.forEach { it.visibility = View.VISIBLE } // Zeige CheckBoxes
-                radioGroupAnswers.visibility = View.VISIBLE // Zeige RadioGroup
+                //radioGroupAnswers.visibility = View.VISIBLE // Zeige RadioGroup
                 if (currentRiddle.hasMultipleCorrectAnswers) {
                     radioGroupAnswers.visibility = View.GONE // Verstecke RadioGroup
                     linearLayoutAnswers.visibility = View.VISIBLE // Zeige LinearLayout for CheckBoxes
@@ -766,6 +766,15 @@ class RiddleActivity : AppCompatActivity() {
             }
         }
         riddleTextView.text = currentRiddle.question
+    }
+
+    fun addUnansweredQuestion(riddleNumber: Int) {
+        unansweredQuestions.add(riddleNumber)
+        Log.d("RiddleActivity", "Unanswered Questions: $unansweredQuestions")
+    }
+
+    fun removeUnansweredQuestion(riddleNumber: Int) {
+        unansweredQuestions.remove(riddleNumber)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var bRiddle: Button
     private lateinit var bRiddleResult: Button
     private lateinit var bRiddleAdmin: Button
-    var adminmode = true
+    var adminmode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +44,20 @@ class MainActivity : ComponentActivity() {
             val intent = Intent(this, RiddleResultActivity::class.java)
             startActivity(intent)
         }
+        // Zeige den Admin-Button nur bei Bedarf an
         if (adminmode) {
             bRiddleAdmin.visibility = View.VISIBLE
             bRiddleAdmin.setOnClickListener {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
             }
-
+        } else {
+            // sobald AdminMode oben auf false gesetzt wird, deaktivere es Global und setze das laden von zufälligen Rätsel
+            val sharedRootPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
+            val editor = sharedRootPreferences.edit()
+            editor.putBoolean("adminmode", adminmode)
+            editor.putString("pref_available_riddles", 0.toString())
+            editor.apply()
         }
     }
     // Initialisiere die Datenbank für fülle Sie mit den Daten

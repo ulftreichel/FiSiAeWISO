@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -12,18 +13,16 @@ import android.widget.GridLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.semantics.text
 import net.objecthunter.exp4j.ExpressionBuilder
 
 class CalculatorActivity : AppCompatActivity() {
     private val intermediateResults = mutableListOf<Double>()
+    private val resultCheckBoxes = mutableListOf<CheckBox>()
+    private val selectedCheckBoxesForRiddle = mutableSetOf<CheckBox>()
     private lateinit var buttonApply: Button
     private lateinit var buttonCe: Button
     private lateinit var gridLayoutCalc: GridLayout
-    private val checkBoxes = mutableListOf<CheckBox>()
-    private val resultCheckBoxes = mutableListOf<CheckBox>()
-    private var _maxSelections = 1
-    private val maxSelections: Int
-        get() = _maxSelections
     private var inputCount = 0
     var question: String = ""
 
@@ -32,6 +31,7 @@ class CalculatorActivity : AppCompatActivity() {
         setContentView(R.layout.calculator_dialog) // Verwende das gleiche Layout
         question = intent.getStringExtra("question") ?: ""
         inputCount = intent.getIntExtra("inputCount", 0)
+        Log.d("CalculatorActivity", "inputCount: $inputCount")
         val scrollViewQuestion = findViewById<ScrollView>(R.id.scrollViewQuestionCalc)
         val riddleQuestion = findViewById<TextView>(R.id.tVQuestionCalc)
         val display = findViewById<EditText>(R.id.calculator_display)
@@ -49,8 +49,7 @@ class CalculatorActivity : AppCompatActivity() {
         val buttonSubtract = findViewById<Button>(R.id.button_subtract)
         val buttonMultiply = findViewById<Button>(R.id.button_multiply)
         val buttonDivide = findViewById<Button>(R.id.button_divide)
-        val buttonDecimal = findViewById<Button>(R.id.button_decimal)
-        val buttonPercent = findViewById<Button>(R.id.button_percent)
+        val buttonDecimal = findViewById<Button>(R.id.button_dot)
         buttonCe = findViewById(R.id.button_ce)
         val buttonC = findViewById<Button>(R.id.button_c)
         val buttonDel = findViewById<Button>(R.id.button_del)
@@ -58,7 +57,6 @@ class CalculatorActivity : AppCompatActivity() {
         buttonApply = findViewById(R.id.button_apply)
         val buttonSave = findViewById<Button>(R.id.button_save)
         gridLayoutCalc = findViewById(R.id.gridLayoutCal)
-        setMaxSelections(2)
         // Frage anzeigen
         riddleQuestion.text = question
         // Logik für Button-Klicks
@@ -92,40 +90,30 @@ class CalculatorActivity : AppCompatActivity() {
             val currentInput = display.text.toString()
             display.text = Editable.Factory.getInstance().newEditable(currentInput + ".")
         }
-        buttonPercent.setOnClickListener {
-            val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + "%")
+        buttonCe.setOnClickListener {
+            // Alle Checkboxes aus dem GridLayout entfernen
+            for (checkBox in resultCheckBoxes) {
+                gridLayoutCalc.removeView(checkBox)
+            }
+            // Die Liste der Checkboxes leeren
+            resultCheckBoxes.clear()
         }
-
-        buttonCe.setOnClickListener { }
         buttonC.setOnClickListener { display.text.clear() }
         buttonEquals.setOnClickListener {
             val result = evaluateExpression(display.text.toString())
-            val resultString = if (result.toInt().toDouble() == result) {
+            Log.d("CalculatorActivity", "Result: $result")
+            val formattedResult = if (result.toInt().toDouble() == result) {
                 result.toInt().toString() // Ergebnis als Integer anzeigen, wenn es eine ganze Zahl ist
             } else {
-                result.toString() // Ergebnis als Double anzeigen, wenn es eine Dezimalzahl ist
+                String.format("%.2f", result).replace(',', '.') // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
             }
-            display.text = Editable.Factory.getInstance().newEditable(resultString)
+            display.text = Editable.Factory.getInstance().newEditable(formattedResult)
+            Log.d("CalculatorActivity", "Result: $formattedResult")
         }
         buttonDel.setOnClickListener {
             val currentText = display.text.toString()
             if (currentText.isNotEmpty()) {
                 display.setText(currentText.substring(0, currentText.length - 1))
-            }
-        }
-        buttonPercent.setOnClickListener {
-            try {
-                val currentText = display.text.toString()
-                val currentValue = currentText.toDoubleOrNull()
-                if (currentValue != null) {
-                    val result = currentValue / 100.0
-                    display.setText(result.toString())
-                } else {
-                    // Fehlerbehandlung
-                }
-            } catch (e: Exception) {
-                // Fehlerbehandlung
             }
         }
         if (intermediateResults.isEmpty()) {
@@ -137,21 +125,43 @@ class CalculatorActivity : AppCompatActivity() {
         }
         // Event-Listener für den "Übernehmen"-Button
         buttonApply.setOnClickListener {
-            val selectedCheckboxValues = resultCheckBoxes.filter { it.isChecked }.map { it.text.toString() }
+            // Erstelle den Dialog mit den Checkboxes
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Ergebnisse auswählen")
 
-            val resultIntent = Intent()
-            when (inputCount) {
-                1 -> resultIntent.putExtra("result", selectedCheckboxValues.firstOrNull() ?: "")
-                2 -> {
-                    val (input1, input2) = selectedCheckboxValues.takeIf { it.size <= 2 }
-                        ?: listOf("", "")
-                    resultIntent.putExtra("result1", input1)
-                    resultIntent.putExtra("result2", input2)
+            val checkBoxes = resultCheckBoxes.toTypedArray()
+            val checkedItems = BooleanArray(checkBoxes.size) { false } // Initialisiere alle als nicht ausgewählt
+
+            builder.setMultiChoiceItems(checkBoxes.map { it.text }.toTypedArray(), checkedItems) { dialog, which, isChecked ->
+                if (isChecked) {
+                    selectedCheckBoxesForRiddle.add(checkBoxes[which]) // Füge die Checkbox zur Liste hinzu
+                } else {
+                    selectedCheckBoxesForRiddle.remove(checkBoxes[which]) // Entferne die Checkbox aus der Liste
                 }
-                else -> { /* Keine Aktion erforderlich */ }
             }
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+
+            builder.setPositiveButton("OK") { dialog, which ->
+                // Übergebe die ausgewählten Ergebnisse an die RiddleActivity
+                val selectedCheckboxValues = selectedCheckBoxesForRiddle.map { it.text.toString() }
+                val resultIntent = Intent()
+                when (inputCount) {
+                    1 -> resultIntent.putExtra("result", selectedCheckboxValues.firstOrNull() ?: "")
+                    2 -> {
+                        val (input1, input2) = selectedCheckboxValues.takeIf { it.size <= 2 }
+                            ?: listOf("", "")
+                        resultIntent.putExtra("result1", input1)
+                        resultIntent.putExtra("result2", input2)
+                    }
+                    else -> { /* Keine Aktion erforderlich */ }
+                }
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()
+            }
+
+            builder.setNegativeButton("Abbrechen", null)
+
+            val dialog = builder.create()
+            dialog.show()
         }
         // Event-Listener für den "Speichern"-Button
         buttonSave.setOnClickListener {
@@ -165,21 +175,32 @@ class CalculatorActivity : AppCompatActivity() {
                     val resultString = if (result.toInt().toDouble() == result) {
                         result.toInt().toString() // Ergebnis als Integer anzeigen, wenn es eine ganze Zahl ist
                     } else {
-                        result.toString() // Ergebnis als Double anzeigen, wenn es eine Dezimalzahl ist
+                        String.format("%.2f", result).replace(',', '.') // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
                     }
                     val resultDouble = resultString.toDoubleOrNull() // In Double umwandeln
-
                     if (resultDouble != null) {
                         intermediateResults.add(resultDouble) // Ergebnis speichern
                         display.text.clear()
                     } else {
                         // Fehlerbehandlung, falls die Konvertierung fehlschlägt
                     }
+                    buttonApply.isEnabled = true
+                    buttonCe.isEnabled = true
                     val checkBox = CheckBox(this)
                     checkBox.text = resultString
                     resultCheckBoxes.add(checkBox)
                     gridLayoutCalc.addView(checkBox)
-
+                    checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (isChecked) {
+                            display.append(buttonView.text) // Text zum Display hinzufügen
+                            buttonView.isChecked = false
+                        } else {
+                            // Wenn die Checkbox deaktiviert wird, entferne den Text aus dem Display
+                            val currentText = display.text.toString()
+                            val newText = currentText.replace(buttonView.text.toString(), "")
+                            display.text = Editable.Factory.getInstance().newEditable(newText)
+                        }
+                    }
                 }
                 .setNegativeButton("Nein", null)
                 .show()
@@ -197,29 +218,6 @@ class CalculatorActivity : AppCompatActivity() {
         } catch (e: Exception) {
             // Fehlerbehandlung
             return 0.0
-        }
-    }
-
-    fun addCheckboxes(numCheckboxes: Int) {
-        for (i in 0 until numCheckboxes) {
-            val checkBox = CheckBox(this)
-            checkBoxes.add(checkBox) // Checkbox zur Liste hinzufügen
-            gridLayoutCalc.addView(checkBox) // Checkbox zum GridLayout hinzufügen
-        }
-        updateCheckBoxes() // Checkboxes initialisieren
-    }
-
-    // Methode zum Setzen der maximalen Anzahl an Auswahlen
-    fun setMaxSelections(max: Int) {
-        _maxSelections = max // _maxSelections ändern, nicht maxSelections
-        updateCheckBoxes()
-    }
-
-    // Methode zum Aktualisieren der Checkboxes
-    fun updateCheckBoxes() {
-        val selectedCount = resultCheckBoxes.count { it.isChecked }
-        resultCheckBoxes.forEach { checkBox ->
-            checkBox.isEnabled = !checkBox.isChecked || selectedCount < inputCount // inputCount als Limit verwenden
         }
     }
 }
