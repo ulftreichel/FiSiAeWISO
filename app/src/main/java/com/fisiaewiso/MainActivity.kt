@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var bRiddle: Button
     private lateinit var bRiddleResult: Button
     private lateinit var bRiddleAdmin: Button
-    var adminmode = false
+    var adminmode = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

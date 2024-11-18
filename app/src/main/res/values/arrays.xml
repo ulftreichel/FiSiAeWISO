@@ -8,6 +8,7 @@
         <item name="Riddle4">Rätsel 4</item>
         <item name="Riddle5">Rätsel 5</item>
         <item name="Riddle6">Rätsel 6</item>
+        <item name="Riddle7">Rätsel 7</item>
     </string-array>
     <string-array name="available_riddle_values">
         <item name="Riddle0">0</item>
@@ -17,6 +18,7 @@
         <item name="Riddle4">4</item>
         <item name="Riddle5">5</item>
         <item name="Riddle6">6</item>
+        <item name="Riddle7">7</item>
     </string-array>
 
 </resources>
