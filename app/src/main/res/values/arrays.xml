@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Verfügbare Rätsel -->
     <string-array name="available_riddle">
         <item name="Riddle0">Zufall</item>
         <item name="Riddle1">Rätsel 1</item>
@@ -20,5 +21,28 @@
         <item name="Riddle6">6</item>
         <item name="Riddle7">7</item>
     </string-array>
-
+    <!-- Theme-Einstellungen -->
+    <string-array name="theme_entries">
+        <item>Hell</item>
+        <item>Dunkel</item>
+        <item>Auto</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>auto</item>
+    </string-array>
+    <!-- Konfigurationen TimeOut-->
+    <string-array name="timeoutriddle">
+        <item>Kein Timeout</item>
+        <item>30 Sekunden</item>
+        <item>60 Sekunden</item>
+        <item>90 Sekunden</item>
+    </string-array>
+    <string-array name="timeoutriddle_values">
+        <item>0</item>
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+    </string-array>
 </resources>

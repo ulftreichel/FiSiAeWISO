@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.PreferenceCategory
+        android:title="Einstellungen">
+
+    </androidx.preference.PreferenceCategory>
+    <ListPreference
+        android:key="theme_preference"
+        android:title="Theme"
+        android:entries="@array/theme_entries"
+        android:entryValues="@array/theme_values"
+        android:defaultValue="light" />
+
+    <ListPreference
+        android:key="timeoutriddle"
+        android:title="Timeout"
+        android:entries="@array/timeoutriddle"
+        android:entryValues="@array/timeoutriddle_values"
+        android:defaultValue="0" />
+
+</androidx.preference.PreferenceScreen>

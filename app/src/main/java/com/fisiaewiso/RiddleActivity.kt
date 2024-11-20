@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.text.InputType
@@ -13,6 +14,7 @@ import android.util.Log
 import android.view.DragEvent
 import android.view.Gravity
 import android.view.View
+import android.view.animation.Animation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.CheckBox
@@ -74,6 +76,8 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var optionsRecyclerView: androidx.recyclerview.widget.RecyclerView
     private lateinit var targetLinearLayout: LinearLayout
     private lateinit var linearTextView: LinearLayout
+    private lateinit var frameTimeOut: FrameLayout
+    private lateinit var tvRiddleTimeOut: TextView
     private lateinit var target1TextView: TextView
     private lateinit var target2TextView: TextView
     private lateinit var target3TextView: TextView
@@ -96,8 +100,23 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var adapter: SortableRecyclerViewAdapter
     var inputCount = 0
     var adminmode = false
+    private var timeout = 0
+    private lateinit var timerHandler: Handler
+    private var countdownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
+        val selectedRiddle = sharedPreferences.getString(getString(R.string.pref_available_riddle), null)
+        adminmode = sharedPreferences.getBoolean(getString(R.string.pref_adminmode), false)
+        val timeoutString = sharedPreferences.all[getString(R.string.pref_timeout)]?.toString() ?: "0"
+        timeout = timeoutString.toInt()
+        Log.d("RiddlePrefTimeOut", "Timeout: $timeout")
+        val themePreference = sharedPreferences.getString("theme_preference", "auto")
+        when (themePreference) {
+            "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
+            "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
+            "auto" -> setTheme(R.style.Theme_FiSiAeWISO)
+        }
         super.onCreate(savedInstanceState)
         // Setze das Layout
         setContentView(R.layout.activity_riddle)
@@ -120,6 +139,8 @@ class RiddleActivity : AppCompatActivity() {
         linearLayoutRecyclerView = findViewById(R.id.linearLayoutRecyclerView)
         optionsRecyclerView = findViewById(R.id.optionsRecyclerView)
         targetLinearLayout = findViewById(R.id.targetLinearLayout)
+        frameTimeOut = findViewById(R.id.frameTimeout)
+        tvRiddleTimeOut = findViewById(R.id.tvRiddleTimeOut)
         linearTextView = findViewById(R.id.linearTextView)
         val repository = ResultRepository(AppDatabase.getDatabase(this).resultDao(), AppDatabase.getDatabase(this).riddleDao())
         viewModel = ViewModelProvider(this, RiddleViewModelFactory(repository)).get(RiddleViewModel::class.java)
@@ -136,9 +157,6 @@ class RiddleActivity : AppCompatActivity() {
         currentRiddle = Riddle(0,0, 0, 0, "Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false,false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
         //tVRiddle_Initialize.text = currentRiddle.question
         // Intros laden
-        val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
-        val selectedRiddle = sharedPreferences.getString(getString(R.string.pref_available_riddle), null)
-        adminmode = sharedPreferences.getBoolean(getString(R.string.pref_adminmode), false)
         Log.d("RiddleActivity", "Selected Riddle: $selectedRiddle")
         if (selectedRiddle != null && selectedRiddle.isNotEmpty() && selectedRiddle != "0") {
             // Lade das gewünschte Rätsel
@@ -199,6 +217,7 @@ class RiddleActivity : AppCompatActivity() {
                 nextButton.isEnabled = true
                 answerLater.isEnabled = true
             } else {
+                countdown()
                 nextButton.isEnabled = false
                 answerLater.isEnabled = false
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -303,6 +322,63 @@ class RiddleActivity : AppCompatActivity() {
         }
         showNextRiddle() // Nächste Frage laden
     }
+    // CountDown
+    private fun countdown() {
+        if (!adminmode && timeout > 0) {
+            frameTimeOut.visibility = View.GONE // Timer verstecken, wenn >10 Sekunden
+
+            val timer = object : CountDownTimer(timeout * 1000L, 1000L) {
+                override fun onTick(millisUntilFinished: Long) {
+                    val secondsRemaining = millisUntilFinished / 1000
+                    if (secondsRemaining <= 10) {
+                        frameTimeOut.visibility = View.VISIBLE
+                        tvRiddleTimeOut.text = secondsRemaining.toString()
+
+                        // Farbe ändern
+                        val color = when {
+                            secondsRemaining > 5 -> Color.GREEN
+                            secondsRemaining > 3 -> Color.YELLOW
+                            else -> Color.RED
+                        }
+                        tvRiddleTimeOut.setTextColor(color)
+                        // Animation starten
+                        animateCountdownText()
+                    }
+                }
+
+                override fun onFinish() {
+                    frameTimeOut.visibility = View.GONE
+                    evaluateAnswer()
+                }
+            }
+            countdownTimer = timer // Referenz speichern
+            timer.start() // Lokale Variable verwenden
+        }
+    }
+
+    private fun animateCountdownText() {
+        val scaleAnimation = android.view.animation.ScaleAnimation(
+            1.0f, 2.5f,  // Start- und Endskala in x-Richtung
+            1.0f, 2.5f,  // Start- und Endskala in y-Richtung
+            Animation.RELATIVE_TO_SELF, 0.5f,  // Pivot-X (Mittelpunkt)
+            Animation.RELATIVE_TO_SELF, 0.5f   // Pivot-Y (Mittelpunkt)
+        )
+        scaleAnimation.duration = 300  // Dauer der Animation (in Millisekunden)
+        scaleAnimation.repeatCount = 0 // Kein Wiederholen
+
+        val alphaAnimation = android.view.animation.AlphaAnimation(
+            0.25f, 1.0f // Von 50% zu 100% Sichtbarkeit
+        )
+        alphaAnimation.duration = 300
+        alphaAnimation.repeatCount = 0
+
+        // Kombiniere Skalierungs- und Alpha-Animation
+        val animationSet = android.view.animation.AnimationSet(true)
+        animationSet.addAnimation(scaleAnimation)
+        animationSet.addAnimation(alphaAnimation)
+
+        tvRiddleTimeOut.startAnimation(animationSet)
+    }
 
     // Weiter zur nächsten Frage
     private fun showNextRiddle() {
@@ -310,6 +386,7 @@ class RiddleActivity : AppCompatActivity() {
             nextButton.isEnabled = true
             answerLater.isEnabled = true
         } else {
+            countdown()
             nextButton.isEnabled = false
             answerLater.isEnabled = false
             Handler(Looper.getMainLooper()).postDelayed({
@@ -784,12 +861,15 @@ class RiddleActivity : AppCompatActivity() {
                 1 -> {
                     val resultValue = intent?.getStringExtra("result")
                     numberInput.setText(resultValue) // Ergebnis in numberInput anzeigen
+                    Log.d("RiddleActivity", "Result Value: $resultValue")
                 }
                 2 -> {
                     val resultValue1 = intent?.getStringExtra("result1")
                     val resultValue2 = intent?.getStringExtra("result2")
                     numberInput.setText(resultValue1) // Ergebnis in numberInput anzeigen
                     numberInput2.setText(resultValue2) // Ergebnis in numberInput2 anzeigen
+                    Log.d("RiddleActivity", "Result Value 1: $resultValue1")
+                    Log.d("RiddleActivity", "Result Value 2: $resultValue2")
                 }
                 else -> { /* Keine Aktion erforderlich */ }
             }
@@ -859,12 +939,14 @@ class RiddleActivity : AppCompatActivity() {
             val numPossibleAnswers = correctAnswers.size
             val isCorrect = userAnswers == correctAnswers
             partiallyCorrect = numCorrectAnswers > 0 && numCorrectAnswers < correctAnswers.size
+            // Markiere die TextView
             if (textViewIndex in 0..29) {
+                countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
-                    proceedToNextRiddle()
+                    proceedToNextRiddle() // Weiter zum nächsten Rätsel
                 } else if (partiallyCorrect){
                     textView.setBackgroundColor(Color.YELLOW) // Teilweise richtig: Gelb
                     totalPoints += 3.33333 * (numCorrectAnswers.toDouble() / numPossibleAnswers)
@@ -875,6 +957,7 @@ class RiddleActivity : AppCompatActivity() {
                 }
             }
         }  else if (currentRiddle.hasMultipleCorrectAnswers) {
+            // Frage mit mehreren richtigen Antworten
             val numCorrectAnswers = selectedAnswers.count { correctAnswers.contains(it) }
             val numPossibleAnswers = correctAnswers.size
             // isCorrect: Alle korrekten Antworten müssen in selectedAnswers enthalten sein
@@ -884,62 +967,63 @@ class RiddleActivity : AppCompatActivity() {
             // partiallyCorrect: Mindestens eine korrekte Antwort muss in selectedAnswers enthalten sein
             // und nicht alle selectedAnswers sind korrekt
             partiallyCorrect = numCorrectAnswers > 0 && !isCorrect
-            // TextView für das aktuelle Rätsel markieren
             if (textViewIndex in 0..29) {
+                countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
-                        textView.setBackgroundColor(Color.MAGENTA) // Teilweise richtig: Gelb
+                        textView.setBackgroundColor(Color.MAGENTA) // Richtig aber Hilfe benötigt: Magenta
                     } else {
                         totalPoints += 3.33333
                         textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
-                    proceedToNextRiddle()
+                    proceedToNextRiddle() // Weiter zum nächsten Rätsel
                 } else if (partiallyCorrect){
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 * (numCorrectAnswers.toDouble() / numPossibleAnswers) / 2
-                        textView.setBackgroundColor(Color.MAGENTA)
+                        textView.setBackgroundColor(Color.MAGENTA) // Richtig aber Hilfe benötigt: Magenta
                     } else {
                         totalPoints += 3.33333 * (numCorrectAnswers.toDouble() / numPossibleAnswers)
                         textView.setBackgroundColor(Color.YELLOW) // Teilweise richtig: Gelb
                     }
-                    wrongAnswerDialog(correctAnswers, currentRiddle.unit)
+                    wrongAnswerDialog(correctAnswers, currentRiddle.unit) // Zeige die richtige Antwort
                 } else {
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
-                    wrongAnswerDialog(correctAnswers, currentRiddle.unit)
+                    wrongAnswerDialog(correctAnswers, currentRiddle.unit) // Zeige die richtige Antwort
                 }
             }
         }  else if (currentRiddle.hasdifferentanswers) {
-
             //Fragen mit mehreren richtigen Antworten
             val selectedAnswer = radioGroupAnswers.findViewById<RadioButton>(radioGroupAnswers.checkedRadioButtonId)?.text.toString() ?: ""
             // Überprüfen, ob die ausgewählte Antwort korrekt ist
             val isCorrect = currentRiddle.correctAnswers.contains(selectedAnswer)
             // Punkte vergeben, wenn die Antwort korrekt ist
             if (textViewIndex in 0..29) {
+                countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
-                        textView.setBackgroundColor(Color.MAGENTA)
+                        textView.setBackgroundColor(Color.MAGENTA) // Richtig aber Hilfe benötigt: Magenta
                     } else {
                         totalPoints += 3.33333
                         textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
-                    proceedToNextRiddle()
+                    proceedToNextRiddle() // Weiter zum nächsten Rätsel
                 } else {
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
-                    wrongAnswerDialog(correctAnswers, currentRiddle.unit)
+                    wrongAnswerDialog(correctAnswers, currentRiddle.unit) // Zeige die richtige Antwort
                 }
             }
         } else if (currentRiddle.requiresDragAndDrop) {
+            // Frage mit Drag-and-Drop
             var correctAnswers = 0
             val totalAnswers = currentRiddle.correctMappings.size
-
+            // Überprüfen, ob die ausgewählte Antwort korrekt ist
             for ((option, targetIdString) in userMappings) {
                 val correctTargetIdString = currentRiddle.correctMappings[option]
 
@@ -967,21 +1051,21 @@ class RiddleActivity : AppCompatActivity() {
                     Log.d("RiddleEvaluation", "Incorrect answer for option: $option")
                 }
             }
-
             if (textViewIndex in 0..29) {
                 val textView = answerTextViews[textViewIndex]
                 if (correctAnswers == totalAnswers) {
+                    countdownTimer?.cancel()
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
-                    proceedToNextRiddle()
+                    proceedToNextRiddle() // Weiter zum nächsten Rätsel
                 } else if (correctAnswers == 0) {
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
-                    wrongAnswerDialog(correctMappings = currentRiddle.correctMappings)
+                    wrongAnswerDialog(correctMappings = currentRiddle.correctMappings) // Zeige die richtige Antwort
                 } else {
                     textView.setBackgroundColor(Color.YELLOW) // Teilweise richtig: Gelb
                     val pointsPerCorrectAnswer = 3.33333 / totalAnswers
                     totalPoints += pointsPerCorrectAnswer * correctAnswers
-                    wrongAnswerDialog(correctMappings = currentRiddle.correctMappings)
+                    wrongAnswerDialog(correctMappings = currentRiddle.correctMappings) // Zeige die richtige Antwort
                 }
             }
         } else {
@@ -989,19 +1073,20 @@ class RiddleActivity : AppCompatActivity() {
             val isCorrect = correctAnswers == selectedAnswers
             // TextView für das aktuelle Rätsel markieren
             if (textViewIndex in 0..29) {
+                countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     if (needHelp){
                         needHelp = false
                         totalPoints += 3.33333 / 2
-                        textView.setBackgroundColor(Color.MAGENTA)
+                        textView.setBackgroundColor(Color.MAGENTA) // Richtig aber Hilfe benötigt: Magenta
                     } else {
                         totalPoints += 3.33333
                         textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     }
-                    proceedToNextRiddle()
+                    proceedToNextRiddle() // Weiter zum nächsten Rätsel
                 } else {
-                    wrongAnswerDialog(correctAnswers, currentRiddle.unit)
+                    wrongAnswerDialog(correctAnswers, currentRiddle.unit) // Zeige die richtige Antwort
                     textView.setBackgroundColor(Color.RED) // Falsch: Rot
                 }
             }
@@ -1038,7 +1123,7 @@ class RiddleActivity : AppCompatActivity() {
         dialog.show()
         viewModel.saveResultsToDatabase(riddleMainNumber, totalPoints.toInt(), grade)
     }
-
+    // Zeige die richtige Antwort
     private fun wrongAnswerDialog(correctAnswers: List<String> = emptyList(), currentRiddleUnit: List<String> = emptyList(), correctMappings: Map<String, String> = emptyMap()) {
         if (adminmode){
             proceedToNextRiddle()
@@ -1062,5 +1147,17 @@ class RiddleActivity : AppCompatActivity() {
                 dialog.show()
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        countdownTimer?.cancel() // Countdown-Timer stoppen
+        countdownTimer = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countdownTimer?.cancel() // Countdown-Timer stoppen
+        countdownTimer = null
     }
 }
