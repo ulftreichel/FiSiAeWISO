@@ -101,7 +101,6 @@ class RiddleActivity : AppCompatActivity() {
     var inputCount = 0
     var adminmode = false
     private var timeout = 0
-    private lateinit var timerHandler: Handler
     private var countdownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -355,7 +354,7 @@ class RiddleActivity : AppCompatActivity() {
             timer.start() // Lokale Variable verwenden
         }
     }
-
+    // Animation für den Timer Text
     private fun animateCountdownText() {
         val scaleAnimation = android.view.animation.ScaleAnimation(
             1.0f, 2.5f,  // Start- und Endskala in x-Richtung
