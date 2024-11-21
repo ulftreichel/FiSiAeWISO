@@ -28,12 +28,12 @@ class MainActivity : ComponentActivity() {
             initializeDatabase()
             sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
         }
-        val themePreference = sharedPreferences.getString("theme_preference", "auto")
+        val themePreference = sharedPreferences.getString("theme_preference", "standard")
         Log.d("MainActivity", "Theme preference: $themePreference")
         when (themePreference) {
+            "standard" -> setTheme(R.style.Theme_FiSiAeWISO)
             "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
             "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
-            "auto" -> setTheme(R.style.Theme_FiSiAeWISO)
         }
         super.onCreate(savedInstanceState)
         // Setze das Layout
@@ -71,6 +71,7 @@ class MainActivity : ComponentActivity() {
     private fun initializeDatabase() {
         CoroutineScope(Dispatchers.IO).launch {
             AppDatabase.getDatabase(applicationContext).riddleDao().insertAll()
+            AppDatabase.getDatabase(applicationContext).riddleDescriptionDao().insertAll()
         }
     }
 
@@ -79,11 +80,11 @@ class MainActivity : ComponentActivity() {
     ) { result: ActivityResult ->
         if (result.resultCode == RESULT_OK) {
             val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
-            val newTheme = sharedPreferences.getString("theme_preference", "auto")
-            when (newTheme) {
+            val themePreference = sharedPreferences.getString("theme_preference", "standard")
+            when (themePreference) {
+                "standard" -> setTheme(R.style.Theme_FiSiAeWISO)
                 "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
                 "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
-                "auto" -> setTheme(R.style.Theme_FiSiAeWISO)
             }
             recreate()  // Neue Aktivität mit aktualisiertem Theme
         }
@@ -95,7 +96,7 @@ class MainActivity : ComponentActivity() {
         if (adminmode) {
             // sobald AdminMode im Code auf true gesetzt wird, aktivere es Global und setze das laden von zufälligen Rätsel
             editor.putBoolean("adminmode", adminmode)
-            editor.putString("theme_preference", "auto")
+            editor.putString("theme_preference", "standard")
             editor.apply()
         } else {
             // sobald AdminMode im Code auf false gesetzt wird, deaktivere es Global und setze das laden von zufälligen Rätsel

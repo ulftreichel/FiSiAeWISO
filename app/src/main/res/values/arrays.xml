@@ -1,36 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Verfügbare Rätsel -->
-    <string-array name="available_riddle">
-        <item name="Riddle0">Zufall</item>
-        <item name="Riddle1">Rätsel 1</item>
-        <item name="Riddle2">Rätsel 2</item>
-        <item name="Riddle3">Rätsel 3</item>
-        <item name="Riddle4">Rätsel 4</item>
-        <item name="Riddle5">Rätsel 5</item>
-        <item name="Riddle6">Rätsel 6</item>
-        <item name="Riddle7">Rätsel 7</item>
-    </string-array>
-    <string-array name="available_riddle_values">
-        <item name="Riddle0">0</item>
-        <item name="Riddle1">1</item>
-        <item name="Riddle2">2</item>
-        <item name="Riddle3">3</item>
-        <item name="Riddle4">4</item>
-        <item name="Riddle5">5</item>
-        <item name="Riddle6">6</item>
-        <item name="Riddle7">7</item>
-    </string-array>
     <!-- Theme-Einstellungen -->
     <string-array name="theme_entries">
+        <item>Standard</item>
         <item>Hell</item>
         <item>Dunkel</item>
-        <item>Auto</item>
     </string-array>
     <string-array name="theme_values">
+        <item>standard</item>
         <item>light</item>
         <item>dark</item>
-        <item>auto</item>
     </string-array>
     <!-- Konfigurationen TimeOut-->
     <string-array name="timeoutriddle">
