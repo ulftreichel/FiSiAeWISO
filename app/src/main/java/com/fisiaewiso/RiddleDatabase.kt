@@ -10,11 +10,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.collections.toTypedArray
 
-@Database(entities = [Riddle::class, Result::class], version = 1, exportSchema = false) // Version auf 2 erhöhen
+@Database(entities = [Riddle::class, Result::class, RiddleDescription::class], version = 1, exportSchema = false) // Version auf 2 erhöhen
 @TypeConverters(NumberedAnswersTypeConverter::class, StringListTypeConverter::class, MapTypeConverter::class, OptionWithImageConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun riddleDao(): RiddleDao
     abstract fun resultDao(): ResultDao
+    abstract fun riddleDescriptionDao(): RiddleDescriptionDao
 
     companion object {
         @Volatile
@@ -4830,8 +4831,12 @@ abstract class AppDatabase : RoomDatabase() {
                                 riddleNumber = 187,
                                 riddleIndex = 7,
                                 question = "Die Kittel IT GmbH und die Arbeitnehmer sind mit Arbeitsverträgen Pflichten eingegangen.\n\nIn welchem der folgenden Fälle ist die Kittel IT GmbH berechtigt; die Fortzahlung des Arbeitsentgelts bei einem Arbeitnehmer zu verweigern?\n\nWählen Sie die korrekte Antwort aus.",
-                                answers = listOf(""),
-                                correctAnswers = listOf(),
+                                answers = listOf("Während der Probezeit eines Arbeitnehmers",
+                                    "Bei einem Arbeitsunfall im Betrieb",
+                                    "Bei einem gekündigten Arbeitsverhältnis bis zu dessen tatsächlichen Ende",
+                                    "Bei Nichtvorlage der ärtzlichen Bescheinigung bzw. der Meldung über die Arbeitsunfähigkeit",
+                                    "Bei einem Arbeitnehmer; der nur 15 Stunden in der Woche beschäftigt ist"),
+                                correctAnswers = listOf("Bei Nichtvorlage der ärtzlichen Bescheinigung bzw. der Meldung über die Arbeitsunfähigkeit"),
                                 unit = listOf(),
                                 requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
@@ -4850,9 +4855,13 @@ abstract class AppDatabase : RoomDatabase() {
                                 riddleMainNumber = 7,
                                 riddleNumber = 188,
                                 riddleIndex = 8,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                question = "Der Mitarbeiter Roberto Lutz; seit 16 Jahren im Betrieb; hat sich für eine Stelle in der Verkaufsabteilung beworben. Um seine Chancen einschätzen zu können; möchte er Einsicht in seine Personalakte nehmen\n\nWelche der folgenden Entscheidungen der Personalleiterin ist korrekt?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Sie will Hern Lutz die Einsicht in die Personalakte verweigern; da Arbeitnehmer hierauf grundsätzlich keinen Anspruch haben.",
+                                    "Herr Lutz muss seine Bitte über den Betriebsrat vortragen. Die Einsicht in die Personalakte darf ihm nur im Beisein eines Vertreters des Betriebsrates gewährt werden.",
+                                    "Sie gewährt Herrn Lutz keine Einsicht in die Personalakte; da dieses Recht nur dem Geschäftsführer zu steht.",
+                                    "Sie gewährt Herrn Lutz Einsicht in die Personalakte; da er das Recht dazu hat.",
+                                    "Sie will Hernn Lutz nur dann Einsicht in die Personalakte gewähren; wenn Herr Lutz ein begründetes Interesse nachweist."),
+                                correctAnswers = listOf("Sie gewährt Herrn Lutz Einsicht in die Personalakte; da er das Recht dazu hat."),
                                 unit = listOf(),
                                 requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
@@ -4871,9 +4880,14 @@ abstract class AppDatabase : RoomDatabase() {
                                 riddleMainNumber = 7,
                                 riddleNumber = 189,
                                 riddleIndex = 9,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                question = "In der Kittel IT GmbH muss die Arbeitssicherheit gewährleistet sein.\n\nZu welchem der folgenden Zeitpunkte sind die Mitarbeitenden der Kittel IT GmbH über die Unfall- und Gesundheitsgefahren zu belehren?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Nur bei Aufnahme der Beschäftigung",
+                                    "Bei Aufnahme der Beschäftigung; anschließend in regelmäßigen Abständen",
+                                    "Nach Ablauf der Probezeit",
+                                    "Nur vor Aufnahme der Beschäftigung",
+                                    "Es besteht keine Pflicht; der Arbeitnehmer hat sich selbst zu informieren",
+                                    "Während des Bewerbungsgespräches und nach dem ersten Unfall"),
+                                correctAnswers = listOf("Bei Aufnahme der Beschäftigung; anschließend in regelmäßigen Abständen"),
                                 unit = listOf(),
                                 requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
@@ -4892,9 +4906,13 @@ abstract class AppDatabase : RoomDatabase() {
                                 riddleMainNumber = 7,
                                 riddleNumber = 190,
                                 riddleIndex = 10,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                question = "Andre Gerken; ein Mitarbeiter der Kittel IT GmbH; erkrankt während seines Urlaubs.\n\nWelche der folgenden Aussagen ist richtig?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Die Tage der Arbeitsunfähigkeit werden zur Hälfte auf den Jahresurlaub angerechnet",
+                                    "Die Tage der Arbeitsunfähigkeit werden voll auf den Jahresurlaub angerechnet",
+                                    "Werden die Tage der Arbeitsunfähigkeit ärztlich nachgewiesen; so erfolgt keine Anrechnung auf den Jahresurlaub",
+                                    "Die Arbeitsunfähigkeit wird nur dann angerechnet; wenn die Erkrankung in Deutschland auftrat",
+                                    "Die Tage der Arbeitsunfähigkeit werden nur bei Krankenhausaufenthalt nicht angerechnet"),
+                                correctAnswers = listOf("Werden die Tage der Arbeitsunfähigkeit ärztlich nachgewiesen; so erfolgt keine Anrechnung auf den Jahresurlaub"),
                                 unit = listOf(),
                                 requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
@@ -4913,9 +4931,13 @@ abstract class AppDatabase : RoomDatabase() {
                                 riddleMainNumber = 7,
                                 riddleNumber = 191,
                                 riddleIndex = 11,
-                                question = "\n\nWählen Sie die korrekten Antwort aus.",
-                                answers = listOf(),
-                                correctAnswers = listOf(),
+                                question = "Die Geschäftsleitung der Kittel IT GmbH ist der Meinung; dass die Wahl eines Betriebsrates nicht erforderlich ist.\n\nIn welchem der folgenden Fälle kann die Belegschaft auf die Wahl eines Betriebsrates bestehen?\n\nWählen Sie die korrekte Antwort aus.",
+                                answers = listOf("Nur wenn die Geschäftsleitung zustimmt",
+                                    "Wenn genügend wahlberechtigte Belegschaftsmitglieder die Wahl eines Betriebsrats fordern",
+                                    "Wenn die Veranstaltung zur Wahl eines Betriebsrats in den Feierabend gelegt wird",
+                                    "Wenn die Einrichtung eines Betriebsrats von der Gewerkschaft gefordert wird",
+                                    "Wenn der Arbeitgeberverband die Einrichtung eines Betriebsrats empfiehlt"),
+                                correctAnswers = listOf("Wenn genügend wahlberechtigte Belegschaftsmitglieder die Wahl eines Betriebsrats fordern"),
                                 unit = listOf(),
                                 requiresCalculate = false,
                                 hasMultipleCorrectAnswers = false,
@@ -5330,8 +5352,40 @@ abstract class AppDatabase : RoomDatabase() {
                                 targets = listOf(),
                                 correctMappings = mapOf())
                         )
+                        val riddleDescDao = getDatabase(context).riddleDescriptionDao()
+                        val riddle_descriptions = listOf(
+                            RiddleDescription(
+                                riddleDescMainNumber = 1,
+                                description = "Sie sind Mitarbeiter/-in der Ecotec GmbH. Die Ecotec GmbH ist ein IT-Dienstleistungsunternehmen in Erfurt. Die folgenden Angaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 2,
+                                description = "Sie sind Mitarbeiter/-in der GreenByte GmbH. Die GreenByte GmbH ist ein IT-Dienstleistungsunternehmen mit Sitz in Hamburg. Die GreenByte GmbH beschäftigt 110 Mitarbeiter an mehreren Standorten. Die folgenden Angaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 3,
+                                description = "Die Sachs-IT GmbH ist ein mittelständisches Unternehmen; das IT-Systemleistungen für einen breiten Kundenkreis anbietet. Alle folgenden Aufgaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 4,
+                                description = "Sie sind Mitarbeiter/-in der Data IT GmbH. Die Data IT GmbH ist ein IT-Dienstleister mit Sitz in Berlin, der IT-Serviceleistungen für kleine und mittelständische Unternehmen bietet. Die folgenden Angaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 5,
+                                description = "Sie sind Mitarbeiter/-in in der Gramberg GmbH.\\nDie Gramberg GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\\nDie folgenden Angaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 6,
+                                description = "Sie sind Mitarbeiter/-in der Koch-IT GmbH.\\nDie Koch-IT GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\\nDie folgenden Angaben beziehen sich auf dieses Unternehmen."
+                            ),
+                            RiddleDescription(
+                                riddleDescMainNumber = 7,
+                                description = "Sie sind Mitarbeiter der Kittel IT GmbH. Die Kittel IT GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\\nDie folgenden Angasben beziehen sich auf dieses Unternehmen."
+                            )
+                        )
                         GlobalScope.launch {
                             riddleDao.insertAll(*riddles.toTypedArray())
+                            riddleDescDao.insertAll(*riddle_descriptions.toTypedArray())
                         }
                     }
                 })
@@ -5344,7 +5398,7 @@ abstract class AppDatabase : RoomDatabase() {
     }
 }
 
-/* Modell zum kopieren
+/* Modells zum kopieren
                             Riddle(
                                 riddleMainNumber = ,
                                 riddleNumber = ,
@@ -5366,4 +5420,9 @@ abstract class AppDatabase : RoomDatabase() {
                                 optionsWithImage = listOf(),
                                 targets = listOf(),
                                 correctMappings = mapOf()),
+
+                            RiddleDescription(
+                                riddleDescMainNumber = ,
+                                description = ""
+                            ),
  */

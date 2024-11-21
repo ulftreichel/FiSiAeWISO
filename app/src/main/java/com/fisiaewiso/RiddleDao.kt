@@ -38,3 +38,15 @@ interface ResultDao {
     @Query("SELECT * FROM results")
     fun getAllRiddles(): Flow<List<Result>>
 }
+
+@Dao
+interface RiddleDescriptionDao {
+    @Insert
+    suspend fun insertAll(vararg riddleDescriptions: RiddleDescription)
+
+    @Update
+    suspend fun update(riddleDescription: RiddleDescription)
+
+    @Query("SELECT * FROM riddle_descriptions")
+    fun getAllRiddleDescriptions(): Flow<List<RiddleDescription>>
+}

@@ -35,3 +35,10 @@ data class Result(
     val points: Int,
     val grade: String
 )
+
+@Entity(tableName = "riddle_descriptions")
+data class RiddleDescription(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val riddleDescMainNumber: Int,
+    val description: String
+)

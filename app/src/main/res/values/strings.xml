@@ -1,18 +1,14 @@
 <resources>
+    <!-- AppName -->
     <string name="app_name">FiSiAeWISO</string>
-    <string name="Riddle1">Sie sind Mitarbeiter/-in der Ecotec GmbH. Die Ecotec GmbH ist ein IT-Dienstleistungsunternehmen in Erfurt. Die folgenden Angaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle2">Sie sind Mitarbeiter/-in der GreenByte GmbH. Die GreenByte GmbH ist ein IT-Dienstleistungsunternehmen mit Sitz in Hamburg. Die GreenByte GmbH beschäftigt 110 Mitarbeiter an mehreren Standorten. Die folgenden Angaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle3">Die Sachs-IT GmbH ist ein mittelständisches Unternehmen, das IT-Systemleistungen für einen breiten Kundenkreis anbietet. Alle folgenden Aufgaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle4">Sie sind Mitarbeiter/-in der Data IT GmbH. Die Data IT GmbH ist ein IT-Dienstleister mit Sitz in Berlin, der IT-Serviceleistungen für kleine und mittelständische Unternehmen bietet. Die folgenden Angaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle5">Sie sind Mitarbeiter/-in in der Gramberg GmbH.\nDie Gramberg GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\nDie folgenden Angaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle6">Sie sind Mitarbeiter/-in der Koch-IT GmbH.\nDie Koch-IT GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\nDie folgenden Angaben beziehen sich auf dieses Unternehmen.</string>
-    <string name="Riddle7">Sie sind Mitarbeiter der Kittel IT GmbH. Die Kittel IT GmbH ist ein Dienstleistungsunternehmen im Bereich der IT-Sicherheit.\nDie folgenden Angasben beziehen sich auf dieses Unternehmen.</string>
 
+    <!-- Hilfe -->
     <string name="Umsatzrentabilität">Umsatzrentabilität (%) =\n\nGewinn / Umsatz * 100</string>
     <string name="Eigenkapitalrentabilität">Eigenkapitalrentabilität (%) =\n\nJahresüberschuss / Eigenkapital * 100</string>
     <string name="Wirtschaftlichkeit">Wirtschaftlichkeit =\n\nErtrag / Aufwand</string>
     <string name="BeitragRente">Die Berechnung des Bruttorentenbeitrags =\nBruttolohn / 100 * Beitragssatz\nArbeitgeber und Arbeitnehmer\njeweils 50% also das Ergebnis noch durch 2 teilen</string>
 
+    <!-- Preferences -->
     <string name="available_riddle">Verfügbare Rätsel</string>
     <string name="pref_available_riddle">pref_available_riddles</string>
     <string name="pref_load_riddle">Welches Rätsel soll geladen werden</string>

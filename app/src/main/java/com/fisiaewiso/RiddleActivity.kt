@@ -67,6 +67,7 @@ class RiddleActivity : AppCompatActivity() {
     private lateinit var bHelp: Button
     private var currentRiddleIndex = 0
     private lateinit var riddles: List<Riddle>
+    private lateinit var riddleDescription: List<RiddleDescription>
     private val selectedAnswersOrder = mutableListOf<String>()
     private lateinit var radioGroupAnswers: RadioGroup
     private val checkBoxes = mutableListOf<CheckBox>()
@@ -106,17 +107,17 @@ class RiddleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
-        val selectedRiddle = sharedPreferences.getString(getString(R.string.pref_available_riddle), null)
         adminmode = sharedPreferences.getBoolean(getString(R.string.pref_adminmode), false)
         countdown_calc = sharedPreferences.getBoolean(getString(R.string.pref_countdown_calc), false)
+        val pref_available_riddles = sharedPreferences.all[getString(R.string.pref_available_riddle)]?.toString() ?: "0"
+        val loadAdminRiddle = pref_available_riddles.toInt()
         val timeoutString = sharedPreferences.all[getString(R.string.pref_timeout)]?.toString() ?: "0"
         timeout = timeoutString.toInt()
-        Log.d("RiddlePrefTimeOut", "Timeout: $timeout")
-        val themePreference = sharedPreferences.getString("theme_preference", "auto")
+        val themePreference = sharedPreferences.getString("theme_preference", "standard")
         when (themePreference) {
+            "standard" -> setTheme(R.style.Theme_FiSiAeWISO)
             "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
             "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
-            "auto" -> setTheme(R.style.Theme_FiSiAeWISO)
         }
         super.onCreate(savedInstanceState)
         // Setze das Layout
@@ -156,56 +157,20 @@ class RiddleActivity : AppCompatActivity() {
         bHelp = findViewById(R.id.bHelp_Formel)
         riddleImageButton = findViewById(R.id.riddleImageButton)
         currentRiddle = Riddle(0,0, 0, 0, "Datenbank wird beim nächsten Neustart zur Verfügung stehen", listOf(), listOf(), listOf(),false, false,false, false, false, false, false, false,false, listOf(), listOf(), listOf(), mapOf())
-        //tVRiddle_Initialize.text = currentRiddle.question
-        // Intros laden
-        Log.d("RiddleActivity", "Selected Riddle: $selectedRiddle")
-        if (selectedRiddle != null && selectedRiddle.isNotEmpty() && selectedRiddle != "0") {
-            // Lade das gewünschte Rätsel
-            currentIntro = when (selectedRiddle.toInt()) {
-                1 -> getString(R.string.Riddle1)
-                2 -> getString(R.string.Riddle2)
-                3 -> getString(R.string.Riddle3)
-                4 -> getString(R.string.Riddle4)
-                5 -> getString(R.string.Riddle5)
-                6 -> getString(R.string.Riddle6)
-                else -> return // Oder eine andere Fehlerbehandlung
-            }
-        } else {
-            // Zufallsmodus
-            val lastIntro = sharedPreferences.getString("lastIntro", null)
-            val introTexts = listOf(
-                getString(R.string.Riddle1),
-                getString(R.string.Riddle2),
-                getString(R.string.Riddle3),
-                getString(R.string.Riddle4),
-                getString(R.string.Riddle5),
-                getString(R.string.Riddle6)
-            )
-            // Wenn es ein erster Start ist, wähle einen zufälligen Intro-Text
-            if (lastIntro == null) {
-                // Beim ersten Start: Wähle einen zufälligen Intro-Text
-                currentIntro = introTexts.random()
-            } else {
-                // Bei nachfolgenden Starts: Wähle einen anderen Intro-Text als den letzten
-                do {
-                    currentIntro = introTexts.random()
-                } while (currentIntro == lastIntro)
-            }
-            // Speichere den letzten Intro-Text in den SharedPreferences
-            val editor = sharedPreferences.edit()
-            editor.putString("lastIntro", currentIntro)
-            editor.apply()
-        }
-        tVRiddle_Initialize2.text = currentIntro
         // TextViews 1-30 für die Antworten
         for (i in 1..30) {
             val textViewId = resources.getIdentifier("tVcorrectRiddle$i", "id", packageName)
             val textView = findViewById<TextView>(textViewId)
             answerTextViews.add(textView)
         }
+        if (adminmode) {
+            loadIntro(loadAdminRiddle)
+        } else {
+            loadIntro(loadAdminRiddle)
+        }
         // Buttons
         startButton.setOnClickListener {
-            loadRiddlesByIntro(currentIntro)
+            loadRiddlesByIntro()
             currentIntro = ""
             riddlesLoaded = true
             tVRiddle_Initialize.visibility = View.GONE
@@ -255,34 +220,32 @@ class RiddleActivity : AppCompatActivity() {
         unansweredQuestions.clear()
     }
 
-    // Initialisiere die Datenbank
-    private suspend fun initializeDatabase() {
-        withContext(Dispatchers.IO) {
-            AppDatabase.getDatabase(this@RiddleActivity)
+    // lade ein zufälliges Rätsel
+    private fun loadIntro(pref_available_riddles: Int) {
+        lifecycleScope.launch {
+            riddleDescription = AppDatabase.getDatabase(this@RiddleActivity).riddleDescriptionDao().getAllRiddleDescriptions().first()
+            riddleDescription = riddleDescription.map { riddleDescription ->
+                riddleDescription.copy(
+                    riddleDescMainNumber = riddleDescription.riddleDescMainNumber,
+                    description = riddleDescription.description.replace(";", ","),
+                )
+            }
+            if (pref_available_riddles == 0) {
+                val randomRiddle = riddleDescription.random()
+                riddleMainNumber = randomRiddle.riddleDescMainNumber
+                currentIntro = randomRiddle.description
+                tVRiddle_Initialize2.text = currentIntro
+            } else {
+                riddleMainNumber = pref_available_riddles
+                currentIntro = riddleDescription.find { it.riddleDescMainNumber == riddleMainNumber }?.description ?: ""
+                tVRiddle_Initialize2.text = currentIntro
+            }
         }
     }
 
     // Lade Rätsel nach Intro
-    private fun loadRiddlesByIntro(intro: String) {
-        riddleMainNumber = when (intro) {
-            getString(R.string.Riddle1) -> 1
-            getString(R.string.Riddle2) -> 2
-            getString(R.string.Riddle3) -> 3
-            getString(R.string.Riddle4) -> 4
-            getString(R.string.Riddle5) -> 5
-            getString(R.string.Riddle6) -> 6
-            else -> return // Oder eine andere Fehlerbehandlung
-        }
+    private fun loadRiddlesByIntro() {
         lifecycleScope.launch {
-            try {
-                // Zugriff auf die Datenbank
-                initializeDatabase()
-            } catch (e: Exception) {
-                Log.e("Database", "Error initializing database", e)
-                // Initialisiere Datenbank erneut
-                initializeDatabase()
-            }
-            //initializeDatabase()
             loadRiddles(riddleMainNumber) {
                 // currentRiddle im ViewModel aktualisieren, nachdem die Rätsel geladen wurden
                 viewModel.updateCurrentRiddle(currentRiddle)
