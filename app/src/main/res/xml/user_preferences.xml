@@ -12,7 +12,7 @@
         android:title="Theme"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values"
-        android:defaultValue="light"
+        android:defaultValue="standard"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
