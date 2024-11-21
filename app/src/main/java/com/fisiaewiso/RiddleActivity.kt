@@ -102,11 +102,13 @@ class RiddleActivity : AppCompatActivity() {
     var adminmode = false
     private var timeout = 0
     private var countdownTimer: CountDownTimer? = null
+    private var countdown_calc = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
         val selectedRiddle = sharedPreferences.getString(getString(R.string.pref_available_riddle), null)
         adminmode = sharedPreferences.getBoolean(getString(R.string.pref_adminmode), false)
+        countdown_calc = sharedPreferences.getBoolean(getString(R.string.pref_countdown_calc), false)
         val timeoutString = sharedPreferences.all[getString(R.string.pref_timeout)]?.toString() ?: "0"
         timeout = timeoutString.toInt()
         Log.d("RiddlePrefTimeOut", "Timeout: $timeout")
@@ -317,6 +319,8 @@ class RiddleActivity : AppCompatActivity() {
         if(completedRun){
             if (unansweredQuestions.isNotEmpty()) {
                 removeUnansweredQuestion(currentRiddle.riddleNumber)
+            } else {
+                completedRun = false
             }
         }
         showNextRiddle() // Nächste Frage laden
@@ -403,7 +407,10 @@ class RiddleActivity : AppCompatActivity() {
                 selectedAnswersOrder.clear()
                 displayRiddle()
             } else {
+                Log.d("RiddleActivity", "No more riddles available")
                 if (completedRun) {
+                    Log.d("RiddleActivity", "Completed run first 1 $completedRun")
+                    Log.d("RiddleActivity", "Unanswered questions size: ${unansweredQuestions.size}")
                     completedRun = false
                     if (unansweredQuestions.isNotEmpty()) {
                         showAlertUnansweredQuestions()
@@ -411,6 +418,8 @@ class RiddleActivity : AppCompatActivity() {
                         showTotalPointsAndSaveResults()
                     }
                 } else {
+                    Log.d("RiddleActivity", "Completed run first 2 $completedRun")
+                    Log.d("RiddleActivity", "Unanswered questions size: ${unansweredQuestions.size}")
                     completedRun = true
                     if (unansweredQuestions.isNotEmpty()) {
                         showAlertUnansweredQuestions()
@@ -421,6 +430,8 @@ class RiddleActivity : AppCompatActivity() {
             }
         } else {
             if (completedRun) {
+                Log.d("RiddleActivity", "Completed run second 1 $completedRun")
+                Log.d("RiddleActivity", "Unanswered questions size: ${unansweredQuestions.size}")
                 completedRun = false
                 if (unansweredQuestions.isNotEmpty()) {
                     showAlertUnansweredQuestions()
@@ -428,6 +439,8 @@ class RiddleActivity : AppCompatActivity() {
                     showTotalPointsAndSaveResults()
                 }
             } else {
+                Log.d("RiddleActivity", "Completed run second 2 $completedRun")
+                Log.d("RiddleActivity", "Unanswered questions size: ${unansweredQuestions.size}")
                 completedRun = true
                 if (unansweredQuestions.isNotEmpty()) {
                     showAlertUnansweredQuestions()
@@ -514,6 +527,7 @@ class RiddleActivity : AppCompatActivity() {
             riddleImageButton.visibility = View.GONE
             }
         }
+        // Layout für einzelne Fragen ändern
         when (currentRiddle.riddleNumber) {
             4, 7, 11, 14, 63, 95 -> {
                 val params = scrollViewQuestion.layoutParams as ConstraintLayout.LayoutParams
@@ -532,6 +546,30 @@ class RiddleActivity : AppCompatActivity() {
             11 -> false // Frage, die nicht geshuffelt werden soll
             else -> true // Standardmäßig shufflen
         }
+        // Countdown für einzelne Fragen deaktivieren
+        if (!countdown_calc){
+            when (currentRiddle.riddleNumber) {
+                4, 16, 20, 46, 47, 79, 80, 108, 142 -> {
+                    //kurze mitteilung das der Countdown deaktiviert wurde
+                    frameTimeOut.visibility = View.VISIBLE
+                    tvRiddleTimeOut.text = "Countdown deaktiviert"
+                    tvRiddleTimeOut.setTextColor(Color.GREEN)
+                    // tvRiddleTimeOut Textgröße ändern
+                    tvRiddleTimeOut.textSize = 30f
+                    // Text langsam animiert ausblenden
+                    val animator = ObjectAnimator.ofFloat(tvRiddleTimeOut, "alpha", 1f, 0f)
+                    animator.duration = 7500 // Animationsdauer in Millisekunden
+                    animator.start()
+                    // frameTimeOut nach 10 Sekunden verstecken
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        frameTimeOut.visibility = View.GONE
+                    }, 10000)
+                    // Timer stoppen
+                    countdownTimer?.cancel()
+                }
+            }
+        }
+
         // Antworten mischen
         val answersshuffle = if (shouldShuffle) {
             currentRiddle.answers.shuffled()
@@ -1051,9 +1089,9 @@ class RiddleActivity : AppCompatActivity() {
                 }
             }
             if (textViewIndex in 0..29) {
+                countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
                 if (correctAnswers == totalAnswers) {
-                    countdownTimer?.cancel()
                     textView.setBackgroundColor(Color.GREEN) // Richtig: Grün
                     totalPoints += 3.33333
                     proceedToNextRiddle() // Weiter zum nächsten Rätsel

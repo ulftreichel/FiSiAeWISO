@@ -12,13 +12,24 @@
         android:title="Theme"
         android:entries="@array/theme_entries"
         android:entryValues="@array/theme_values"
-        android:defaultValue="light" />
+        android:defaultValue="light"
+        app:useSimpleSummaryProvider="true" />
 
     <ListPreference
         android:key="timeoutriddle"
         android:title="Timeout"
         android:entries="@array/timeoutriddle"
         android:entryValues="@array/timeoutriddle_values"
-        android:defaultValue="0" />
+        android:defaultValue="0"
+        app:useSimpleSummaryProvider="true" />
+
+    <CheckBoxPreference
+        android:key="@string/pref_countdown_calc"
+        android:title="@string/pref_countdown_calc_title"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        android:key="exitlink"
+        android:title="Click to exit" />
 
 </androidx.preference.PreferenceScreen>

@@ -19,5 +19,7 @@
     <string name="pref_adminmode_title">Admin Modus</string>
     <string name="pref_adminmode">adminmode</string>
     <string name="pref_timeout">timeoutriddle</string>
+    <string name="pref_countdown_calc_title">Countdown auch bei Rechenaufgaben</string>
+    <string name="pref_countdown_calc">pref_countdown_calc</string>
 
 </resources>

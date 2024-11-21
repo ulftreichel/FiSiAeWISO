@@ -21,4 +21,8 @@
         android:title="@string/pref_adminmode_title"
         app:useSimpleSummaryProvider="true" />
 
+    <Preference
+        android:key="exitlink"
+        android:title="Click to exit" />
+
 </androidx.preference.PreferenceScreen>
