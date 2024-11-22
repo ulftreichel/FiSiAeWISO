@@ -214,6 +214,7 @@ class RiddleActivity : AppCompatActivity() {
                 val textView = answerTextViews[currentRiddleIndex]
                 textView.setBackgroundColor(Color.GRAY)
             }
+            countdownTimer?.cancel()
             addUnansweredQuestion(currentRiddle.riddleNumber)
             proceedToNextRiddle()
         }
@@ -221,7 +222,7 @@ class RiddleActivity : AppCompatActivity() {
     }
 
     // lade ein zufälliges Rätsel
-    private fun loadIntro(pref_available_riddles: Int) {
+    private fun loadIntro(availableriddles: Int) {
         lifecycleScope.launch {
             riddleDescription = AppDatabase.getDatabase(this@RiddleActivity).riddleDescriptionDao().getAllRiddleDescriptions().first()
             riddleDescription = riddleDescription.map { riddleDescription ->
@@ -230,13 +231,13 @@ class RiddleActivity : AppCompatActivity() {
                     description = riddleDescription.description.replace(";", ","),
                 )
             }
-            if (pref_available_riddles == 0) {
+            if (availableriddles == 0) {
                 val randomRiddle = riddleDescription.random()
                 riddleMainNumber = randomRiddle.riddleDescMainNumber
                 currentIntro = randomRiddle.description
                 tVRiddle_Initialize2.text = currentIntro
             } else {
-                riddleMainNumber = pref_available_riddles
+                riddleMainNumber = availableriddles
                 currentIntro = riddleDescription.find { it.riddleDescMainNumber == riddleMainNumber }?.description ?: ""
                 tVRiddle_Initialize2.text = currentIntro
             }
@@ -512,7 +513,7 @@ class RiddleActivity : AppCompatActivity() {
         // Countdown für einzelne Fragen deaktivieren
         if (!countdown_calc){
             when (currentRiddle.riddleNumber) {
-                4, 16, 20, 46, 47, 79, 80, 108, 142 -> {
+                4, 7, 16, 20, 46, 47, 79, 80, 108, 142 -> {
                     //kurze mitteilung das der Countdown deaktiviert wurde
                     frameTimeOut.visibility = View.VISIBLE
                     tvRiddleTimeOut.text = "Countdown deaktiviert"
@@ -663,7 +664,7 @@ class RiddleActivity : AppCompatActivity() {
                             var optionsLayout = targetView.getTag() as? LinearLayout
 
                             if (optionsLayout == null) {
-                                optionsLayout = LinearLayout(targetView.context).apply { // Hier wird context verwendet
+                                optionsLayout = LinearLayout(targetView.context).apply {
                                     orientation = LinearLayout.VERTICAL
                                     layoutParams = FrameLayout.LayoutParams(
                                         FrameLayout.LayoutParams.WRAP_CONTENT,
