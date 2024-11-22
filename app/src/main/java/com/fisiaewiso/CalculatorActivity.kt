@@ -142,21 +142,45 @@ class CalculatorActivity : AppCompatActivity() {
 
             builder.setPositiveButton("OK") { dialog, which ->
                 // Übergebe die ausgewählten Ergebnisse an die RiddleActivity
-                val selectedCheckboxValues = selectedCheckBoxesForRiddle.map { it.text.toString() }
+                val selectedCheckBoxes = mutableListOf<CheckBox>() // Liste der aktuell ausgewählten Checkboxen
+                val selectedCheckboxValues = mutableListOf<String>() // Liste der Werte der ausgewählten Checkboxen
+
+                // Listener für jede Checkbox, um die Limitierung auf zwei zu implementieren
+                checkBoxes.forEach { checkBox ->
+                    checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (isChecked) {
+                            selectedCheckBoxes.add(buttonView as CheckBox) // Checkbox hinzufügen
+                            selectedCheckboxValues.add(checkBox.text.toString()) // Wert hinzufügen
+
+                            if (selectedCheckBoxes.size > 2) {
+                                // Wenn mehr als zwei ausgewählt sind, entferne die erste Checkbox
+                                val firstSelected = selectedCheckBoxes.removeAt(0)
+                                selectedCheckboxValues.remove(firstSelected.text.toString()) // Wert entfernen
+                                firstSelected.isChecked = false // Deaktiviere die Checkbox
+                            }
+                        } else {
+                            selectedCheckBoxes.remove(buttonView as CheckBox) // Checkbox aus der Liste entfernen
+                            selectedCheckboxValues.remove(checkBox.text.toString()) // Wert entfernen
+                        }
+                    }
+                }
+
+                // Ergebnisse in Intent packen
                 val resultIntent = Intent()
                 when (inputCount) {
                     1 -> resultIntent.putExtra("result", selectedCheckboxValues.firstOrNull() ?: "")
                     2 -> {
-                        val (input1, input2) = selectedCheckboxValues.takeIf { it.size <= 2 }
-                            ?: listOf("", "")
-                        resultIntent.putExtra("result1", input1)
-                        resultIntent.putExtra("result2", input2)
+                        // Zwei Ergebnisse erwartet, fülle ggf. mit leeren Strings auf
+                        val paddedValues = selectedCheckboxValues + List(2 - selectedCheckboxValues.size) { "" }
+                        resultIntent.putExtra("result1", paddedValues[0]) // Erstes Ergebnis
+                        resultIntent.putExtra("result2", paddedValues[1]) // Zweites Ergebnis
                     }
                     else -> { /* Keine Aktion erforderlich */ }
                 }
                 setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             }
+
 
             builder.setNegativeButton("Abbrechen", null)
 
