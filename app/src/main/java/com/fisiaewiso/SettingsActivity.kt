@@ -50,11 +50,32 @@ class SettingsActivity : AppCompatActivity() {
     class AdminSettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.admin_preferences, rootKey) // Admin-Einstellungen
+
+            val riddlePreference = findPreference<ListPreference>(getString(R.string.pref_available_riddle))
+            val sharedPreferences = preferenceManager.sharedPreferences
+
+            if (riddlePreference != null) {
+                // Entferne einen vorhandenen SummaryProvider
+                riddlePreference.summaryProvider = null
+
+                // Lade aktuellen Wert aus SharedPreferences
+                val currentValue = sharedPreferences?.getString(riddlePreference.key, "0") // Standardwert: "0" (Zufall)
+
+                // Setze Summary basierend auf aktuellem Wert
+                updateSummary(riddlePreference, currentValue)
+
+                // Listener hinzufügen, um Summary zu aktualisieren, wenn der Wert geändert wird
+                riddlePreference.setOnPreferenceChangeListener { preference, newValue ->
+                    updateSummary(riddlePreference, newValue as String)
+                    true // Änderungen akzeptieren
+                }
+            }
             val exitPreference = findPreference<androidx.preference.Preference>("exitlink")
             exitPreference?.setOnPreferenceClickListener {
                 requireActivity().finish() // Beendet die App
                 true
             }
+
             val db = AppDatabase.getDatabase(requireContext())
             val riddleDescriptionDao = db.riddleDescriptionDao()
 
@@ -78,9 +99,8 @@ class SettingsActivity : AppCompatActivity() {
                         availableRiddleValuesList.add(riddleDescription.riddleDescMainNumber.toString())
                     }
 
-                    // ListPreference finden und aktualisieren
+                    // ListPreference aktualisieren
                     requireActivity().runOnUiThread {
-                        val riddlePreference = findPreference<ListPreference>(getString(R.string.pref_available_riddle))
                         if (riddlePreference != null) {
                             riddlePreference.entries = availableRiddleList.toTypedArray()
                             riddlePreference.entryValues = availableRiddleValuesList.toTypedArray()
@@ -88,6 +108,27 @@ class SettingsActivity : AppCompatActivity() {
                             // Optional: Standardwert setzen, falls noch kein Wert gespeichert ist
                             if (riddlePreference.value.isNullOrEmpty()) {
                                 riddlePreference.value = "0" // Standardwert: "Zufall"
+                            }
+
+                            // Setze den Summary-Wert basierend auf dem aktuellen Wert
+                            val currentValue = riddlePreference.value
+                            val entryIndex = riddlePreference.findIndexOfValue(currentValue)
+                            riddlePreference.summary = if (entryIndex >= 0) {
+                                riddlePreference.entries[entryIndex]
+                            } else {
+                                "Nicht festgelegt"
+                            }
+
+                            // Listener hinzufügen, um den Summary-Wert bei Änderungen zu aktualisieren
+                            riddlePreference.setOnPreferenceChangeListener { preference, newValue ->
+                                val newValueString = newValue as String
+                                val newIndex = riddlePreference.findIndexOfValue(newValueString)
+                                riddlePreference.summary = if (newIndex >= 0) {
+                                    riddlePreference.entries[newIndex]
+                                } else {
+                                    "Nicht festgelegt"
+                                }
+                                true // Änderungen akzeptieren
                             }
                         } else {
                             Log.e("AdminSettingsFragment", "ListPreference nicht gefunden")
@@ -98,7 +139,16 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
         }
+        private fun updateSummary(preference: ListPreference, value: String?) {
+            val entryIndex = preference.findIndexOfValue(value)
+            preference.summary = if (entryIndex >= 0) {
+                preference.entries[entryIndex]
+            } else {
+                "Nicht festgelegt"
+            }
+        }
     }
+
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
