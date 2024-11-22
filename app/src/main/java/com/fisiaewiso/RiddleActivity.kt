@@ -116,7 +116,7 @@ class RiddleActivity : AppCompatActivity() {
         val themePreference = sharedPreferences.getString("theme_preference", "standard")
         when (themePreference) {
             "standard" -> setTheme(R.style.Theme_FiSiAeWISO)
-            "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
+            "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)  
             "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
         }
         super.onCreate(savedInstanceState)
