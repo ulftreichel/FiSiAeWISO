@@ -33,13 +33,6 @@ class SortableRecyclerViewAdapter(context: Context, private val answers: List<St
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val answer = answers[position]
         holder.textViewAnswer.text = answer
-        /*
-        if (position % 2 == 0) {
-            holder.itemView.setBackgroundColor(Color.WHITE)
-        } else {
-            holder.itemView.setBackgroundColor(Color.LTGRAY)
-        }
-         */
         holder.dragHandle.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -49,7 +42,7 @@ class SortableRecyclerViewAdapter(context: Context, private val answers: List<St
                 else -> return@setOnTouchListener false
             }
         }
-        holder.dragHandle.isClickable = true // Stelle sicher, dass das ImageView klickbar ist
-        holder.dragHandle.isFocusable = true // Stelle sicher, dass das ImageView fokussierbar ist
+        holder.dragHandle.isClickable = false // Stelle sicher, dass das ImageView klickbar ist
+        holder.dragHandle.isFocusable = false // Stelle sicher, dass das ImageView fokussierbar ist
     }
 }

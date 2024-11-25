@@ -468,7 +468,7 @@ class RiddleActivity : AppCompatActivity() {
         // Bild laden, falls vorhanden
         when (currentRiddle.riddleNumber) {
             // Nur für Fragen mit Bildern
-            21, 54, 65, 81, 112, 122, 170 -> {
+            21, 54, 65, 81, 112, 122, 170, 197 -> {
                 val imageResource = when (currentRiddle.riddleNumber) {
                     21 -> R.drawable.mehrliniensystem
                     54 -> R.drawable.riddle2unterschriften
@@ -477,6 +477,7 @@ class RiddleActivity : AppCompatActivity() {
                     112 -> R.drawable.gleichgewichtspreis
                     122 -> R.drawable.mehrliniensystem
                     170 -> R.drawable.blauerengel
+                    197 -> R.drawable.riddel7_17
                     else -> 0 // Sollte nicht erreicht werden, aber zur Sicherheit
                 }
                 // Bild laden, falls vorhanden

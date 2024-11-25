@@ -47,7 +47,7 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    class AdminSettingsFragment : PreferenceFragmentCompat() {
+    class AdminSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.admin_preferences, rootKey) // Admin-Einstellungen
 
@@ -72,6 +72,15 @@ class SettingsActivity : AppCompatActivity() {
             }
             val exitPreference = findPreference<androidx.preference.Preference>("exitlink")
             exitPreference?.setOnPreferenceClickListener {
+                val sharedPreferences = preferenceManager.sharedPreferences
+                val prefAvailableRiddles = sharedPreferences?.getString(getString(R.string.pref_available_riddle), "0") ?: "0"
+                val loadAdminRiddle = prefAvailableRiddles.toInt()
+
+                // Setze das Ergebnis und beende die Activity
+                val resultIntent = Intent().apply {
+                    putExtra("pref_available_riddles", loadAdminRiddle)
+                }
+                requireActivity().setResult(AppCompatActivity.RESULT_OK, resultIntent)  // RESULT_OK setzen
                 requireActivity().finish() // Beendet die App
                 true
             }
@@ -138,7 +147,30 @@ class SettingsActivity : AppCompatActivity() {
                     Log.e("AdminSettingsFragment", "Fehler beim Laden der Rätselbeschreibungen", e)
                 }
             }
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         }
+
+        override fun onResume() {
+            super.onResume()
+            preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onPause() {
+            super.onPause()
+            preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+            if (key == getString(R.string.pref_available_riddle)) {
+                val riddlePreference = findPreference<ListPreference>(key)
+                if (riddlePreference != null) {
+                    val currentValue = sharedPreferences?.getString(key, "0")
+                    updateSummary(riddlePreference, currentValue)
+                }
+                requireActivity().recreate()
+            }
+        }
+
         private fun updateSummary(preference: ListPreference, value: String?) {
             val entryIndex = preference.findIndexOfValue(value)
             preference.summary = if (entryIndex >= 0) {
@@ -181,7 +213,6 @@ class SettingsActivity : AppCompatActivity() {
                     "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
-
                 // Activity neustarten, um Theme sofort zu übernehmen
                 requireActivity().recreate()
             }
@@ -192,7 +223,6 @@ class SettingsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
         val currentTheme = sharedPreferences.getString("theme_preference", "standard")
-
         // Überprüfen, ob Änderungen vorgenommen wurden
         val resultIntent = Intent().apply {
             putExtra("theme_preference", currentTheme)

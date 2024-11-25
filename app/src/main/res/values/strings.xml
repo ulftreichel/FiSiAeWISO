@@ -4,7 +4,7 @@
 
     <!-- Hilfe -->
     <string name="Umsatzrentabilität">Umsatzrentabilität (%) =\n\nGewinn / Umsatz * 100</string>
-    <string name="Eigenkapitalrentabilität">Eigenkapitalrentabilität (%) =\n\nJahresüberschuss / Eigenkapital * 100</string>
+    <string name="Eigenkapitalrentabilität">Eigenkapitalrentabilität (%) =\n\nGewinn * 100 / Eigenkapital</string>
     <string name="Wirtschaftlichkeit">Wirtschaftlichkeit =\n\nErtrag / Aufwand</string>
     <string name="BeitragRente">Die Berechnung des Bruttorentenbeitrags =\nBruttolohn / 100 * Beitragssatz\nArbeitgeber und Arbeitnehmer\njeweils 50% also das Ergebnis noch durch 2 teilen</string>
 

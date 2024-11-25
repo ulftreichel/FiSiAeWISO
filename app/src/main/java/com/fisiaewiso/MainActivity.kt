@@ -18,11 +18,14 @@ class MainActivity : ComponentActivity() {
     private lateinit var bRiddle: Button
     private lateinit var bRiddleResult: Button
     private lateinit var bRiddleSettings: Button
-    var adminmode = false
+    var adminmode = true
+    var loadAdminRiddle = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
         val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+        val pref_available_riddles = sharedPreferences.all[getString(R.string.pref_available_riddle)]?.toString() ?: "0"
+        loadAdminRiddle = pref_available_riddles.toInt()
         // Wenn dies der erste Start ist, initialisiere die Datenbank
         if (isFirstRun) {
             initializeDatabase()
@@ -46,6 +49,17 @@ class MainActivity : ComponentActivity() {
         bRiddle = findViewById(R.id.bRiddle)
         bRiddleResult = findViewById(R.id.bRiddleResult)
         bRiddleSettings = findViewById(R.id.bRiddleSettings)
+        if (!adminmode) {
+            bRiddle.text = " Zufälliges Rätsel "
+            bRiddleSettings.text = " Einstellungen "
+        } else {
+            bRiddleSettings.text = " Admin-Einstellungen "
+            if (loadAdminRiddle == 0) {
+                bRiddle.text = " Zufälliges Rätsel laden "
+            } else {
+                bRiddle.text = " Rätsel ${loadAdminRiddle} laden "
+            }
+        }
         // Öffne die Activity RiddleActivity
         bRiddle.setOnClickListener {
             val intent = Intent(this, RiddleActivity::class.java)
@@ -78,21 +92,27 @@ class MainActivity : ComponentActivity() {
     private val startSettingsForResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
+        val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
+        val pref_available_riddles = sharedPreferences.all[getString(R.string.pref_available_riddle)]?.toString() ?: "0"
+        loadAdminRiddle = pref_available_riddles.toInt()
+
         if (result.resultCode == RESULT_OK) {
-            val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
             val themePreference = sharedPreferences.getString("theme_preference", "standard")
             when (themePreference) {
                 "standard" -> setTheme(R.style.Theme_FiSiAeWISO)
                 "light" -> setTheme(R.style.Theme_FiSiAeWISO_Light)
                 "dark" -> setTheme(R.style.Theme_FiSiAeWISO_Dark)
             }
+            Log.d("MainActivity", "Settings activity saved changes. Selected Riddle: $loadAdminRiddle")
             recreate()  // Neue Aktivität mit aktualisiertem Theme
+        } else {
+            Log.d("MainActivity", "Settings activity closed. Selected Riddle: $loadAdminRiddle")
         }
     }
-
+    // Daten in SharedPreferences speichern
     private fun pref(){
-        val sharedRootPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
-        val editor = sharedRootPreferences.edit()
+        val sharedRootPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE) // Zugriff auf die SharedPreferences
+        val editor = sharedRootPreferences.edit() // Editor für die SharedPreferences
         if (adminmode) {
             // sobald AdminMode im Code auf true gesetzt wird, aktivere es Global und setze das laden von zufälligen Rätsel
             editor.putBoolean("adminmode", adminmode)
