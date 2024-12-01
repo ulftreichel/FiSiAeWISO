@@ -9,7 +9,7 @@
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Punktzahl: "
+        android:text="@string/end_punktzahl"
         android:textSize="20sp" />
 
     <TextView
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Zensur: "
+        android:text="@string/end_zensur"
         android:textSize="20sp" />
 
     <Button
@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button_riddle"
-        android:text="OK" />
+        android:text="@android:string/ok" />
 
 </LinearLayout>

@@ -463,6 +463,7 @@ class RiddleActivity : AppCompatActivity() {
 
     // Zeige das Rätsel an
     private fun displayRiddle() {
+        hideViews() // Verstecke alle Views
         //Entferne die vorherigen Antworten
         radioGroupAnswers.removeAllViews()
         radioButtons.clear()
@@ -534,9 +535,9 @@ class RiddleActivity : AppCompatActivity() {
                 }
             }
         }
-        //Welche Frage soll geshuffelt werden?
+        //Welche Frage soll geshuffelt werden? Alle außer...
         val shouldShuffle = when (currentRiddle.riddleNumber) {
-            11, 22 -> false // Frage, die nicht geshuffelt werden soll
+            11, 172 -> false // Frage, die nicht geshuffelt werden soll
             else -> true // Standardmäßig shufflen
         }
         // Antworten mischen
@@ -575,24 +576,8 @@ class RiddleActivity : AppCompatActivity() {
                 }
             })
             itemTouchHelper.attachToRecyclerView(recyclerViewAnswers)
-            //Ende Listview
-            checkBoxes.forEach { it.visibility = View.GONE }
-            radioGroupAnswers.visibility = View.GONE
-            dateInput.visibility = View.GONE
-            unit1TextView.visibility = View.GONE
-            unit2TextView.visibility = View.GONE
-            unitDateTextView.visibility = View.GONE
-            iBCalculator.visibility = View.GONE
-            bHelp.visibility = View.GONE
-            optionsRecyclerView.visibility = View.GONE
             // Nur für Drag and Drop Fragen
         } else if (currentRiddle.requiresDragAndDrop) {
-            unit1TextView.visibility = View.GONE
-            unit2TextView.visibility = View.GONE
-            unitDateTextView.visibility = View.GONE
-            iBCalculator.visibility = View.GONE
-            bHelp.visibility = View.GONE
-            recyclerViewAnswers.visibility = View.GONE
             linearLayoutRecyclerView.visibility = View.VISIBLE
             optionsRecyclerView.visibility = View.VISIBLE
             // Ziele anzeigen
@@ -675,13 +660,13 @@ class RiddleActivity : AppCompatActivity() {
                             }
                             // Option hinzufügen
                             val optionView = if (clipData.itemCount > 1) {
-                                ImageView(targetView.context).apply { // Hier wird context verwendet
+                                ImageView(targetView.context).apply {
                                     val imageResId = clipData.getItemAt(1).text.toString().toInt()
                                     setImageResource(imageResId)
                                     Log.d("RiddleActivity", "Image resource ID: $imageResId")
                                 }
                             } else {
-                                TextView(targetView.context).apply { // Hier wird context verwendet
+                                TextView(targetView.context).apply {
                                     text = option
                                 }
                             }
@@ -735,6 +720,7 @@ class RiddleActivity : AppCompatActivity() {
                         startForResult.launch(intent)
                     }
                     when (currentRiddle.riddleNumber) {
+                        //bHelp ausblenden
                         7 -> {
                             bHelp.visibility = View.GONE
                         } else -> {
@@ -766,7 +752,6 @@ class RiddleActivity : AppCompatActivity() {
                 numberInput.visibility = View.VISIBLE
                 unit1TextView.visibility = View.VISIBLE
                 unit1TextView.text = currentRiddle.unit[0] // Erste Einheit anzeigen
-                dateInput.visibility = View.GONE
                 if (currentRiddle.requiresTwoNumberInputs) {
                     numberInput2.visibility = View.VISIBLE
                     unit2TextView.visibility = View.VISIBLE
@@ -774,61 +759,27 @@ class RiddleActivity : AppCompatActivity() {
                 }
                 if (currentRiddle.requiresDateInput) {
                     // Datum-Eingabefeld anzeigen
-                    unit1TextView.visibility = View.GONE
-                    unit2TextView.visibility = View.GONE
                     unitDateTextView.visibility = View.VISIBLE
                     unitDateTextView.text = currentRiddle.unit[0]
-                    numberInput.visibility = View.GONE
                     dateInput.visibility = View.VISIBLE
                     dateInput.inputType = InputType.TYPE_DATETIME_VARIATION_DATE
                     dateInput.setHint("Datum eingeben")
                 }
                 if (currentRiddle.requiresTimeInput) {
                     // Zeit-Eingabefeld anzeigen
-                    unit1TextView.visibility = View.GONE
-                    unit2TextView.visibility = View.GONE
-                    numberInput.visibility = View.GONE
                     dateInput.visibility = View.VISIBLE
                     dateInput.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
                     dateInput.setHint("Zeit eingeben 07.00")
                     unitDateTextView.visibility = View.VISIBLE
                     unitDateTextView.text = currentRiddle.unit[0]
                 }
-                // Einheiten-TextViews ausblenden
-                if (currentRiddle.unit.isEmpty()) {
-                    unit1TextView.visibility = View.GONE
-                    unit2TextView.visibility = View.GONE
-                    unitDateTextView.visibility = View.GONE
-                }
-                // CheckBoxes und RadioButtons ausblenden
-                checkBoxes.forEach { it.visibility = View.GONE } // Verstecke CheckBoxes
-                radioGroupAnswers.visibility = View.GONE // Verstecke RadioGroup
-                linearLayoutRecyclerView.visibility = View.GONE // Verstecke LinearLayout for RecyclerView
-                recyclerViewAnswers.visibility = View.GONE
-                optionsRecyclerView.visibility = View.GONE
             } else {
-                // Eingabefelder ausblenden
-                numberInput.visibility = View.GONE // Verstecke numberInput
-                numberInput2.visibility = View.GONE // Verstecke numberInput2
-                dateInput.visibility = View.GONE // Verstecke dateInput
-                unit1TextView.visibility = View.GONE // Verstecke unit1TextView
-                unit2TextView.visibility = View.GONE // Verstecke unit2TextView
-                unitDateTextView.visibility = View.GONE // Verstecke unitDateTextView
-                iBCalculator.visibility = View.GONE // Verstecke iBCalculator
-                bHelp.visibility = View.GONE // Verstecke bHelp
-                linearLayoutRecyclerView.visibility = View.GONE // Verstecke LinearLayout for RecyclerView
-                recyclerViewAnswers.visibility = View.GONE
-                optionsRecyclerView.visibility = View.GONE
-                // Antworten zufällig sortieren
                 val shuffledAnswers = answersshuffle.toMutableList()
                 Collections.shuffle(shuffledAnswers)
                 // CheckBoxes und RadioButtons anzeigen
                 checkBoxes.forEach { it.visibility = View.VISIBLE } // Zeige CheckBoxes
-                //radioGroupAnswers.visibility = View.VISIBLE // Zeige RadioGroup
                 if (currentRiddle.hasMultipleCorrectAnswers) {
-                    radioGroupAnswers.visibility = View.GONE // Verstecke RadioGroup
                     linearLayoutAnswers.visibility = View.VISIBLE // Zeige LinearLayout for CheckBoxes
-                    // Nur CheckBoxes hinzufügen, wenn mehrere Antworten korrekt sein können
                     for (answer in answersshuffle) {
                         val checkBox = CheckBox(this)
                         checkBox.text = answer
@@ -838,8 +789,6 @@ class RiddleActivity : AppCompatActivity() {
                 } else {
                     // Nur RadioButtons hinzufügen, wenn nur eine Antwort korrekt sein kann
                     radioGroupAnswers.visibility = View.VISIBLE // Show RadioGroup
-                    linearLayoutAnswers.visibility = View.GONE // Hide LinearLayout for CheckBoxes
-                    // Nur RadioButtons hinzufügen, wenn nur eine Antwort korrekt sein kann
                     for (answer in answersshuffle) {
                         val radioButton = RadioButton(this)
                         radioButton.text = answer
@@ -851,43 +800,82 @@ class RiddleActivity : AppCompatActivity() {
         }
         riddleTextView.text = currentRiddle.question
     }
+    // Verstecke alle Views
+    private fun hideViews() {
+        frameTimeOut.visibility = View.GONE // Timer ausblenden
+        riddleImageButton.visibility = View.GONE // ImageButton ausblenden
+        numberInput2.visibility = View.GONE // Eingabefeld 1 ausblenden
+        unit2TextView.visibility = View.GONE // Einheit 1 ausblenden
+        numberInput.visibility = View.GONE // Eingabefeld 2 ausblenden
+        unit1TextView.visibility = View.GONE // Einheit 2 ausblenden
+        dateInput.visibility = View.GONE // Datum-Eingabefeld ausblenden
+        unitDateTextView.visibility = View.GONE // Einheit für Datum ausblenden
+        iBCalculator.visibility = View.GONE // Calculator ausblenden
+        bHelp.visibility = View.GONE // Hilfe-Button ausblenden
+        linearLayoutAnswers.visibility = View.GONE // LinearLayout für CheckBoxes ausblenden
+        recyclerViewAnswers.visibility = View.GONE // RecyclerView für Drag and Drop ausblenden
+        linearLayoutRecyclerView.visibility = View.GONE // LinearLayout für Optionen ausblenden
+        optionsRecyclerView.visibility = View.GONE // RecyclerView für Optionen ausblenden
+        checkBoxes.forEach { it.visibility = View.GONE } // CheckBoxes ausblenden
+        radioGroupAnswers.visibility = View.GONE // RadioGroup ausblenden
+    }
 
+    // Frage hinzufügen zur später beantworten Liste
     private fun addUnansweredQuestion(riddleNumber: Int) {
         unansweredQuestions.add(riddleNumber)
         Log.d("RiddleActivity", "Unanswered Questions: $unansweredQuestions")
     }
 
+    // Frage entfernen aus der Liste der zu später beantwortenden Fragen
     private fun removeUnansweredQuestion(riddleNumber: Int) {
         unansweredQuestions.remove(riddleNumber)
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    // Ergebnis aus dem Taschenrechner übernehmen
+    private val startForResult = registerForActivityResult( ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             val intent = result.data
             when (inputCount) {
                 1 -> {
                     val resultValue = intent?.getStringExtra("result")
-                    numberInput.setText(resultValue) // Ergebnis in numberInput anzeigen
+                    if (resultValue != null) {
+                        numberInput.setText(resultValue) // Ergebnis in numberInput anzeigen
+                    } else {
+                        numberInput.setText(getString(R.string.fehler_keine_antwort_erhalten)) // Optional: Fehlerbehandlung, wenn keine Antwort gegeben wurde
+                    }
                 }
                 2 -> {
                     val resultValue1 = intent?.getStringExtra("result1")
                     val resultValue2 = intent?.getStringExtra("result2")
-                    numberInput.setText(resultValue1) // Ergebnis in numberInput anzeigen
-                    numberInput2.setText(resultValue2) // Ergebnis in numberInput2 anzeigen
+                    if (resultValue1 != null) {
+                        numberInput.setText(resultValue1) // Ergebnis in numberInput anzeigen
+                    } else {
+                        numberInput.setText(getString(R.string.fehler_antwort_1_fehlt))// Optional: Fehlerbehandlung, wenn keine Antwort gegeben wurde
+                    }
+                    if (resultValue2 != null) {
+                        numberInput2.setText(resultValue2) // Ergebnis in numberInput2 anzeigen
+                    } else {
+                        numberInput2.setText(getString(R.string.fehler_antwort_2_fehlt)) // Optional: Fehlerbehandlung, wenn keine Antwort gegeben wurde
+                    }
                 }
-                else -> { /* Keine Aktion erforderlich */ }
+                else -> {
+                    // Keine Aktion erforderlich
+                }
             }
         }
     }
 
+    // Überprüfe, ob eine Option bereits gemapped wurde
     fun isOptionMapped(option: String): Boolean {
         return userMappings.containsKey(option)
     }
+
     // Zeige Bild
     private fun showImageDialog(imageResource : Int){
         val dialog = RiddleImageViewDialog(this, imageResource)
         dialog.show()
     }
+
     // Überprüfe die Antwort
     private fun evaluateAnswer(): Boolean {
         val riddleNumber = currentRiddle.riddleIndex // Ermittle die Rätselnummer
@@ -930,9 +918,10 @@ class RiddleActivity : AppCompatActivity() {
             // Ausgewählte Antworten mit den richtigen Antworten vergleichen
             selectedAnswers.size == correctAnswers.size && selectedAnswers.zip(correctAnswers).all { (a, b) -> a == b }
         } else {
+            //
             selectedAnswers.size == 1 && correctAnswers.contains(selectedAnswers[0])
         }
-        var partiallyCorrect: Boolean
+        val partiallyCorrect: Boolean
         // Markiere die Antwort-TextViews
         if (currentRiddle.requiresOrderedAnswers) {
             // Frage mit den Antworten vergleichen
@@ -1030,10 +1019,8 @@ class RiddleActivity : AppCompatActivity() {
             // Überprüfen, ob die ausgewählte Antwort korrekt ist
             for ((option, targetIdString) in userMappings) {
                 val correctTargetIdString = currentRiddle.correctMappings[option]
-
                 // targetIdString in Int umwandeln
                 val targetId = targetIdString.toInt()
-
                 // Ressourcen-ID des TextView aus dem FrameLayout abrufen
                 val targetTextViewId = when (targetId) {
                     R.id.target1 -> R.id.target1TextView
@@ -1055,6 +1042,7 @@ class RiddleActivity : AppCompatActivity() {
                     Log.d("RiddleEvaluation", "Incorrect answer for option: $option")
                 }
             }
+            // TextViews 1-30 markieren
             if (textViewIndex in 0..29) {
                 countdownTimer?.cancel()
                 val textView = answerTextViews[textViewIndex]
@@ -1081,8 +1069,8 @@ class RiddleActivity : AppCompatActivity() {
                 val textView = answerTextViews[textViewIndex]
                 if (isCorrect) {
                     if (needHelp){
-                        needHelp = false
-                        totalPoints += 3.33333 / 2
+                        needHelp = false // Zurücksetzen der Hilfe-Variable
+                        totalPoints += 3.33333 / 2 // Punkte durch zwei teilen
                         textView.setBackgroundColor(Color.MAGENTA) // Richtig aber Hilfe benötigt: Magenta
                     } else {
                         totalPoints += 3.33333
@@ -1127,6 +1115,7 @@ class RiddleActivity : AppCompatActivity() {
         dialog.show()
         viewModel.saveResultsToDatabase(riddleMainNumber, totalPoints.toInt(), grade)
     }
+
     // Zeige die richtige Antwort
     private fun wrongAnswerDialog(correctAnswers: List<String> = emptyList(), currentRiddleUnit: List<String> = emptyList(), correctMappings: Map<String, String> = emptyMap()) {
         if (adminmode){

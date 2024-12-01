@@ -36,7 +36,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text=""
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,9 +49,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,6 +66,7 @@
         android:fadingEdge="none"
         android:fillViewport="false"
         android:scrollbars="vertical"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_min="0dp"
         app:layout_constraintHeight_percent="0.33"
@@ -83,7 +83,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                tools:ignore="InefficientWeight" />
         </LinearLayout>
     </ScrollView>
 
@@ -96,6 +97,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="300dp"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/imagebutton"
         android:scaleType="fitCenter"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
@@ -111,6 +113,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
+        android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/riddleResultNumber1"
@@ -121,7 +124,8 @@
         android:id="@+id/unit2TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:labelFor="@id/riddleResultNumber2"
+        android:text="@string/nolabel"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@id/riddleResultNumber2"
@@ -135,6 +139,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
+        android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
@@ -145,7 +150,7 @@
         android:id="@+id/unit1TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@id/riddleResultNumber1"
@@ -159,6 +164,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
+        android:importantForAutofill="no"
         android:inputType="datetime|date"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bRiddleNext"
@@ -169,7 +175,7 @@
         android:id="@+id/unitDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text=""
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@id/riddleResultDate"
@@ -198,6 +204,7 @@
         android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
         android:backgroundTint="@android:color/transparent"
+        android:contentDescription="@string/imagebutton"
         android:scaleType="fitCenter"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bHelp_Formel"
@@ -211,7 +218,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
         android:background="@drawable/button_riddle"
-        android:text="Formel\nzur Frage\n !!!Punkte/2!!! "
+        android:text="@string/formel_nzur_frage_n_punkte_2"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/riddleResultNumber1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -223,7 +230,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
-        android:text=" Nächste Frage "
+        android:text="@string/naechste_frage"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -235,7 +242,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
-        android:text=" Später\n beantworten "
+        android:text="@string/spaeter_n_beantworten"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toStartOf="@+id/bRiddleNext"
@@ -247,7 +254,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
-        android:text=" Start "
+        android:text="@string/start"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -258,7 +265,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:background="@drawable/button_riddle"
-        android:text=" Schließen "
+        android:text="@string/schliessen"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -318,7 +325,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/target2TextView"
@@ -328,7 +335,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/target3TextView"
@@ -338,7 +345,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/target4TextView"
@@ -348,7 +355,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/target5TextView"
@@ -358,13 +365,14 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="TextView" />
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/targetLinearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -442,141 +450,155 @@
             android:id="@+id/tVcorrectRiddle1"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="1"
-            android:textStyle="bold" />
+            android:text="@string/_1"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle2"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="2"
-            android:textStyle="bold" />
+            android:text="@string/_2"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle3"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="3"
-            android:textStyle="bold" />
+            android:text="@string/_3"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle4"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="4"
-            android:textStyle="bold" />
+            android:text="@string/_4"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle5"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="5"
-            android:textStyle="bold" />
+            android:text="@string/_5"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle6"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="6"
-            android:textStyle="bold" />
+            android:text="@string/_6"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle7"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="7"
-            android:textStyle="bold" />
+            android:text="@string/_7"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle8"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="8"
-            android:textStyle="bold" />
+            android:text="@string/_8"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle9"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="9"
-            android:textStyle="bold" />
+            android:text="@string/_9"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle10"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="10"
-            android:textStyle="bold" />
+            android:text="@string/_10"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle11"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="11"
-            android:textStyle="bold" />
+            android:text="@string/_11"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle12"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="12"
-            android:textStyle="bold" />
+            android:text="@string/_12"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle13"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="13"
-            android:textStyle="bold" />
+            android:text="@string/_13"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle14"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="14"
-            android:textStyle="bold" />
+            android:text="@string/_14"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle15"
@@ -584,8 +606,9 @@
             android:layout_height="22dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="15"
-            android:textStyle="bold" />
+            android:text="@string/_15"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
     </LinearLayout>
     <LinearLayout
@@ -605,141 +628,155 @@
             android:id="@+id/tVcorrectRiddle16"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="16"
-            android:textStyle="bold" />
+            android:text="@string/_16"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle17"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="17"
-            android:textStyle="bold" />
+            android:text="@string/_17"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle18"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="18"
-            android:textStyle="bold" />
+            android:text="@string/_18"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle19"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="19"
-            android:textStyle="bold" />
+            android:text="@string/_19"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle20"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="20"
-            android:textStyle="bold" />
+            android:text="@string/_20"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle21"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="21"
-            android:textStyle="bold" />
+            android:text="@string/_21"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle22"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="22"
-            android:textStyle="bold" />
+            android:text="@string/_22"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle23"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="23"
-            android:textStyle="bold" />
+            android:text="@string/_23"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle24"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="24"
-            android:textStyle="bold" />
+            android:text="@string/_24"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle25"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="25"
-            android:textStyle="bold" />
+            android:text="@string/_25"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle26"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="26"
-            android:textStyle="bold" />
+            android:text="@string/_26"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle27"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="27"
-            android:textStyle="bold" />
+            android:text="@string/_27"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle28"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="28"
-            android:textStyle="bold" />
+            android:text="@string/_28"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle29"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginRight="3dp"
+            android:layout_marginEnd="3dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="29"
-            android:textStyle="bold" />
+            android:text="@string/_29"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
         <TextView
             android:id="@+id/tVcorrectRiddle30"
@@ -747,8 +784,9 @@
             android:layout_height="22dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:text="30"
-            android:textStyle="bold" />
+            android:text="@string/_30"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
 
     </LinearLayout>
 
@@ -757,6 +795,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="196dp" />
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

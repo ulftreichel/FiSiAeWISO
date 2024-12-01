@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_riddle"
-        android:text=" Zufällige Rätsel "
+        android:text="@string/zufaelliges_raetsel"
         app:layout_constraintBottom_toTopOf="@id/main_guide_horizon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -29,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_riddle"
-        android:text=" Auswertung "
+        android:text="@string/auswertung"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/main_guide_horizon" />
@@ -40,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_riddle"
-        android:text=" Einstellungen "
+        android:text="@string/einstellungen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bRiddleResult" />
