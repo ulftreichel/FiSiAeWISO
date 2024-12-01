@@ -34,5 +34,66 @@
     <string name="die_richtige">Die richtige%1$s:\n\n%2$s</string>
     <string name="n_antworten_waeren">n Antworten wären</string>
     <string name="antwort_waere">" Antwort wäre"</string>
+    <string name="fehler_keine_antwort_erhalten">Fehler: Keine Antwort erhalten</string>
+    <string name="fehler_antwort_1_fehlt">Fehler: Antwort 1 fehlt</string>
+    <string name="fehler_antwort_2_fehlt">Fehler: Antwort 2 fehlt</string>
+    <string name="imagebutton">ImageButton</string>
+    <string name="formel_nzur_frage_n_punkte_2">Formel\nzur Frage\n !!!Punkte/2!!!</string>
+    <string name="naechste_frage">Nächste Frage</string>
+    <string name="spaeter_n_beantworten">Später\n beantworten</string>
+    <string name="start">Start</string>
+    <string name="schliessen">Schließen</string>
+
+    <!-- TextViews für die Fragen -->
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_10">10</string>
+    <string name="_11">11</string>
+    <string name="_12">12</string>
+    <string name="_13">13</string>
+    <string name="_14">14</string>
+    <string name="_15">15</string>
+    <string name="_16">16</string>
+    <string name="_17">17</string>
+    <string name="_18">18</string>
+    <string name="_19">19</string>
+    <string name="_20">20</string>
+    <string name="_21">21</string>
+    <string name="_22">22</string>
+    <string name="_23">23</string>
+    <string name="_24">24</string>
+    <string name="_25">25</string>
+    <string name="_26">26</string>
+    <string name="_27">27</string>
+    <string name="_28">28</string>
+    <string name="_29">29</string>
+    <string name="_30">30</string>
+    <string name="nolabel">nolabel</string>
+    <string name="auswertung">Auswertung</string>
+
+    <!-- Calculator String -->
+    <string name="calc_0">0</string>
+    <string name="calc_add">+</string>
+    <string name="calc_uebernehmen">Übernehmen</string>
+    <string name="calc_c">C</string>
+    <string name="calc_ce">CE</string>
+    <string name="calc_del">DEL</string>
+    <string name="calc_divide">/</string>
+    <string name="calc_dot">.</string>
+    <string name="calc_equals">=</string>
+    <string name="calc_multiply">*</string>
+    <string name="calc_speichern">Speichern</string>
+    <string name="calc_subtract">-</string>
+
+    <!-- Ende Dialog Strings -->
+    <string name="end_punktzahl">Punktzahl:</string>
+    <string name="end_zensur">Zensur:</string>
 
 </resources>
