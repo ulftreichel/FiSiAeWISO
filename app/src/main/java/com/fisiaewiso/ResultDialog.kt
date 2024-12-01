@@ -6,7 +6,7 @@ import android.content.Context
 import android.widget.Button
 import android.widget.TextView
 
-class ResultDialog(context: Context, private val totalPoints: Double, private val grade: String) : Dialog(context) {
+class ResultDialog(context: Context, totalPoints: Double, grade: String) : Dialog(context) {
 
     init {
         setContentView(R.layout.result_dialog)
@@ -15,8 +15,8 @@ class ResultDialog(context: Context, private val totalPoints: Double, private va
         val okButton = findViewById<Button>(R.id.okButton)
 
         // Setze die Punktzahl und die Zensur
-        scoreTextView.text = "Punktzahl: ${Math.round(totalPoints)}"
-        gradeTextView.text = "Zensur: $grade"
+        scoreTextView.text = context.getString(R.string.punktzahl, Math.round(totalPoints))
+        gradeTextView.text = context.getString(R.string.zensur, grade)
 
         okButton.setOnClickListener {
             dismiss() // Schließe den Dialog

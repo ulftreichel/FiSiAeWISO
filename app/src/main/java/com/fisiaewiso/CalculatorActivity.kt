@@ -10,11 +10,10 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.GridLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.semantics.text
 import net.objecthunter.exp4j.ExpressionBuilder
+import java.util.Locale
 
 class CalculatorActivity : AppCompatActivity() {
     private val intermediateResults = mutableListOf<Double>()
@@ -32,7 +31,6 @@ class CalculatorActivity : AppCompatActivity() {
         question = intent.getStringExtra("question") ?: ""
         inputCount = intent.getIntExtra("inputCount", 0)
         Log.d("CalculatorActivity", "inputCount: $inputCount")
-        val scrollViewQuestion = findViewById<ScrollView>(R.id.scrollViewQuestionCalc)
         val riddleQuestion = findViewById<TextView>(R.id.tVQuestionCalc)
         val display = findViewById<EditText>(R.id.calculator_display)
         val button0 = findViewById<Button>(R.id.button_0)
@@ -72,23 +70,23 @@ class CalculatorActivity : AppCompatActivity() {
         button9.setOnClickListener { display.append("9") }
         buttonAdd.setOnClickListener {
             val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + "+")
+            display.text = Editable.Factory.getInstance().newEditable("$currentInput+")
         }
         buttonSubtract.setOnClickListener {
             val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + "-")
+            display.text = Editable.Factory.getInstance().newEditable("$currentInput-")
         }
         buttonMultiply.setOnClickListener {
             val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + "*")
+            display.text = Editable.Factory.getInstance().newEditable("$currentInput*")
         }
         buttonDivide.setOnClickListener {
             val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + "/")
+            display.text = Editable.Factory.getInstance().newEditable("$currentInput/")
         }
         buttonDecimal.setOnClickListener {
             val currentInput = display.text.toString()
-            display.text = Editable.Factory.getInstance().newEditable(currentInput + ".")
+            display.text = Editable.Factory.getInstance().newEditable("$currentInput.")
         }
         buttonCe.setOnClickListener {
             // Alle Checkboxes aus dem GridLayout entfernen
@@ -105,7 +103,7 @@ class CalculatorActivity : AppCompatActivity() {
             val formattedResult = if (result.toInt().toDouble() == result) {
                 result.toInt().toString() // Ergebnis als Integer anzeigen, wenn es eine ganze Zahl ist
             } else {
-                String.format("%.2f", result).replace(',', '.') // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
+                String.format(Locale.US, "%.2f", result) // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
             }
             display.text = Editable.Factory.getInstance().newEditable(formattedResult)
             Log.d("CalculatorActivity", "Result: $formattedResult")
@@ -132,7 +130,7 @@ class CalculatorActivity : AppCompatActivity() {
             val checkBoxes = resultCheckBoxes.toTypedArray()
             val checkedItems = BooleanArray(checkBoxes.size) { false } // Initialisiere alle als nicht ausgewählt
 
-            builder.setMultiChoiceItems(checkBoxes.map { it.text }.toTypedArray(), checkedItems) { dialog, which, isChecked ->
+            builder.setMultiChoiceItems(checkBoxes.map { it.text }.toTypedArray(), checkedItems) { _, which, isChecked ->
                 if (isChecked) {
                     selectedCheckBoxesForRiddle.add(checkBoxes[which]) // Füge die Checkbox zur Liste hinzu
                 } else {
@@ -140,10 +138,10 @@ class CalculatorActivity : AppCompatActivity() {
                 }
             }
 
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { _, _ ->
                 // Übergebe die ausgewählten Ergebnisse an die RiddleActivity
-                val selectedCheckBoxes = mutableListOf<CheckBox>() // Liste der aktuell ausgewählten Checkboxen
-                val selectedCheckboxValues = mutableListOf<String>() // Liste der Werte der ausgewählten Checkboxen
+                val selectedCheckBoxes = mutableListOf<CheckBox>() // Liste der aktuell ausgewählten Checkboxes
+                val selectedCheckboxValues = mutableListOf<String>() // Liste der Werte der ausgewählten Checkboxes
 
                 // Listener für jede Checkbox, um die Limitierung auf zwei zu implementieren
                 checkBoxes.forEach { checkBox ->
@@ -199,7 +197,7 @@ class CalculatorActivity : AppCompatActivity() {
                     val resultString = if (result.toInt().toDouble() == result) {
                         result.toInt().toString() // Ergebnis als Integer anzeigen, wenn es eine ganze Zahl ist
                     } else {
-                        String.format("%.2f", result).replace(',', '.') // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
+                        String.format(Locale.US, "%.2f", result) // Ergebnis als Double mit Punkt als Dezimaltrennzeichen anzeigen
                     }
                     val resultDouble = resultString.toDoubleOrNull() // In Double umwandeln
                     if (resultDouble != null) {
@@ -231,7 +229,7 @@ class CalculatorActivity : AppCompatActivity() {
         }
     }
 
-    fun evaluateExpression(expression: String): Double {
+    private fun evaluateExpression(expression: String): Double {
         if (expression.isEmpty()) {
             return 0.0 // Oder eine andere geeignete Aktion, z. B. eine Fehlermeldung anzeigen
         }

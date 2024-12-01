@@ -4,12 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 class RiddleViewModel(private val repository: ResultRepository) : ViewModel() {
-    private var _totalPoints = 0.0
-    val totalPoints: Double
-        get() = _totalPoints
 
     private var _currentRiddle: Riddle? = null
 
@@ -26,11 +22,6 @@ class RiddleViewModel(private val repository: ResultRepository) : ViewModel() {
             Log.d("RiddleViewModel", "Speichere Ergebnis in Datenbank: $result")
             repository.insert(result)
         }
-    }
-
-    // Funktion zum Aktualisieren von totalPoints
-    fun updateTotalPoints(points: Double) {
-        _totalPoints = points
     }
 
     // Funktion zum Aktualisieren von currentRiddle

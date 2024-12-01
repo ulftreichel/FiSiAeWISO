@@ -7,6 +7,8 @@
     <string name="Eigenkapitalrentabilität">Eigenkapitalrentabilität (%) =\n\nGewinn * 100 / Eigenkapital</string>
     <string name="Wirtschaftlichkeit">Wirtschaftlichkeit =\n\nErtrag / Aufwand</string>
     <string name="BeitragRente">Die Berechnung des Bruttorentenbeitrags =\nBruttolohn / 100 * Beitragssatz\nArbeitgeber und Arbeitnehmer\njeweils 50% also das Ergebnis noch durch 2 teilen</string>
+    <string name="Umsatz">Umsatz pro Mitarbeitende = \n\nUmsatz im Jahr / Anzahl der Mitarbeitenden</string>
+    <string name="ProzentMitarbeiter">Prozentuale Veränderung pro Mitarbeitenden = \n\nUmsatz aktuelles Jahr - Umsatz vorheriges Jahr = absolute Veränderung\n\n(Absolute Veränderung / Wert im Basisjahr) * 100%</string>
 
     <!-- Preferences -->
     <string name="available_riddle">Verfügbare Rätsel</string>
@@ -17,5 +19,20 @@
     <string name="pref_timeout">timeoutriddle</string>
     <string name="pref_countdown_calc_title">Countdown auch bei Rechenaufgaben</string>
     <string name="pref_countdown_calc">pref_countdown_calc</string>
+
+    <!-- Strings -->
+    <string name="zufaelliges_raetsel">" Zufälliges Rätsel "</string>
+    <string name="einstellungen">" Einstellungen "</string>
+    <string name="admin_einstellungen">" Admin-Einstellungen "</string>
+    <string name="zufaelliges_raetsel_laden">" Zufälliges Rätsel laden "</string>
+    <string name="raetsel_laden">" Rätsel %1$i laden "</string>
+    <string name="no_help">es gibt keine Hilfe zur aktuellen Frage</string>
+    <string name="countdown_deaktiviert">Countdown deaktiviert</string>
+    <string name="punktzahl">Punktzahl: %1$l</string>
+    <string name="zensur">Zensur: %1$s</string>
+    <string name="no_results">Es sind noch keine Ergebnisse vorhanden.</string>
+    <string name="die_richtige">Die richtige%1$s:\n\n%2$s</string>
+    <string name="n_antworten_waeren">n Antworten wären</string>
+    <string name="antwort_waere">" Antwort wäre"</string>
 
 </resources>

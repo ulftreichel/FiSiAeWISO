@@ -14,7 +14,7 @@ class ResultNoDataDialog(context: Context) : Dialog(context) {
         val okButton = findViewById<Button>(R.id.okButton)
 
         // Setze die Punktzahl und die Zensur
-        nodataTextView.text = "Es sind noch keine Ergebnisse vorhanden."
+        nodataTextView.text = context.getString(R.string.no_results)
 
         okButton.setOnClickListener {
             dismiss() // Schließe den Dialog

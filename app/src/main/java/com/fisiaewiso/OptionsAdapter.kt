@@ -44,7 +44,7 @@ class OptionsAdapter<T>(
         }
         when (option) {
             is String -> {
-                holder.textView.text = option
+                holder.textView.text = option.toString().replace(";", ",")
                 holder.textView.visibility = View.VISIBLE
                 holder.imageView.visibility = View.GONE
             }
@@ -91,7 +91,6 @@ class OptionsAdapter<T>(
             }
         } else {
             // Casten auf OptionWithImage:
-            val optionWithImage = option as OptionWithImage
             holder.itemView.setOnTouchListener { v, event ->
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                     if (option is OptionWithImage) {
@@ -115,7 +114,7 @@ class OptionsAdapter<T>(
         notifyItemInserted(options.size - 1)
     }
 
-    fun isOptionMapped(option: String): Boolean {
+    private fun isOptionMapped(option: String): Boolean {
         return userMappings.containsKey(option)
     }
 

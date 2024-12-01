@@ -1,18 +1,13 @@
 package com.fisiaewiso
 
-import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.os.Bundle
-import android.preference.Preference
 import android.util.Log
-import androidx.activity.result.launch
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.input.key.key
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -34,7 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.settings_activity)
 
         if (savedInstanceState == null) {
-            val fragment = if (userType == true) {
+            val fragment = if (userType) {
                 AdminSettingsFragment() // Fragment für Admin-Einstellungen
             } else {
                 SettingsFragment() // Fragment für normale Benutzereinstellungen
@@ -45,6 +40,18 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
+                val currentTheme = sharedPreferences.getString("theme_preference", "standard")
+                // Überprüfen, ob Änderungen vorgenommen wurden
+                val resultIntent = Intent().apply {
+                    putExtra("theme_preference", currentTheme)
+                }
+                setResult(RESULT_OK, resultIntent) // Result setzen
+                finish() // Beenden der Activity
+            }
+        })
     }
 
     class AdminSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
@@ -65,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
                 updateSummary(riddlePreference, currentValue)
 
                 // Listener hinzufügen, um Summary zu aktualisieren, wenn der Wert geändert wird
-                riddlePreference.setOnPreferenceChangeListener { preference, newValue ->
+                riddlePreference.setOnPreferenceChangeListener { _, newValue ->
                     updateSummary(riddlePreference, newValue as String)
                     true // Änderungen akzeptieren
                 }
@@ -80,7 +87,7 @@ class SettingsActivity : AppCompatActivity() {
                 val resultIntent = Intent().apply {
                     putExtra("pref_available_riddles", loadAdminRiddle)
                 }
-                requireActivity().setResult(AppCompatActivity.RESULT_OK, resultIntent)  // RESULT_OK setzen
+                requireActivity().setResult(RESULT_OK, resultIntent)  // RESULT_OK setzen
                 requireActivity().finish() // Beendet die App
                 true
             }
@@ -129,7 +136,7 @@ class SettingsActivity : AppCompatActivity() {
                             }
 
                             // Listener hinzufügen, um den Summary-Wert bei Änderungen zu aktualisieren
-                            riddlePreference.setOnPreferenceChangeListener { preference, newValue ->
+                            riddlePreference.setOnPreferenceChangeListener { _, newValue ->
                                 val newValueString = newValue as String
                                 val newIndex = riddlePreference.findIndexOfValue(newValueString)
                                 riddlePreference.summary = if (newIndex >= 0) {
@@ -219,16 +226,4 @@ class SettingsActivity : AppCompatActivity() {
         }
 
     }
-
-    override fun onBackPressed() {
-        val sharedPreferences = getSharedPreferences("com.fisiaewiso_preferences", Context.MODE_PRIVATE)
-        val currentTheme = sharedPreferences.getString("theme_preference", "standard")
-        // Überprüfen, ob Änderungen vorgenommen wurden
-        val resultIntent = Intent().apply {
-            putExtra("theme_preference", currentTheme)
-        }
-        setResult(RESULT_OK, resultIntent)  // Result setzen
-        super.onBackPressed()
-    }
-
 }

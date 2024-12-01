@@ -16,7 +16,11 @@ class WrongAnswerDialog(context: Context, correctAnswers: List<String>, currentR
             val correctAnswersText = correctMappings.entries.joinToString("\n") { (option, target) ->
                 "- $option -> $target"
             }
-            correctAnswerTextView.text = "Die richtige${if (correctMappings.size > 1) "n Antworten wären" else " Antwort wäre"}:\n\n$correctAnswersText"
+            correctAnswerTextView.text = context.getString(
+                R.string.die_richtige,
+                if (correctMappings.size > 1) context.getString(R.string.n_antworten_waeren) else context.getString(R.string.antwort_waere),
+                correctAnswersText
+            )
         } else {
             val extendedRiddleUnit = currentRiddleUnit + List(correctAnswers.size - currentRiddleUnit.size) { "" }
             val correctAnswersWithUnits = correctAnswers.zip(extendedRiddleUnit) { answer, unit ->
@@ -26,7 +30,11 @@ class WrongAnswerDialog(context: Context, correctAnswers: List<String>, currentR
                     answer // Nur die Antwort anzeigen, wenn keine Einheit vorhanden ist
                 }
             }.joinToString("\n- ", prefix = "- ")
-            correctAnswerTextView.text = "Die richtige${if (correctAnswers.size > 1) "n Antworten wären" else " Antwort wäre"}:\n\n$correctAnswersWithUnits"
+            correctAnswerTextView.text = context.getString(
+                R.string.die_richtige,
+                if (correctAnswers.size > 1) context.getString(R.string.n_antworten_waeren) else context.getString(R.string.antwort_waere),
+                correctAnswersWithUnits
+            )
         }
         okButton.setOnClickListener {
             listener?.onOkClicked()
