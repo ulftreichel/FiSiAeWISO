@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var bRiddle: Button
     private lateinit var bRiddleResult: Button
     private lateinit var bRiddleSettings: Button
-    private var adminmode = false
+    private var adminmode = true
     private var loadAdminRiddle = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,14 +48,14 @@ class MainActivity : ComponentActivity() {
         bRiddleResult = findViewById(R.id.bRiddleResult)
         bRiddleSettings = findViewById(R.id.bRiddleSettings)
         if (!adminmode) { // wenn Adminmode deaktiviert ist
-            bRiddle.text = getString(R.string.zufaelliges_raetsel)
-            bRiddleSettings.text = getString(R.string.einstellungen)
+            bRiddle.text = " Zufälliges Rätsel "
+            bRiddleSettings.text = " Einstellungen "
         } else { // wenn Adminmode aktiviert ist
-            bRiddleSettings.text = getString(R.string.admin_einstellungen)
+            bRiddleSettings.text = " Admin-Einstellungen "
             if (loadAdminRiddle == 0) {
-                bRiddle.text = getString(R.string.zufaelliges_raetsel_laden)
+                bRiddle.text = " Zufälliges Rätsel laden "
             } else {
-                bRiddle.text = getString(R.string.raetsel_laden, loadAdminRiddle)
+                bRiddle.text = " Rätsel ${loadAdminRiddle} laden "
             }
         }
         // Öffne die Activity RiddleActivity

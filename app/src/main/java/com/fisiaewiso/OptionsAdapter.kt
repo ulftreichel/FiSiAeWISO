@@ -19,7 +19,7 @@ class OptionsAdapter<T>(
     private val context: Context
 ) : RecyclerView.Adapter<OptionsAdapter<T>.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView = itemView.findViewById(R.id.optionTextView) // Passe die ID an dein Layout an
+        val textView: TextView = itemView.findViewById(R.id.optionTextView)
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +29,6 @@ class OptionsAdapter<T>(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val option = options[position]
-        Log.d("OptionsAdapter", "Binding option at position $position: $option")
         if (context is RiddleActivity) {
             val optionText = when (option) {
                 is String -> option
@@ -39,11 +38,11 @@ class OptionsAdapter<T>(
 
             if (optionText != null && context.isOptionMapped(optionText)) {
                 // Option ist gemappt, führe die entsprechende Logik aus
-                Log.d("OptionsAdapter", "Option is mapped: $optionText")
             }
         }
         when (option) {
             is String -> {
+                holder.textView.text = ""
                 holder.textView.text = option.toString().replace(";", ",")
                 holder.textView.visibility = View.VISIBLE
                 holder.imageView.visibility = View.GONE
@@ -84,6 +83,7 @@ class OptionsAdapter<T>(
                     val dragData = ClipData.newPlainText("option", option.toString()) // option.toString() verwenden
                     val shadowBuilder = View.DragShadowBuilder(v)
                     v.startDragAndDrop(dragData, shadowBuilder, v, 0)
+                    Log.d("OptionsAdapter", "Option dragged: $option")
                     true
                 } else {
                     false

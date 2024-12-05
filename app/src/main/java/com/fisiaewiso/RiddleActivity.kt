@@ -1,4 +1,4 @@
-package com.fisiaewiso
+﻿package com.fisiaewiso
 
 import android.animation.ObjectAnimator
 import android.app.Activity
@@ -185,6 +185,7 @@ class RiddleActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             loadRiddlesByIntro()
             currentIntro = ""
+            scrollViewQuestion.visibility = View.VISIBLE
             riddlesLoaded = true
             tVRiddleInitialize.visibility = View.GONE
             tVRiddleInitialize2.visibility = View.GONE
@@ -392,6 +393,7 @@ class RiddleActivity : AppCompatActivity() {
                         showTotalPointsAndSaveResults()
                     }
                 } else {
+                    // Wenn noch unbeantwortete Rätsel vorhanden sind
                     completedRun = true
                     if (unansweredQuestions.isNotEmpty()) {
                         showAlertUnansweredQuestions()
@@ -576,8 +578,8 @@ class RiddleActivity : AppCompatActivity() {
                 }
             })
             itemTouchHelper.attachToRecyclerView(recyclerViewAnswers)
-            // Nur für Drag and Drop Fragen
         } else if (currentRiddle.requiresDragAndDrop) {
+            // Nur für Drag and Drop Fragen
             linearLayoutRecyclerView.visibility = View.VISIBLE
             optionsRecyclerView.visibility = View.VISIBLE
             // Ziele anzeigen
@@ -592,13 +594,7 @@ class RiddleActivity : AppCompatActivity() {
             target3.removeAllViews()
             target4.removeAllViews()
             target5.removeAllViews()
-            // RecyclerView für die Optionen hinzufügen
-            val optionsAdapter = if (currentRiddle.optionsWithImage.isNotEmpty()) {
-                OptionsAdapter(currentRiddle.optionsWithImage.toMutableList(), userMappings, this) // Übergibt userMappings
-            } else {
-                OptionsAdapter(currentRiddle.options.toMutableList(), userMappings, this)
-            }
-            optionsRecyclerView.adapter = optionsAdapter
+            // Optionen hinzufügen
             if(currentRiddle.optionsWithImage.isNotEmpty()){
                 optionsRecyclerView.layoutManager = GridLayoutManager(this, 3) // 2 Spalten
             } else {
@@ -618,31 +614,40 @@ class RiddleActivity : AppCompatActivity() {
             if (currentRiddle.targets.size > 4) {
                 target5TextView.text = currentRiddle.targets[4]
             }
-            // Alle Target-Layouts zunächst ausblenden
+            //Versuch
+            // Alle Views initial sichtbar machen
             for (i in 0 until targetLinearLayout.childCount) {
-                targetLinearLayout.getChildAt(i).visibility = View.GONE
+                targetLinearLayout.getChildAt(i).visibility = View.VISIBLE
+                (targetLinearLayout.getChildAt(i) as FrameLayout).removeAllViews() // Alte Inhalte löschen
+                Log.d("RiddleActivity", "targetLinearLayout.getChildAt(i): ${targetLinearLayout.getChildAt(i)}")
             }
-            // Alle TextView-Layouts zunächst ausblenden
             for (i in 0 until linearTextView.childCount) {
-                linearTextView.getChildAt(i).visibility = View.GONE
+                linearTextView.getChildAt(i).visibility = View.VISIBLE
+                (linearTextView.getChildAt(i) as TextView).text = "" // Alten Text löschen
+                Log.d("RiddleActivity", "linearTextView.getChildAt(i): ${linearTextView.getChildAt(i)}")
             }
-            // Alle Target-Layouts und TextView-Layouts für die aktuellen Ziele anzeigen
+            // RecyclerView für die Optionen hinzufügen
+            val optionsAdapter = if (currentRiddle.optionsWithImage.isNotEmpty()) {
+                OptionsAdapter(currentRiddle.optionsWithImage.toMutableList(), userMappings, this) // Übergibt userMappings
+            } else {
+                OptionsAdapter(currentRiddle.options.toMutableList(), userMappings, this)
+            }
+            optionsRecyclerView.adapter = optionsAdapter
             for (i in 0 until currentRiddle.targets.size) {
                 val targetView = targetLinearLayout.getChildAt(i) as FrameLayout
                 val targetTextView = linearTextView.getChildAt(i) as TextView
-
                 targetView.visibility = View.VISIBLE
                 targetTextView.visibility = View.VISIBLE
-
                 // Text für das Target setzen
                 targetTextView.text = currentRiddle.targets[i]
-
                 // Drag-Listener setzen
                 targetView.setOnDragListener { v: View, event: DragEvent ->
                     when (event.action) {
                         DragEvent.ACTION_DROP -> {
                             val clipData = event.clipData
                             val option = clipData.getItemAt(0).text.toString()
+                            Log.d("RiddleActivity", "Option dropped: $option")
+
                             val targetView = v as FrameLayout
                             var optionsLayout = targetView.getTag() as? LinearLayout
                             if (optionsLayout == null) {
@@ -657,6 +662,8 @@ class RiddleActivity : AppCompatActivity() {
                                 }
                                 targetView.setTag(optionsLayout)
                                 targetView.addView(optionsLayout)
+                                Log.d("RiddleActivity", "optionsLayout: $optionsLayout")
+                                Log.d("RiddleActivity", "targetView: $targetView")
                             }
                             // Option hinzufügen
                             val optionView = if (clipData.itemCount > 1) {
@@ -668,6 +675,7 @@ class RiddleActivity : AppCompatActivity() {
                             } else {
                                 TextView(targetView.context).apply {
                                     text = option
+                                    Log.d("RiddleActivity", "Option text: $option")
                                 }
                             }
                             //Option wieder entfernen
@@ -700,6 +708,13 @@ class RiddleActivity : AppCompatActivity() {
                         else -> true
                     }
                 }
+            }
+            // Überschüssige Views ausblenden
+            for (i in currentRiddle.targets.size until targetLinearLayout.childCount) {
+                targetLinearLayout.getChildAt(i).visibility = View.GONE
+            }
+            for (i in currentRiddle.targets.size until linearTextView.childCount) {
+                linearTextView.getChildAt(i).visibility = View.GONE
             }
         } else {
             // für Fragen die eine Eingabe erfordern
